@@ -193,6 +193,13 @@ export const api = {
   getMe: () => fetchAPI<any>('/auth/me'),
   logout: () => fetchAPI<any>('/auth/logout', { method: 'POST' }),
 
+  // Farmer Settings
+  getLanguage: () => fetchAPI<{userId: string, farmerId: string, language: string}>('/debug/farmer'),
+  updateLanguage: (language: string) => fetchAPI<{success: boolean, language: string}>('/farmer/language', {
+    method: 'POST',
+    body: JSON.stringify({ language }),
+  }),
+
   // Health
   health: () => fetchAPI<{ status: string; demoMode: boolean }>('/health'),
 
