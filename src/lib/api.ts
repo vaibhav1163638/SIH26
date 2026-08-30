@@ -2,7 +2,8 @@
  * API client for communicating with the Express backend.
  */
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+const API_URL = '';
+let authToken: string | null = null;
 
 async function fetchAPI<T>(endpoint: string, options?: RequestInit): Promise<T> {
   const url = `${API_URL}/api${endpoint}`;
@@ -10,6 +11,7 @@ async function fetchAPI<T>(endpoint: string, options?: RequestInit): Promise<T> 
     ...options,
     headers: {
       ...(options?.body instanceof FormData ? {} : { 'Content-Type': 'application/json' }),
+      ...(authToken ? { Authorization: `Bearer ${authToken}` } : {}),
       ...options?.headers,
     },
   });
@@ -26,7 +28,15 @@ export interface FarmData {
   _id: string;
   farmerId: string;
   farmerName: string;
-  location: { state: string; district: string; village: string };
+  location: {
+    state: string;
+    district: string;
+    village: string;
+    coordinates?: {
+      lat: number;
+      lng: number;
+    };
+  };
   crop: string;
   cropVariety: string;
   farmArea: number;
@@ -180,6 +190,13 @@ export interface AssistantResponse {
 }
 
 export const api = {
+  // Auth
+  setToken: (token: string | null) => { authToken = token; },
+  login: (credentials: any) => fetchAPI<any>('/auth/login', { method: 'POST', body: JSON.stringify(credentials) }),
+  register: (credentials: any) => fetchAPI<any>('/auth/register', { method: 'POST', body: JSON.stringify(credentials) }),
+  getMe: () => fetchAPI<any>('/auth/me'),
+  logout: () => fetchAPI<any>('/auth/logout', { method: 'POST' }),
+
   // Health
   health: () => fetchAPI<{ status: string; demoMode: boolean }>('/health'),
 

@@ -1,36 +1,51 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# CropScan AI - PS 131
 
-## Getting Started
+This is the Next.js App Router application for the SIH 2026 PS 131 prototype.
 
-First, run the development server:
+## 🗄️ MongoDB Verification Guide
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+The application natively connects to a MongoDB database to persist actual farmer profiles, crop scans, and locations. 
+
+To verify that your data is actively being saved, you can inspect the database directly:
+
+### 1. Database & Collections
+- **Database Name:** `sih131`
+- **Important Collections:** 
+  - `farmers` (User accounts and passwords)
+  - `farms` (Farm profiles, crops, locations)
+  - `scans` (Scan history and AI results)
+  - `alerts` (Regional outbreak alerts)
+
+### 2. How to view the data
+**If using Local MongoDB (Compass):**
+1. Open MongoDB Compass.
+2. Connect to `mongodb://localhost:27017`
+3. Select the `sih131` database on the left sidebar.
+4. Click into `farms` or `scans` to see the documents you just created.
+
+**If using MongoDB Atlas (Cloud):**
+1. Log in to [MongoDB Atlas](https://cloud.mongodb.com).
+2. Go to your Project -> Database.
+3. Click "Browse Collections".
+4. Expand the `sih131` namespace.
+
+### 3. Developer Health Check
+When running locally (`npm run dev`), you can view live database collection counts by visiting:
+[http://localhost:3000/api/health](http://localhost:3000/api/health)
+
+A successful response looks like this:
+```json
+{
+  "status": "ok",
+  "database": "connected",
+  "demoMode": false,
+  "collections": {
+    "farmers": 1,
+    "farms": 1,
+    "scans": 3,
+    "alerts": 2
+  }
+}
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+*Note: If the `demoMode` field is `true`, MongoDB is unavailable and the app is running in in-memory fallback mode.*

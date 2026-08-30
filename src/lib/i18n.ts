@@ -313,6 +313,6 @@ export const translations = {
       demo: 'डेमो',
     },
   },
-} as const;
+};
 
 export type TranslationKeys = typeof translations.en;
