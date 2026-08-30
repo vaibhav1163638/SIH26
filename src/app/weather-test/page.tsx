@@ -14,7 +14,7 @@ export default function WeatherTestPage() {
       try {
         const f = await api.getFarm();
         setFarm(f);
-        if (f.location?.coordinates?.lat) {
+        if (f.location?.latitude) {
           const w = await api.getWeather();
           setWeather(w);
         } else {
@@ -62,11 +62,11 @@ export default function WeatherTestPage() {
             </div>
             <div>
               <p className="text-gray-400 text-sm">Latitude</p>
-              <p className="font-medium">{farm?.location?.coordinates?.lat}</p>
+              <p className="font-medium">{farm?.location?.latitude}</p>
             </div>
             <div>
               <p className="text-gray-400 text-sm">Longitude</p>
-              <p className="font-medium">{farm?.location?.coordinates?.lng}</p>
+              <p className="font-medium">{farm?.location?.longitude}</p>
             </div>
             <div>
               <p className="text-gray-400 text-sm">Temperature</p>

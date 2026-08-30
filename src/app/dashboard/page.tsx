@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import Link from 'next/link';
 import { useLanguage } from '@/components/LanguageProvider';
 import { api, type FarmData, type ScanData, type WeatherData, type RiskData } from '@/lib/api';
@@ -64,32 +64,41 @@ export default function DashboardPage() {
   const [manualState, setManualState] = useState('');
   const [manualDistrict, setManualDistrict] = useState('');
 
-  const requestLocation = () => {
-    setLocationRequested(true);
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(async (position) => {
-        try {
-          await fetch('/api/farm/location', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
+  const initializationStarted = useRef(false);
+
+  const requestLocation = async () => {
+    return new Promise<{ latitude: number, longitude: number }>((resolve, reject) => {
+      setLocationRequested(true);
+      console.log('[GEOLOCATION] permission/request started');
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            console.log(`[GEOLOCATION] Browser returned:
+latitude: ${position.coords.latitude}
+longitude: ${position.coords.longitude}
+accuracy: ${position.coords.accuracy}`);
+            
+            console.log(`[LOCATION] Sending to server:
+latitude: ${position.coords.latitude}
+longitude: ${position.coords.longitude}`);
+
+            resolve({
               latitude: position.coords.latitude,
               longitude: position.coords.longitude
-            })
-          });
-          const [wData, fData] = await Promise.all([api.getWeather(), api.getFarm()]);
-          setWeather(wData);
-          setFarm(fData);
-        } catch (e) {
-          console.error('Failed to save location', e);
-        }
-      }, (error) => {
-        console.warn('Geolocation denied or failed', error);
+            });
+          },
+          (error) => {
+            console.warn('Geolocation denied or failed', error);
+            setLocationDenied(true);
+            reject(error);
+          },
+          { timeout: 10000 }
+        );
+      } else {
         setLocationDenied(true);
-      });
-    } else {
-      setLocationDenied(true);
-    }
+        reject(new Error("Geolocation not supported"));
+      }
+    });
   };
 
   const submitManualLocation = async () => {
@@ -114,13 +123,60 @@ export default function DashboardPage() {
   useEffect(() => {
     async function loadData() {
       try {
-        const [farmData, scansData, weatherData, riskData] = await Promise.all([
+        const [farmData, scansData] = await Promise.all([
           api.getFarm().catch(() => null),
           api.getScans().catch(() => []),
-          api.getWeather().catch(() => null),
-          api.getRisk().catch(() => null),
         ]);
-        setFarm(farmData);
+        
+        let weatherData = null;
+        let riskData = null;
+        let currentFarm = farmData;
+
+        const hasLocation = currentFarm?.location?.latitude !== undefined && currentFarm?.location?.longitude !== undefined && 
+                           currentFarm.location.latitude !== null && currentFarm.location.longitude !== null;
+
+        if (!hasLocation && !locationDenied) {
+          try {
+            const coords = await requestLocation();
+            console.log('[FLOW] saving GPS');
+            const res = await fetch('/api/farm/location', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(coords)
+            });
+            const locationResult = await res.json();
+            
+            console.log(`[LOCATION] Location API response:
+status: ${res.status}
+response:`, locationResult);
+            
+            if (locationResult.success && typeof locationResult.location?.latitude === 'number' && typeof locationResult.location?.longitude === 'number') {
+              console.log('[FLOW] GPS saved to database');
+              console.log('[FARM] location update successful');
+              currentFarm = await api.getFarm();
+            } else {
+              console.error('Backend failed to return valid numeric coordinates:', locationResult);
+            }
+          } catch (e) {
+            console.error('Failed location flow during load:', e);
+          }
+        }
+
+        const validLoc = currentFarm?.location?.latitude !== undefined && currentFarm?.location?.longitude !== undefined && 
+                        currentFarm.location.latitude !== null && currentFarm.location.longitude !== null;
+
+        if (validLoc) {
+          console.log('[FLOW] requesting weather');
+          console.log('[WEATHER] request started');
+          const [wData, rData] = await Promise.all([
+            api.getWeather().catch(() => null),
+            api.getRisk().catch(() => null),
+          ]);
+          weatherData = wData;
+          riskData = rData;
+        }
+
+        setFarm(currentFarm);
         setScans(scansData);
         setWeather(weatherData);
         setRisk(riskData);
@@ -130,7 +186,11 @@ export default function DashboardPage() {
         setLoading(false);
       }
     }
-    loadData();
+    
+    if (!initializationStarted.current) {
+      initializationStarted.current = true;
+      loadData();
+    }
   }, []);
 
   const latestScan = scans.length > 0 ? scans[0] : null;

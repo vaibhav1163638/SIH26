@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useLanguage } from '@/components/LanguageProvider';
-import { api, type WeatherData } from '@/lib/api';
+import { api, type WeatherData, type FarmData } from '@/lib/api';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { Thermometer, Droplets, Wind, Eye, Sun, Cloud, CloudRain, Gauge, Leaf } from 'lucide-react';
 
@@ -23,11 +23,15 @@ function RiskBadge({ level }: { level: string }) {
 export default function WeatherPage() {
   const { t, language } = useLanguage();
   const [weather, setWeather] = useState<WeatherData | null>(null);
+  const [farm, setFarm] = useState<FarmData | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    api.getWeather()
-      .then(setWeather)
+    Promise.all([api.getWeather(), api.getFarm()])
+      .then(([wData, fData]) => {
+        setWeather(wData);
+        setFarm(fData);
+      })
       .catch(console.error)
       .finally(() => setLoading(false));
   }, []);
@@ -58,7 +62,9 @@ export default function WeatherPage() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold">{t.weather.title}</h1>
-          <p className="text-gray-400 text-sm mt-1">Karnal, Haryana</p>
+          <p className="text-gray-400 text-sm mt-1">
+            {farm?.location?.village || farm?.location?.district || farm?.location?.state || 'Location not set'}
+          </p>
         </div>
         {weather.isDemo && (
           <span className="text-xs text-gray-500 bg-white/[0.02] px-3 py-1 rounded-full flex items-center gap-1">

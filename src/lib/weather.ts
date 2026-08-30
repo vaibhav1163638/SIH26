@@ -2,7 +2,7 @@
  * Weather service.
  * Uses OpenWeather API if key is available, otherwise returns demo data.
  */
-import { demoWeather } from './demoData';
+
 interface WeatherResponse {
   current: {
     temperature: number;
@@ -90,24 +90,43 @@ function calculateWeatherRisk(current: { humidity: number; temperature: number; 
 }
 
 export async function getWeather(lat: number, lng: number): Promise<WeatherResponse> {
+  console.log("========================================");
+  console.log("[WEATHER SERVICE] RECEIVED COORDINATES");
+  console.log("[WEATHER SERVICE] latitude:", lat);
+  console.log("[WEATHER SERVICE] longitude:", lng);
+  console.log("========================================");
+
+  if (
+    typeof lat !== "number" ||
+    typeof lng !== "number" ||
+    !Number.isFinite(lat) ||
+    !Number.isFinite(lng)
+  ) {
+    throw new Error("Invalid weather coordinates");
+  }
+
   const apiKey = process.env.OPENWEATHER_API_KEY;
 
   if (apiKey) {
     try {
+      console.log('[WEATHER] requesting live weather API');
       const url = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lng}&appid=${apiKey}&units=metric`;
       const res = await fetch(url);
+      console.log('[WEATHER] weather API HTTP status:', res.status);
+
       if (res.ok) {
+        console.log('[WEATHER] live weather API response received');
         const data = await res.json() as Record<string, unknown>;
         // Parse OpenWeather response
         return parseOpenWeatherResponse(data);
       }
     } catch (err) {
-      console.log('[WEATHER] API call failed, using demo data:', err);
+      console.log('[WEATHER] API call failed:', err);
+      throw err;
     }
   }
 
-  // Return demo weather data
-  return { ...demoWeather };
+  throw new Error('Failed to fetch weather data');
 }
 
 function parseOpenWeatherResponse(data: Record<string, unknown>): WeatherResponse {
@@ -119,18 +138,22 @@ function parseOpenWeatherResponse(data: Record<string, unknown>): WeatherRespons
     const weather = weatherArr[0] || {};
     const wind = (first.wind as Record<string, number>) || {};
 
+    if (main.temp === undefined || main.humidity === undefined) {
+      throw new Error('Malformed OpenWeather response: missing core metrics');
+    }
+
     const current = {
-      temperature: Math.round(main.temp || 30),
-      feelsLike: Math.round(main.feels_like || 32),
-      humidity: main.humidity || 65,
-      windSpeed: Math.round((wind.speed || 3) * 3.6),
+      temperature: Math.round(main.temp),
+      feelsLike: Math.round(main.feels_like ?? main.temp),
+      humidity: main.humidity,
+      windSpeed: Math.round((wind.speed || 0) * 3.6),
       windDirection: getWindDirection(wind.deg || 0),
-      conditions: weather.description || 'Clear',
+      conditions: weather.description || 'Not available',
       icon: weather.icon || '01d',
       rainProbability: Math.round(((first.pop as number) || 0) * 100),
-      uvIndex: 6,
-      pressure: main.pressure || 1013,
-      visibility: Math.round(((first.visibility as number) || 10000) / 1000),
+      uvIndex: 0,
+      pressure: main.pressure || 0,
+      visibility: Math.round(((first.visibility as number) || 0) / 1000),
     };
 
     const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
@@ -147,10 +170,10 @@ function parseOpenWeatherResponse(data: Record<string, unknown>): WeatherRespons
         dailyMap.set(dateStr, { temps: [], humidities: [], pops: [], conditions: itemWeather.description || '', icon: itemWeather.icon || '01d', winds: [] });
       }
       const day = dailyMap.get(dateStr)!;
-      day.temps.push(itemMain.temp || 30);
-      day.humidities.push(itemMain.humidity || 65);
+      day.temps.push(itemMain.temp);
+      day.humidities.push(itemMain.humidity);
       day.pops.push(((item.pop as number) || 0) * 100);
-      day.winds.push((itemWind.speed || 3) * 3.6);
+      day.winds.push((itemWind.speed || 0) * 3.6);
     }
 
     const forecast = Array.from(dailyMap.entries()).slice(1, 6).map(([dateStr, day]) => {
@@ -171,8 +194,9 @@ function parseOpenWeatherResponse(data: Record<string, unknown>): WeatherRespons
     const weatherRisk = calculateWeatherRisk(current);
 
     return { current, forecast, weatherRisk, isDemo: false };
-  } catch {
-    return { ...demoWeather, isDemo: false };
+  } catch (error) {
+    console.error('Weather API Error:', error);
+    throw new Error('Failed to fetch weather data from external API');
   }
 }
 

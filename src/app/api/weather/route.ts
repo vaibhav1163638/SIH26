@@ -9,10 +9,12 @@ export async function GET(req: NextRequest) {
     const user = await getUserFromRequest(req);
     if (!user) return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
 
+    console.log('[WEATHER] farmer:', user._id);
+
     await connectDB();
     const farm = await Farm.findOne({ farmerId: user._id });
 
-    if (!farm || !farm.location || !farm.location.coordinates) {
+    if (!farm || !farm.location || typeof farm.location.latitude !== 'number' || typeof farm.location.longitude !== 'number' || (farm.location.latitude === 0 && farm.location.longitude === 0)) {
       return NextResponse.json({
         success: false,
         source: 'none',
@@ -20,20 +22,14 @@ export async function GET(req: NextRequest) {
       }, { status: 400 });
     }
 
-    const { lat, lng } = farm.location.coordinates;
+    const lat = farm.location.latitude;
+    const lng = farm.location.longitude;
+    console.log('[WEATHER] latitude from MongoDB:', lat);
+    console.log('[WEATHER] longitude from MongoDB:', lng);
+
     const weatherData = await getWeather(lat, lng);
 
-    return NextResponse.json({
-      success: true,
-      source: 'openweather',
-      location: {
-        latitude: lat,
-        longitude: lng,
-        city: farm.location.district || 'Unknown',
-        state: farm.location.state || 'Unknown',
-      },
-      weather: weatherData.current
-    });
+    return NextResponse.json(weatherData);
   } catch (err: any) {
     console.error('[WEATHER API]', err);
     return NextResponse.json({

@@ -33,8 +33,8 @@ const FarmSchema = new Schema<IFarm>(
     farmerId: { type: Schema.Types.ObjectId, ref: 'Farmer', required: true },
     farmerName: { type: String, required: true },
     location: {
-      latitude: { type: Number, default: 0 },
-      longitude: { type: Number, default: 0 },
+      latitude: { type: Number, default: null },
+      longitude: { type: Number, default: null },
       state: { type: String, default: '' },
       district: { type: String, default: '' },
       village: { type: String, default: '' },

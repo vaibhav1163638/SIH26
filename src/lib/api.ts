@@ -3,7 +3,6 @@
  */
 
 const API_URL = '';
-let authToken: string | null = null;
 
 async function fetchAPI<T>(endpoint: string, options?: RequestInit): Promise<T> {
   const url = `${API_URL}/api${endpoint}`;
@@ -11,7 +10,6 @@ async function fetchAPI<T>(endpoint: string, options?: RequestInit): Promise<T> 
     ...options,
     headers: {
       ...(options?.body instanceof FormData ? {} : { 'Content-Type': 'application/json' }),
-      ...(authToken ? { Authorization: `Bearer ${authToken}` } : {}),
       ...options?.headers,
     },
   });
@@ -32,10 +30,9 @@ export interface FarmData {
     state: string;
     district: string;
     village: string;
-    coordinates?: {
-      lat: number;
-      lng: number;
-    };
+    latitude: number;
+    longitude: number;
+    source: string;
   };
   crop: string;
   cropVariety: string;
@@ -191,7 +188,6 @@ export interface AssistantResponse {
 
 export const api = {
   // Auth
-  setToken: (token: string | null) => { authToken = token; },
   login: (credentials: any) => fetchAPI<any>('/auth/login', { method: 'POST', body: JSON.stringify(credentials) }),
   register: (credentials: any) => fetchAPI<any>('/auth/register', { method: 'POST', body: JSON.stringify(credentials) }),
   getMe: () => fetchAPI<any>('/auth/me'),
