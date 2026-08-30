@@ -36,9 +36,11 @@ export default function LandingPage() {
 
           {/* Desktop Nav */}
           <div className="hidden md:flex items-center gap-8 text-sm font-medium text-gray-400">
-            <Link href="#how-it-works" className="hover:text-white transition-colors">How it works</Link>
-            <Link href="#features" className="hover:text-white transition-colors">Features</Link>
-            <Link href="#intelligence" className="hover:text-white transition-colors">Intelligence</Link>
+            <Link href="/dashboard" className="hover:text-white transition-colors">Dashboard</Link>
+            <Link href="/scan" className="hover:text-white transition-colors">AI Crop Doctor</Link>
+            <Link href="/weather" className="hover:text-white transition-colors">Weather</Link>
+            <Link href="/farm" className="hover:text-white transition-colors">Farm</Link>
+            <Link href="/assistant" className="hover:text-white transition-colors">Assistant</Link>
           </div>
 
           <div className="hidden md:flex items-center gap-4">
@@ -52,7 +54,7 @@ export default function LandingPage() {
                   Log in
                 </Link>
                 <Link href="/register" className="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-sm font-semibold transition-all shadow-lg shadow-emerald-900/50">
-                  Start Diagnosing
+                  Get Started
                 </Link>
               </>
             )}
@@ -75,7 +77,7 @@ export default function LandingPage() {
             ) : (
               <>
                 <Link href="/login" className="text-gray-300 font-medium">Log in</Link>
-                <Link href="/register" className="text-emerald-400 font-medium">Start Diagnosing</Link>
+                <Link href="/register" className="text-emerald-400 font-medium">Get Started</Link>
               </>
             )}
           </div>
@@ -94,33 +96,41 @@ export default function LandingPage() {
           <div className="space-y-8">
             <div className="inline-flex items-center gap-2 text-emerald-400 text-xs font-bold uppercase tracking-widest">
               <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-              <span>COMPUTER VISION • YOLOV8 + OPENCV</span>
+              <span>AI-POWERED CROP HEALTH</span>
             </div>
 
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.1] text-white">
-              Your crop,<br />
-              <span className="text-emerald-400">diagnosed</span><br />
-              before the disease<br />
-              spreads.
+              Your Crop.<br />
+              <span className="text-emerald-400">Diagnosed by AI.</span>
             </h1>
 
             <p className="text-lg md:text-xl text-gray-400 max-w-lg font-light leading-relaxed">
-              Point a phone camera at any leaf. Kisan Vision detects the disease, scores its severity, and tells you exactly what to do — spoken back to you in your own language.
+              Capture a photo of your crop and let AI detect diseases, identify risks, and guide you toward the right treatment — all in your language.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
-              <Link href={user ? "/dashboard" : "/register"} className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 rounded-full font-semibold text-base transition-all shadow-[0_0_30px_rgba(16,185,129,0.3)]">
-                <Camera size={18} />
-                Diagnose your crop
+              <Link href={user ? "/dashboard" : "/login"} className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-emerald-600 hover:bg-emerald-500 text-white rounded-full font-semibold text-base transition-all shadow-lg shadow-emerald-900/50">
+                Scan Your Crop
               </Link>
               <Link href="#features" className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-transparent hover:bg-white/5 border border-white/20 text-gray-300 rounded-full font-medium text-base transition-all">
-                See smart features
+                Explore AI Doctor
               </Link>
             </div>
 
-            {/* Metrics */}
-            <div className="grid grid-cols-4 gap-4 pt-8 border-t border-white/5 mt-8">
-
+            {/* Trust Indicators */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-8 border-t border-white/5 mt-8">
+              <div className="flex items-center space-x-2 text-emerald-400">
+                <CheckCircle size={20} />
+                <span>Disease Detection</span>
+              </div>
+              <div className="flex items-center space-x-2 text-emerald-400">
+                <CheckCircle size={20} />
+                <span>Weather‑Aware Diagnosis</span>
+              </div>
+              <div className="flex items-center space-x-2 text-emerald-400">
+                <CheckCircle size={20} />
+                <span>Farmer‑Friendly Advice</span>
+              </div>
             </div>
           </div>
 
@@ -254,9 +264,10 @@ export default function LandingPage() {
             <div className="hidden md:block absolute top-12 left-1/6 right-1/6 h-[1px] bg-gradient-to-r from-transparent via-emerald-500/30 to-transparent" />
 
             {[
-              { num: '01', title: 'CAPTURE', desc: 'Take a photo of the affected crop using your mobile device camera.' },
-              { num: '02', title: 'UNDERSTAND', desc: 'AI analyzes the image alongside your crop history and environmental context.' },
-              { num: '03', title: 'ACT', desc: 'Receive personalized, weather-aware guidance on exact treatment steps.' }
+              { num: '01', title: 'CAPTURE', desc: 'Take a clear photo of the affected crop.' },
+              { num: '02', title: 'ANALYZE', desc: 'AI processes the image and extracts visual symptoms.' },
+              { num: '03', title: 'IDENTIFY', desc: 'Disease and severity are estimated, combined with weather data.' },
+
             ].map((step, i) => (
               <div key={step.num} className="relative z-10 flex flex-col items-center text-center">
                 <div className="w-24 h-24 rounded-full bg-[#040807] border border-emerald-500/20 flex items-center justify-center text-3xl font-light text-emerald-400 mb-6 shadow-xl shadow-emerald-900/20">
@@ -487,14 +498,6 @@ export default function LandingPage() {
           <div className="flex items-center gap-2 opacity-50 hover:opacity-100 transition-opacity">
             <Leaf size={16} className="text-emerald-400" />
             <span className="font-bold text-lg tracking-tight text-white">CropScan.ai</span>
-          </div>
-
-          <div className="flex flex-wrap justify-center gap-6 text-sm text-gray-500">
-            <Link href="#" className="hover:text-white transition-colors">Product</Link>
-            <Link href="#features" className="hover:text-white transition-colors">Features</Link>
-            <Link href="#how-it-works" className="hover:text-white transition-colors">How it works</Link>
-            <Link href="#" className="hover:text-white transition-colors">Privacy</Link>
-            <Link href="#" className="hover:text-white transition-colors">Terms</Link>
           </div>
 
           <div className="text-xs text-gray-600">

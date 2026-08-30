@@ -77,7 +77,7 @@ export default function DashboardPage() {
 latitude: ${position.coords.latitude}
 longitude: ${position.coords.longitude}
 accuracy: ${position.coords.accuracy}`);
-            
+
             console.log(`[LOCATION] Sending to server:
 latitude: ${position.coords.latitude}
 longitude: ${position.coords.longitude}`);
@@ -127,13 +127,13 @@ longitude: ${position.coords.longitude}`);
           api.getFarm().catch(() => null),
           api.getScans().catch(() => []),
         ]);
-        
+
         let weatherData = null;
         let riskData = null;
         let currentFarm = farmData;
 
-        const hasLocation = currentFarm?.location?.latitude !== undefined && currentFarm?.location?.longitude !== undefined && 
-                           currentFarm.location.latitude !== null && currentFarm.location.longitude !== null;
+        const hasLocation = currentFarm?.location?.latitude !== undefined && currentFarm?.location?.longitude !== undefined &&
+          currentFarm.location.latitude !== null && currentFarm.location.longitude !== null;
 
         if (!hasLocation && !locationDenied) {
           try {
@@ -145,11 +145,11 @@ longitude: ${position.coords.longitude}`);
               body: JSON.stringify(coords)
             });
             const locationResult = await res.json();
-            
+
             console.log(`[LOCATION] Location API response:
 status: ${res.status}
 response:`, locationResult);
-            
+
             if (locationResult.success && typeof locationResult.location?.latitude === 'number' && typeof locationResult.location?.longitude === 'number') {
               console.log('[FLOW] GPS saved to database');
               console.log('[FARM] location update successful');
@@ -162,8 +162,8 @@ response:`, locationResult);
           }
         }
 
-        const validLoc = currentFarm?.location?.latitude !== undefined && currentFarm?.location?.longitude !== undefined && 
-                        currentFarm.location.latitude !== null && currentFarm.location.longitude !== null;
+        const validLoc = currentFarm?.location?.latitude !== undefined && currentFarm?.location?.longitude !== undefined &&
+          currentFarm.location.latitude !== null && currentFarm.location.longitude !== null;
 
         if (validLoc) {
           console.log('[FLOW] requesting weather');
@@ -186,7 +186,7 @@ response:`, locationResult);
         setLoading(false);
       }
     }
-    
+
     if (!initializationStarted.current) {
       initializationStarted.current = true;
       loadData();
@@ -238,7 +238,7 @@ response:`, locationResult);
               Allow location access so we can provide personalized local weather, region-specific disease alerts, and weather-aware crop recommendations.
             </p>
           </div>
-          <button 
+          <button
             onClick={requestLocation}
             disabled={locationRequested}
             className="px-6 py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold rounded-xl whitespace-nowrap transition-colors"
@@ -256,21 +256,21 @@ response:`, locationResult);
           </h2>
           <p className="text-amber-200/70 text-sm mb-4">Please enter your location manually to receive regional alerts and weather data.</p>
           <div className="flex flex-col sm:flex-row gap-3">
-            <input 
-              type="text" 
-              placeholder="State (e.g. Haryana)" 
+            <input
+              type="text"
+              placeholder="State (e.g. Haryana)"
               value={manualState}
               onChange={(e) => setManualState(e.target.value)}
               className="px-4 py-2 bg-black/40 border border-white/10 rounded-xl focus:border-amber-500 outline-none"
             />
-            <input 
-              type="text" 
-              placeholder="District (e.g. Karnal)" 
+            <input
+              type="text"
+              placeholder="District (e.g. Karnal)"
               value={manualDistrict}
               onChange={(e) => setManualDistrict(e.target.value)}
               className="px-4 py-2 bg-black/40 border border-white/10 rounded-xl focus:border-amber-500 outline-none"
             />
-            <button 
+            <button
               onClick={submitManualLocation}
               disabled={!manualState || !manualDistrict}
               className="px-6 py-2 bg-amber-600 hover:bg-amber-500 disabled:opacity-50 text-white font-medium rounded-xl transition-colors"

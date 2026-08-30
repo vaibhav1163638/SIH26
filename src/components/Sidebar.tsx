@@ -17,10 +17,12 @@ import {
   Menu,
   X,
   Globe,
+  Home,
 } from 'lucide-react';
 import { useState } from 'react';
 
 const navItems = [
+  { href: '/', icon: Home, key: 'home' as const },
   { href: '/dashboard', icon: LayoutDashboard, key: 'dashboard' as const },
   { href: '/scan', icon: Camera, key: 'scan' as const },
   { href: '/farm', icon: User, key: 'farm' as const },
@@ -57,9 +59,8 @@ export default function Sidebar() {
 
       {/* Sidebar */}
       <aside
-        className={`fixed top-0 left-0 h-full w-64 bg-gradient-to-b from-emerald-900 via-emerald-800 to-teal-900 text-white z-40 transform transition-transform duration-300 ease-in-out ${
-          isOpen ? 'translate-x-0' : '-translate-x-full'
-        } lg:translate-x-0 lg:static lg:z-auto flex flex-col`}
+        className={`fixed top-0 left-0 h-full w-64 bg-gradient-to-b from-emerald-900 via-emerald-800 to-teal-900 text-white z-40 transform transition-transform duration-300 ease-in-out ${isOpen ? 'translate-x-0' : '-translate-x-full'
+          } lg:translate-x-0 lg:static lg:z-auto flex flex-col`}
       >
         {/* Logo */}
         <div className="p-6 border-b border-emerald-700/50">
@@ -84,11 +85,10 @@ export default function Sidebar() {
                 key={item.href}
                 href={item.href}
                 onClick={() => setIsOpen(false)}
-                className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 ${
-                  isActive
-                    ? 'bg-emerald-500/30 text-white shadow-md border border-emerald-400/30'
-                    : 'text-emerald-200 hover:bg-emerald-700/40 hover:text-white'
-                }`}
+                className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 ${isActive
+                  ? 'bg-emerald-500/30 text-white shadow-md border border-emerald-400/30'
+                  : 'text-emerald-200 hover:bg-emerald-700/40 hover:text-white'
+                  }`}
               >
                 <Icon size={20} className={isActive ? 'text-emerald-300' : ''} />
                 <span>{t.nav[item.key]}</span>
@@ -111,7 +111,7 @@ export default function Sidebar() {
             <Globe size={20} />
             <span>{language === 'en' ? 'हिंदी' : 'English'}</span>
           </button>
-          
+
           <button
             onClick={() => signOut({ callbackUrl: '/' })}
             className="flex items-center gap-3 w-full px-4 py-3 rounded-xl text-sm font-medium text-red-300 hover:bg-red-500/20 hover:text-red-200 transition-all"

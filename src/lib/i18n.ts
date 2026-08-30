@@ -8,6 +8,7 @@ export const translations = {
   en: {
     // Navigation
     nav: {
+      home: 'Home',
       dashboard: 'Dashboard',
       scan: 'Scan Crop',
       farm: 'Farm Profile',
@@ -167,6 +168,7 @@ export const translations = {
   },
   hi: {
     nav: {
+      home: 'होम',
       dashboard: 'डैशबोर्ड',
       scan: 'फसल स्कैन',
       farm: 'खेत प्रोफ़ाइल',
