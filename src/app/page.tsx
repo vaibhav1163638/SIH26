@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useSession } from 'next-auth/react';
 import {
-  Leaf, Camera, Shield, Cloud, Clock, Mic, ArrowRight, Sprout, 
+  Leaf, Camera, Shield, Cloud, Clock, Mic, ArrowRight, Sprout,
   MapPin, Activity, Zap, CheckCircle, Menu, X, Thermometer, Wind, Droplets,
   Globe, LineChart, Target, Search, Bug
 } from 'lucide-react';
@@ -23,7 +23,7 @@ export default function LandingPage() {
 
   return (
     <div className="min-h-screen bg-[#040807] text-gray-100 selection:bg-emerald-500/30 overflow-x-hidden">
-      
+
       {/* NAVBAR */}
       <nav className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-[#040807]/80 backdrop-blur-xl border-b border-white/5 py-4' : 'bg-transparent py-6'}`}>
         <div className="max-w-7xl mx-auto px-6 lg:px-8 flex items-center justify-between">
@@ -87,90 +87,92 @@ export default function LandingPage() {
         {/* Abstract Background Elements */}
         <div className="absolute top-1/4 -left-64 w-96 h-96 bg-emerald-600/10 rounded-full blur-[120px] pointer-events-none" />
         <div className="absolute bottom-1/4 -right-64 w-[30rem] h-[30rem] bg-teal-600/10 rounded-full blur-[120px] pointer-events-none" />
-        
+
         <div className="max-w-7xl mx-auto px-6 lg:px-8 w-full grid lg:grid-cols-2 gap-12 lg:gap-8 items-center z-10 py-20 lg:py-0">
-          
+
           {/* Left Content */}
           <div className="space-y-8">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-bold uppercase tracking-widest">
-              <Sprout size={14} />
-              <span>AI-Powered Crop Health</span>
+            <div className="inline-flex items-center gap-2 text-emerald-400 text-xs font-bold uppercase tracking-widest">
+              <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+              <span>COMPUTER VISION • YOLOV8 + OPENCV</span>
             </div>
-            
+
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.1] text-white">
-              Know your crop.<br />
-              <span className="text-emerald-400">Before the disease</span><br />
-              takes over.
+              Your crop,<br />
+              <span className="text-emerald-400">diagnosed</span><br />
+              before the disease<br />
+              spreads.
             </h1>
-            
+
             <p className="text-lg md:text-xl text-gray-400 max-w-lg font-light leading-relaxed">
-              Take a photo of your crop, understand what's happening, and get weather-aware guidance in your language.
+              Point a phone camera at any leaf. Kisan Vision detects the disease, scores its severity, and tells you exactly what to do — spoken back to you in your own language.
             </p>
-            
+
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
-              <Link href={user ? "/dashboard" : "/register"} className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl font-semibold text-base transition-all shadow-lg shadow-emerald-900/50">
+              <Link href={user ? "/dashboard" : "/register"} className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 rounded-full font-semibold text-base transition-all shadow-[0_0_30px_rgba(16,185,129,0.3)]">
                 <Camera size={18} />
-                Diagnose Your Crop
+                Diagnose your crop
               </Link>
-              <Link href="#features" className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white/5 hover:bg-white/10 border border-white/10 text-white rounded-xl font-semibold text-base transition-all">
-                Explore Smart Features
+              <Link href="#features" className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-transparent hover:bg-white/5 border border-white/20 text-gray-300 rounded-full font-medium text-base transition-all">
+                See smart features
               </Link>
+            </div>
+
+            {/* Metrics */}
+            <div className="grid grid-cols-4 gap-4 pt-8 border-t border-white/5 mt-8">
+
             </div>
           </div>
 
           {/* Right Content - Product Visualization */}
-          <div className="relative w-full aspect-square md:aspect-video lg:aspect-square max-w-xl mx-auto lg:ml-auto perspective-1000">
-            {/* The Glass Container */}
-            <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent rounded-3xl border border-white/10 shadow-2xl overflow-hidden backdrop-blur-md transform rotate-y-[-5deg] rotate-x-[5deg] hover:rotate-y-0 hover:rotate-x-0 transition-transform duration-700">
-              
+          <div className="relative w-full aspect-square md:aspect-[4/5] max-w-lg mx-auto lg:ml-auto">
+            {/* Grid Background Mockup */}
+            <div className="absolute inset-[-10%] bg-[#08120d] rounded-[40px] border border-white/5 shadow-2xl overflow-hidden" style={{ backgroundImage: 'linear-gradient(rgba(16, 185, 129, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(16, 185, 129, 0.05) 1px, transparent 1px)', backgroundSize: '40px 40px' }}>
+
+              {/* Corner brackets */}
+              <div className="absolute top-6 left-6 w-4 h-4 border-t-2 border-l-2 border-emerald-500/50" />
+              <div className="absolute top-6 right-6 w-4 h-4 border-t-2 border-r-2 border-emerald-500/50" />
+              <div className="absolute bottom-6 left-6 w-4 h-4 border-b-2 border-l-2 border-emerald-500/50" />
+              <div className="absolute bottom-6 right-6 w-4 h-4 border-b-2 border-r-2 border-emerald-500/50" />
+
               {/* Plant Image Mockup */}
-              <div className="absolute inset-0 bg-[#0d1613]">
-                {/* Simulated Leaf SVG */}
-                <svg className="w-full h-full opacity-40 text-emerald-900" viewBox="0 0 100 100" preserveAspectRatio="none">
-                  <path d="M20,80 C30,40 50,20 80,10 C70,50 50,70 20,80 Z" fill="currentColor" />
-                  <path d="M30,85 C45,55 65,35 90,25 C80,60 65,80 30,85 Z" fill="currentColor" opacity="0.5" />
+              <div className="absolute inset-12 flex items-center justify-center">
+                {/* Simulated Leaf SVG matching photo 2 */}
+                <svg className="w-full h-full text-emerald-500" viewBox="0 0 100 100" preserveAspectRatio="none">
+                  <path d="M50,10 C70,30 85,50 85,70 C85,90 70,95 50,95 C30,95 15,90 15,70 C15,50 30,30 50,10 Z" fill="currentColor" opacity="0.8" />
+                  <line x1="50" y1="15" x2="50" y2="90" stroke="#08120d" strokeWidth="1" />
+                  <line x1="50" y1="40" x2="35" y2="30" stroke="#08120d" strokeWidth="1" />
+                  <line x1="50" y1="50" x2="70" y2="40" stroke="#08120d" strokeWidth="1" />
+                  <line x1="50" y1="65" x2="30" y2="55" stroke="#08120d" strokeWidth="1" />
+                  <line x1="50" y1="75" x2="65" y2="65" stroke="#08120d" strokeWidth="1" />
+
+                  {/* Disease Spots */}
+                  <circle cx="40" cy="45" r="4" fill="#a77a45" />
+                  <circle cx="65" cy="55" r="3" fill="#a77a45" />
+                  <circle cx="45" cy="65" r="2.5" fill="#a77a45" />
                 </svg>
               </div>
 
-              {/* Scanning Animation */}
-              <div className="absolute inset-x-0 h-32 bg-gradient-to-b from-transparent via-emerald-500/20 to-emerald-500/50 border-b border-emerald-400 animate-scan pointer-events-none" />
-
               {/* AI Detection Box */}
-              <div className="absolute top-1/4 left-1/4 w-32 h-32 border-2 border-dashed border-emerald-500/70 rounded-lg animate-pulse-slow">
-                <div className="absolute -top-3 -right-3 w-6 h-6 bg-emerald-500 rounded-full flex items-center justify-center border-2 border-[#0d1613]">
-                  <Bug size={12} className="text-white" />
+              <div className="absolute top-1/3 left-1/4 right-1/4 bottom-1/3 border border-amber-500/80 rounded-sm bg-amber-500/10">
+                <div className="absolute -top-7 left-0 bg-[#0d1613] border border-amber-500/50 px-2 py-1 rounded text-[10px] font-mono text-amber-500 flex items-center gap-2">
+                  <span>Late Blight</span>
+                  <span>94.2%</span>
                 </div>
               </div>
 
-              {/* UI Overlay */}
-              <div className="absolute top-6 left-6 right-6 flex justify-between items-start">
-                <div className="px-3 py-1.5 rounded-lg bg-black/40 backdrop-blur-md border border-white/10 flex items-center gap-2">
-                  <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                  <span className="text-xs font-semibold text-white tracking-wider">AI ANALYSIS ACTIVE</span>
-                </div>
-              </div>
+              {/* Scanning Animation line */}
+              <div className="absolute inset-x-12 h-[2px] bg-emerald-300 shadow-[0_0_20px_rgba(16,185,129,1)] animate-scan-line z-10" />
 
-              {/* Results Card */}
-              <div className="absolute bottom-6 left-6 right-6 p-5 rounded-2xl bg-black/60 backdrop-blur-xl border border-white/10 shadow-2xl">
-                <h3 className="text-lg font-bold text-white mb-1">Late Blight</h3>
-                <p className="text-sm text-gray-400 mb-4">Phytophthora infestans detected</p>
-                
-                <div className="grid grid-cols-3 gap-4">
-                  <div>
-                    <p className="text-xs text-gray-500 mb-1">Confidence</p>
-                    <p className="text-sm font-semibold text-emerald-400">94.2%</p>
-                  </div>
-                  <div>
-                    <p className="text-xs text-gray-500 mb-1">Severity</p>
-                    <p className="text-sm font-semibold text-amber-400">Moderate</p>
-                  </div>
-                  <div>
-                    <p className="text-xs text-gray-500 mb-1">Risk</p>
-                    <p className="text-sm font-semibold text-orange-400">Elevated</p>
-                  </div>
+              {/* Bottom Info Bar */}
+              <div className="absolute bottom-6 left-6 right-6 flex justify-between items-center px-4 font-mono text-[10px] text-emerald-500/60 uppercase tracking-widest">
+                <div className="flex items-center gap-2">
+                  <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                  <span>Live inference</span>
                 </div>
+                <span>model: yolov8n-crop-v3</span>
+                <span>18ms/frame</span>
               </div>
-
             </div>
           </div>
         </div>
@@ -210,7 +212,7 @@ export default function LandingPage() {
                 Diseases don't exist in a vacuum. By analyzing the exact live weather conditions at your farm's location, the AI provides highly accurate, context-aware risk profiles and treatment timing.
               </p>
             </div>
-            
+
             {/* Weather Card Mockup */}
             <div className="w-full md:w-[320px] bg-[#0a120f] border border-white/10 rounded-2xl p-6 shadow-2xl relative overflow-hidden">
               <div className="absolute top-0 right-0 p-4 opacity-10">
@@ -220,7 +222,7 @@ export default function LandingPage() {
                 <MapPin size={16} className="text-emerald-400" />
                 <span className="text-xs font-semibold text-gray-300 tracking-wider">YOUR FARM</span>
               </div>
-              
+
               <div className="mb-6">
                 <p className="text-sm text-gray-500 mb-1">Enable location to see your local weather</p>
                 <div className="flex items-end gap-3 mt-4 opacity-50">
@@ -228,7 +230,7 @@ export default function LandingPage() {
                   <span className="text-gray-400 pb-1">--% humidity</span>
                 </div>
               </div>
-              
+
               <div className="pt-4 border-t border-white/10">
                 <div className="flex items-center justify-between text-sm">
                   <span className="text-gray-400">Rain probability</span>
@@ -250,7 +252,7 @@ export default function LandingPage() {
 
           <div className="grid md:grid-cols-3 gap-8 relative">
             <div className="hidden md:block absolute top-12 left-1/6 right-1/6 h-[1px] bg-gradient-to-r from-transparent via-emerald-500/30 to-transparent" />
-            
+
             {[
               { num: '01', title: 'CAPTURE', desc: 'Take a photo of the affected crop using your mobile device camera.' },
               { num: '02', title: 'UNDERSTAND', desc: 'AI analyzes the image alongside your crop history and environmental context.' },
@@ -286,15 +288,15 @@ export default function LandingPage() {
                 </div>
               ))}
             </div>
-            
+
             <div className="flex justify-center mb-8">
               <div className="w-px h-16 bg-gradient-to-b from-white/20 to-emerald-500" />
             </div>
-            
+
             <div className="bg-gradient-to-r from-emerald-900/40 via-emerald-800/40 to-emerald-900/40 border border-emerald-500/30 p-6 rounded-2xl text-center mb-8 shadow-[0_0_40px_rgba(16,185,129,0.1)]">
               <span className="text-lg font-bold text-emerald-400 tracking-widest">CROP HEALTH INTELLIGENCE</span>
             </div>
-            
+
             <div className="flex justify-center mb-8">
               <div className="w-px h-16 bg-gradient-to-b from-emerald-500 to-white/20" />
             </div>
@@ -314,7 +316,7 @@ export default function LandingPage() {
       <section id="features" className="py-24 bg-[#040807]">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">One scan.<br/><span className="text-gray-500">Complete crop intelligence.</span></h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">One scan.<br /><span className="text-gray-500">Complete crop intelligence.</span></h2>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -341,7 +343,7 @@ export default function LandingPage() {
       {/* CROP HEALTH TIMELINE & WEATHER TIMING */}
       <section className="py-24 border-t border-white/5">
         <div className="max-w-7xl mx-auto px-6 lg:px-8 grid lg:grid-cols-2 gap-16">
-          
+
           {/* Timeline Visual */}
           <div>
             <h3 className="text-2xl font-bold text-white mb-8">Track recovery over time</h3>
@@ -418,22 +420,22 @@ export default function LandingPage() {
                 ))}
               </ul>
             </div>
-            
+
             {/* Mockup Map */}
             <div className="relative aspect-video rounded-3xl overflow-hidden border border-white/10 bg-[#0d1512]">
               {/* Fake grid pattern */}
               <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(#10b981 1px, transparent 1px)', backgroundSize: '20px 20px' }}></div>
-              
+
               {/* Mock map markers */}
               <div className="absolute top-1/4 left-1/4 w-3 h-3 bg-red-500 rounded-full animate-ping opacity-75"></div>
               <div className="absolute top-1/4 left-1/4 w-3 h-3 bg-red-500 rounded-full"></div>
-              
+
               <div className="absolute bottom-1/3 right-1/3 w-3 h-3 bg-amber-500 rounded-full animate-ping opacity-75"></div>
               <div className="absolute bottom-1/3 right-1/3 w-3 h-3 bg-amber-500 rounded-full"></div>
-              
+
               <div className="absolute top-1/2 left-1/2 w-3 h-3 bg-red-500 rounded-full animate-ping opacity-75" style={{ animationDelay: '1s' }}></div>
               <div className="absolute top-1/2 left-1/2 w-3 h-3 bg-red-500 rounded-full"></div>
-              
+
               <div className="absolute bottom-4 left-4 right-4 p-4 rounded-xl bg-black/60 backdrop-blur-md border border-white/10 flex justify-between items-center">
                 <span className="text-sm font-semibold text-white">Regional Analysis</span>
                 <span className="text-xs text-red-400 font-bold px-2 py-1 rounded bg-red-500/20">Elevated Outbreak Risk</span>
@@ -465,9 +467,9 @@ export default function LandingPage() {
       <section className="py-32 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent to-emerald-900/20" />
         <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
-          <h2 className="text-4xl md:text-6xl font-extrabold text-white mb-6 tracking-tight">Give your crop a <br/>second set of eyes.</h2>
+          <h2 className="text-4xl md:text-6xl font-extrabold text-white mb-6 tracking-tight">Give your crop a <br />second set of eyes.</h2>
           <p className="text-xl text-gray-400 font-light mb-10">Start monitoring crop health with AI-powered agricultural intelligence.</p>
-          
+
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href={user ? "/dashboard" : "/register"} className="inline-flex items-center justify-center gap-2 px-10 py-5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-2xl font-semibold text-lg transition-all shadow-xl shadow-emerald-900/50">
               Start Diagnosing
@@ -486,7 +488,7 @@ export default function LandingPage() {
             <Leaf size={16} className="text-emerald-400" />
             <span className="font-bold text-lg tracking-tight text-white">CropScan.ai</span>
           </div>
-          
+
           <div className="flex flex-wrap justify-center gap-6 text-sm text-gray-500">
             <Link href="#" className="hover:text-white transition-colors">Product</Link>
             <Link href="#features" className="hover:text-white transition-colors">Features</Link>
@@ -494,7 +496,7 @@ export default function LandingPage() {
             <Link href="#" className="hover:text-white transition-colors">Privacy</Link>
             <Link href="#" className="hover:text-white transition-colors">Terms</Link>
           </div>
-          
+
           <div className="text-xs text-gray-600">
             AI-powered crop health intelligence. © 2026
           </div>
@@ -502,7 +504,8 @@ export default function LandingPage() {
       </footer>
 
       {/* GLOBAL CSS ANIMATION DEFINITIONS */}
-      <style dangerouslySetInnerHTML={{__html: `
+      <style dangerouslySetInnerHTML={{
+        __html: `
         @keyframes scan {
           0% { transform: translateY(-100%); }
           50% { transform: translateY(200%); }
@@ -510,6 +513,15 @@ export default function LandingPage() {
         }
         .animate-scan {
           animation: scan 4s ease-in-out infinite;
+        }
+        @keyframes scan-line {
+          0% { top: 15%; opacity: 0; }
+          10% { opacity: 1; }
+          90% { opacity: 1; }
+          100% { top: 85%; opacity: 0; }
+        }
+        .animate-scan-line {
+          animation: scan-line 2.5s ease-in-out infinite alternate;
         }
         .animate-pulse-slow {
           animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
