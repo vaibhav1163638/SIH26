@@ -39,10 +39,10 @@ export default function MapComponent({ reports }: MapComponentProps) {
     );
   }
 
-  // Default center if no reports (Center of Haryana as fallback)
+  // Default center if no reports: use a neutral coordinate (0,0) as fallback
   const center: [number, number] = reports.length > 0
     ? [reports[0].coordinates.lat, reports[0].coordinates.lng]
-    : [29.0588, 76.0856];
+    : [0, 0];
 
   return (
     <div className="w-full h-full min-h-[400px] border border-white/10 rounded-2xl overflow-hidden shadow-lg relative z-0">

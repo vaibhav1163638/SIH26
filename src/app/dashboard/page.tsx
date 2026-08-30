@@ -344,11 +344,7 @@ response:`, locationResult);
           <p className="text-sm text-gray-400 mb-3">{t.dashboard.weatherSummary}</p>
           {weather ? (
             <div className="space-y-3">
-              {(weather as any).isDemo && (
-                <div className="p-2 bg-yellow-500/10 border border-yellow-500/20 rounded-lg text-yellow-400 text-xs mb-2">
-                  Live weather unavailable. Showing DEMO DATA.
-                </div>
-              )}
+              {/* Demo weather notice removed */}
               <div className="flex items-center gap-3">
                 <Thermometer size={20} className="text-orange-400" />
                 <div>

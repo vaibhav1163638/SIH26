@@ -66,11 +66,7 @@ export default function WeatherPage() {
             {farm?.location?.village || farm?.location?.district || farm?.location?.state || 'Location not set'}
           </p>
         </div>
-        {weather.isDemo && (
-          <span className="text-xs text-gray-500 bg-white/[0.02] px-3 py-1 rounded-full flex items-center gap-1">
-            <Leaf size={12} /> Demo
-          </span>
-        )}
+        {/* Demo badge removed */}
       </div>
 
       {/* Current Weather */}

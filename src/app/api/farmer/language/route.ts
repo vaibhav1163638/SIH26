@@ -4,6 +4,7 @@ import { Farmer } from '@/models/Farmer';
 import { getUserFromRequest } from '@/lib/auth';
 
 export async function POST(req: NextRequest) {
+  await connectDB();
   try {
     const user = await getUserFromRequest(req);
     if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });

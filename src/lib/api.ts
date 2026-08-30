@@ -237,8 +237,12 @@ export const api = {
   getRecommendations: () => fetchAPI<{ disease: string; severity: number; treatment: ScanData['treatment']; recommendations: string[] }>('/recommendations'),
 
   // Assistant
-  askAssistant: (message: string, language: string) => fetchAPI<AssistantResponse>('/assistant', {
+  askAssistant: (data: { message?: string, language?: string, conversationId?: string, imageBase64?: string }) => fetchAPI<any>('/assistant', {
     method: 'POST',
-    body: JSON.stringify({ message, language }),
+    body: JSON.stringify(data),
   }),
+
+  // Conversations
+  getConversations: () => fetchAPI<any>('/conversations'),
+  getConversation: (id: string) => fetchAPI<any>(`/conversations/${id}`),
 };
