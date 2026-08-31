@@ -59,7 +59,7 @@ function getAlertIcon(type: AlertType) {
 export default function TopNavbar() {
   const pathname = usePathname();
   const { language, setLanguage } = useLanguage();
-  
+
   const [alerts, setAlerts] = useState<Alert[]>(INITIAL_ALERTS);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -105,7 +105,7 @@ export default function TopNavbar() {
           <Leaf size={18} className="text-primary" />
         </div>
         <span className="font-bold text-xl text-foreground tracking-tight">
-          AgroSarthi<span className="text-primary">.ai</span>
+          AgroSarthi
         </span>
       </Link>
 
@@ -126,11 +126,10 @@ export default function TopNavbar() {
             >
               <Link
                 href={item.href}
-                className={`flex items-center gap-1 px-2 py-1 rounded transition-colors ${
-                  active
-                    ? 'bg-primary/10 text-primary'
-                    : 'text-muted-foreground hover:bg-muted/5 hover:text-foreground'
-                }`}
+                className={`flex items-center gap-1 px-2 py-1 rounded transition-colors ${active
+                  ? 'bg-primary/10 text-primary'
+                  : 'text-muted-foreground hover:bg-muted/5 hover:text-foreground'
+                  }`}
               >
                 <Icon size={18} className={active ? 'text-primary' : ''} />
                 <span className="text-sm font-medium">{item.key}</span>
@@ -187,7 +186,7 @@ export default function TopNavbar() {
                   ) : (
                     <div className="flex flex-col">
                       {alerts.map((alert) => (
-                        <div 
+                        <div
                           key={alert.id}
                           className={`flex gap-3 p-4 border-b border-border/50 last:border-0 hover:bg-muted/5 transition-colors cursor-pointer ${alert.unread ? 'bg-primary/5' : ''}`}
                         >
