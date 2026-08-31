@@ -21,7 +21,7 @@ import {
 } from 'lucide-react';
 import { useState } from 'react';
 
-const navItems = [
+export const navItems = [
   { href: '/', icon: Home, key: 'home' as const },
   { href: '/dashboard', icon: LayoutDashboard, key: 'dashboard' as const },
   { href: '/scan', icon: Camera, key: 'scan' as const },
@@ -32,6 +32,12 @@ const navItems = [
   { href: '/assistant', icon: MessageCircle, key: 'assistant' as const },
   { href: '/settings', icon: Settings, key: 'settings' as const },
 ];
+
+export type NavItem = {
+  href: string;
+  icon: any;
+  key: string;
+};
 
 export default function Sidebar() {
   const pathname = usePathname();

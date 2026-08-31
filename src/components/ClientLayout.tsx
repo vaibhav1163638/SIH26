@@ -1,6 +1,7 @@
 'use client';
 
 import Sidebar from './Sidebar';
+import TopNavbar from '@/components/TopNavbar';
 import { useSession } from 'next-auth/react';
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect } from 'react';
@@ -50,8 +51,15 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
 
   return (
     <div className="flex min-h-screen">
-      {session && <Sidebar />}
-      <main className="flex-1 lg:ml-0 overflow-x-hidden">
+      {/* Top navigation bar for desktop */}
+      <TopNavbar />
+      {session && (
+        <div className="block md:hidden">
+          <Sidebar />
+        </div>
+      )}
+      {/* Add top padding to avoid overlap with fixed navbar (64px) on desktop */}
+      <main className="flex-1 pt-0 md:pt-16 lg:ml-0 overflow-x-hidden">
         {children}
       </main>
     </div>
