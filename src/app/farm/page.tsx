@@ -10,7 +10,7 @@ export default function FarmPage() {
   const { t } = useLanguage();
   const { data: session } = useSession();
   const user = session?.user;
-  
+
   const [farm, setFarm] = useState<FarmData | null>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -62,13 +62,13 @@ export default function FarmPage() {
     navigator.geolocation.getCurrentPosition(async (position) => {
       const lat = position.coords.latitude;
       const lon = position.coords.longitude;
-      
+
       try {
         const res = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`);
         if (res.ok) {
           const data = await res.json();
           const address = data.address || {};
-          
+
           if (!farm) return;
           setFarm(prev => {
             if (!prev) return prev;
@@ -147,7 +147,7 @@ export default function FarmPage() {
             {locating ? 'Locating...' : 'Get GPS Location'}
           </button>
         </div>
-        
+
         {locationError && (
           <div className="p-3 bg-red-500/10 border border-red-500/20 rounded-xl text-red-400 text-sm">
             {locationError}
@@ -165,7 +165,7 @@ export default function FarmPage() {
             )}
             <div>
               <h4 className="font-medium text-lg">{user?.name || farm.farmerName || 'Farmer'}</h4>
-              <p className="text-sm text-muted-foreground">{user?.email}</p>
+
             </div>
           </div>
           <div className="flex-1">

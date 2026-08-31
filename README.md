@@ -1,4 +1,4 @@
-# CropScan AI - PS 131
+# AgroSarthi AI - PS 131
 
 This is the Next.js App Router application for the SIH 2026 PS 131 prototype.
 

@@ -22,14 +22,13 @@ import {
 import { useState } from 'react';
 
 export const navItems = [
-  { href: '/', icon: Home, key: 'home' as const },
-  { href: '/dashboard', icon: LayoutDashboard, key: 'dashboard' as const },
-  { href: '/scan', icon: Camera, key: 'scan' as const },
-  { href: '/farm', icon: User, key: 'farm' as const },
-  { href: '/timeline', icon: Clock, key: 'timeline' as const },
-  { href: '/weather', icon: Cloud, key: 'weather' as const },
-  { href: '/assistant', icon: MessageCircle, key: 'assistant' as const },
-  { href: '/settings', icon: Settings, key: 'settings' as const },
+  { href: '/dashboard', icon: LayoutDashboard, key: 'Dashboard' as const },
+  { href: '/scan', icon: Camera, key: 'Scan' as const },
+  { href: '/farm', icon: User, key: 'Farm' as const },
+  { href: '/timeline', icon: Clock, key: 'Timeline' as const },
+  { href: '/weather', icon: Cloud, key: 'Weather' as const },
+  { href: '/assistant', icon: MessageCircle, key: 'Assistant' as const },
+  { href: '/settings', icon: Settings, key: 'Settings' as const },
 ];
 
 export type NavItem = {
@@ -74,7 +73,7 @@ export default function Sidebar() {
               <Leaf size={24} className="text-primary-foreground" />
             </div>
             <div>
-              <h1 className="text-lg font-bold tracking-tight">CropScan AI</h1>
+              <h1 className="text-lg font-bold tracking-tight">AgroSarthi AI</h1>
               <p className="text-xs text-sidebar-foreground/70">Smart Crop Health</p>
             </div>
           </Link>

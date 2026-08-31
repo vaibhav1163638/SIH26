@@ -19,7 +19,7 @@ export default function RegisterPage() {
           <Leaf size={32} className="text-foreground" />
         </div>
         <h1 className="text-2xl font-bold">Create an Account</h1>
-        <p className="text-primary mt-2">Join CropScan AI to manage your farm</p>
+        <p className="text-primary mt-2">Join AgroSarthi AI to manage your farm</p>
       </div>
 
       <button

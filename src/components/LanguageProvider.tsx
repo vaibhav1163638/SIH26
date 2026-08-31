@@ -22,7 +22,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   // Load from DB on mount
   useEffect(() => {
     // try to get from localstorage first for fast paint
-    const local = typeof window !== 'undefined' ? localStorage.getItem('cropscan-lang') : null;
+    const local = typeof window !== 'undefined' ? localStorage.getItem('agrosarthi-lang') : null;
     if (local && (local === 'en' || local === 'hi')) {
        setLanguageState(local as Language);
     }
@@ -32,7 +32,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
        if (data && (data.language === 'en' || data.language === 'hi')) {
            setLanguageState(data.language as Language);
            if (typeof window !== 'undefined') {
-              localStorage.setItem('cropscan-lang', data.language);
+              localStorage.setItem('agrosarthi-lang', data.language);
            }
        }
     }).catch(console.error);
@@ -41,7 +41,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   const setLanguage = useCallback((lang: Language) => {
     setLanguageState(lang);
     if (typeof window !== 'undefined') {
-      localStorage.setItem('cropscan-lang', lang);
+      localStorage.setItem('agrosarthi-lang', lang);
     }
     // Fire and forget to update backend
     api.updateLanguage(lang).catch(err => console.error('Failed to update language on backend:', err));

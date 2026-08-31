@@ -29,7 +29,7 @@ export async function POST(req: NextRequest) {
 
       try {
         const url = `https://nominatim.openstreetmap.org/search?format=json&state=${encodeURIComponent(state)}&city=${encodeURIComponent(district)}&limit=1`;
-        const response = await fetch(url, { headers: { 'User-Agent': 'CropScan-SIH-2026' } });
+        const response = await fetch(url, { headers: { 'User-Agent': 'AgroSarthi-SIH-2026' } });
         
         if (response.ok) {
           const data = await response.json();
@@ -125,7 +125,7 @@ longitude: ${verifiedFarm?.location?.longitude}`);
     if (source !== 'manual') {
       try {
         const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&zoom=10&addressdetails=1`;
-        const response = await fetch(url, { headers: { 'User-Agent': 'CropScan-SIH-2026' } });
+        const response = await fetch(url, { headers: { 'User-Agent': 'AgroSarthi-SIH-2026' } });
         
         if (response.ok) {
           const data = await response.json();

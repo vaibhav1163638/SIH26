@@ -6,7 +6,7 @@ import AuthProvider from "@/components/AuthProvider";
 import ClientLayout from "@/components/ClientLayout";
 
 export const metadata: Metadata = {
-  title: "CropScan AI — Smart Crop Health & Early Warning System",
+  title: "AgroSarthi AI — Smart Crop Health & Early Warning System",
   description: "AI-powered crop disease detection, weather intelligence, and personalized treatment recommendations for Indian farmers. SIH 2026 PS 131.",
 };
 

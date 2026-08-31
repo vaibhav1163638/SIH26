@@ -45,8 +45,8 @@ export async function generateOpenRouterResponse(
         headers: {
           Authorization: `Bearer ${apiKey}`,
           'Content-Type': 'application/json',
-          'HTTP-Referer': 'https://cropscan.ai',
-          'X-Title': 'CropScan Assistant',
+          'HTTP-Referer': 'https://agrosarthi.ai',
+          'X-Title': 'AgroSarthi Assistant',
         },
         body: JSON.stringify({
           model,

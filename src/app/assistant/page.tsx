@@ -234,7 +234,7 @@ export default function AssistantPage() {
         <div className="p-4 md:p-6 border-b border-border flex items-center justify-center bg-sidebar/50 backdrop-blur-sm z-10">
           <div className="text-center">
             <h1 className="text-xl md:text-2xl font-bold bg-gradient-to-r from-emerald-400 to-teal-200 bg-clip-text text-transparent">
-              {t.assistant?.title || 'CropScan AI'}
+              {t.assistant?.title || 'AgroSarthi AI'}
             </h1>
             <p className="text-muted-foreground text-xs md:text-sm mt-1">{t.assistant?.subtitle || 'Your agricultural copilot'}</p>
           </div>

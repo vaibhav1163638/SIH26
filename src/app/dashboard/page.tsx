@@ -460,7 +460,6 @@ response:`, locationResult);
             { href: '/scan', icon: Camera, label: t.dashboard.scanNow, color: 'emerald' },
             { href: '/timeline', icon: Clock, label: t.dashboard.viewTimeline, color: 'blue' },
             { href: '/weather', icon: Cloud, label: t.dashboard.checkWeather, color: 'orange' },
-            { href: '/alerts', icon: Bell, label: t.dashboard.viewAlerts, color: 'red' },
           ].map((action) => (
             <Link
               key={action.href}

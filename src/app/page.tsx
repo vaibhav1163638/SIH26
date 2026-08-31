@@ -54,7 +54,7 @@ export default function LandingPage() {
               <Leaf size={18} className="text-primary" />{" "}
             </div>{" "}
             <span className="font-bold text-xl tracking-tight text-yellow-500">
-              CropScan
+              AgroSarthi
             </span>{" "}
           </Link>{" "}
           {/* Desktop Nav */}{" "}
@@ -180,11 +180,11 @@ export default function LandingPage() {
           loop
           playsInline
           preload="metadata"
-          poster="/images/cropscan-hero-poster.jpg"
+          poster="/images/agrosarthi-hero-poster.jpg"
           className="absolute inset-0 h-full w-full object-cover pointer-events-none motion-reduce:hidden z-0"
         >
           {" "}
-          <source src="/video/cropscan-hero.mp4" type="video/mp4" />{" "}
+          <source src="/video/agrosarthi-hero.mp4" type="video/mp4" />{" "}
         </video>{" "}
         {/* Theme-Aware Overlay Layer (z-10) */}{" "}
         {/* Dark mode: strong dark overlay. Light mode: bright translucent overlay. */}{" "}
@@ -568,7 +568,7 @@ export default function LandingPage() {
             {" "}
             <Leaf size={16} className="text-primary" />{" "}
             <span className="font-bold text-lg tracking-tight text-foreground">
-              CropScan.ai
+              AgroSarthi.ai
             </span>{" "}
           </div>{" "}
           <div className="text-xs text-muted-foreground">
