@@ -215,14 +215,14 @@ response:`, locationResult);
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold">{t.dashboard.title}</h1>
+          <h1 className="text-2xl font-bold">Crop Health Dashboard</h1>
           <p className="text-muted-foreground text-sm mt-1">
-            {user?.name || farm?.farmerName || 'Add your farm details'} • {farm?.location?.village || farm?.location?.district || farm?.location?.state || 'Location not set'}
+            {user?.name || farm?.farmerName || 'Add farm details'} • {farm?.location?.village || farm?.location?.district || farm?.location?.state || 'Location not set'}
           </p>
         </div>
         <div className="flex gap-3">
           <Link href="/scan" className="flex items-center gap-2 px-4 py-2 bg-emerald-600 hover:bg-emerald-500 rounded-xl text-sm font-medium transition-all">
-            <Camera size={16} /> {t.dashboard.scanNow}
+            <Camera size={16} /> Scan Now
           </Link>
         </div>
       </div>
@@ -252,20 +252,20 @@ response:`, locationResult);
       {locationDenied && farm && !farm.location?.state && (
         <div className="p-6 rounded-2xl bg-amber-900/20 border border-amber-500/30">
           <h2 className="text-lg font-bold text-amber-400 mb-2 flex items-center gap-2">
-            <AlertTriangle size={20} /> Location access was denied
+            <AlertTriangle size={20} /> Location Access Denied
           </h2>
-          <p className="text-amber-200/70 text-sm mb-4">Please enter your location manually to receive regional alerts and weather data.</p>
+          <p className="text-amber-200/70 text-sm mb-4">Please enter your state and district manually to receive accurate weather and disease warnings:</p>
           <div className="flex flex-col sm:flex-row gap-3">
             <input
               type="text"
-              placeholder="State (e.g. Haryana)"
+              placeholder="State (e.g. Maharashtra)"
               value={manualState}
               onChange={(e) => setManualState(e.target.value)}
               className="px-4 py-2 bg-black/40 border border-border rounded-xl focus:border-amber-500 outline-none"
             />
             <input
               type="text"
-              placeholder="District (e.g. Karnal)"
+              placeholder="District (e.g. Nashik)"
               value={manualDistrict}
               onChange={(e) => setManualDistrict(e.target.value)}
               className="px-4 py-2 bg-black/40 border border-border rounded-xl focus:border-amber-500 outline-none"
@@ -285,13 +285,13 @@ response:`, locationResult);
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {/* Health Score */}
         <div className="p-6 rounded-2xl bg-card border border-border">
-          <p className="text-sm text-muted-foreground mb-4">{t.dashboard.healthScore}</p>
+          <p className="text-sm text-muted-foreground mb-4">Health Score</p>
           <HealthGauge score={healthScore} />
         </div>
 
         {/* Crop Info */}
         <div className="p-6 rounded-2xl bg-card border border-border">
-          <p className="text-sm text-muted-foreground mb-3">{t.dashboard.growthStage}</p>
+          <p className="text-sm text-muted-foreground mb-3">Crop Information</p>
           <div className="space-y-3">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center">
@@ -304,11 +304,11 @@ response:`, locationResult);
             </div>
             <div className="grid grid-cols-2 gap-2 text-sm">
               <div className="p-2 rounded-lg bg-card">
-                <p className="text-muted-foreground text-xs">{t.dashboard.cropAge}</p>
-                <p className="font-semibold">{farm?.cropAge !== undefined ? farm.cropAge : '-'} {t.dashboard.days}</p>
+                <p className="text-muted-foreground text-xs">Crop Age</p>
+                <p className="font-semibold">{farm?.cropAge !== undefined ? farm.cropAge : '-'} days</p>
               </div>
               <div className="p-2 rounded-lg bg-card">
-                <p className="text-muted-foreground text-xs">{t.dashboard.growthStage}</p>
+                <p className="text-muted-foreground text-xs">Growth Stage</p>
                 <p className="font-semibold capitalize">{farm?.growthStage || 'Not set'}</p>
               </div>
             </div>
@@ -317,7 +317,7 @@ response:`, locationResult);
 
         {/* Disease Risk */}
         <div className="p-6 rounded-2xl bg-card border border-border">
-          <p className="text-sm text-muted-foreground mb-3">{t.dashboard.diseaseRisk}</p>
+          <p className="text-sm text-muted-foreground mb-3">Disease Risk</p>
           <div className="space-y-3">
             <div className="flex items-center justify-between">
               <span className="text-sm">Current</span>
@@ -329,7 +329,7 @@ response:`, locationResult);
             </div>
             {latestScan && (
               <div className="pt-2 border-t border-border">
-                <p className="text-xs text-muted-foreground">{t.dashboard.latestDiagnosis}</p>
+                <p className="text-xs text-muted-foreground">Latest Diagnosis</p>
                 <p className="text-sm font-medium mt-1">{latestScan.disease}</p>
                 <p className="text-xs text-muted-foreground">
                   {Math.round(latestScan.confidence * 100)}% confidence • {latestScan.severity}% severity
@@ -341,10 +341,9 @@ response:`, locationResult);
 
         {/* Weather */}
         <div className="p-6 rounded-2xl bg-card border border-border">
-          <p className="text-sm text-muted-foreground mb-3">{t.dashboard.weatherSummary}</p>
+          <p className="text-sm text-muted-foreground mb-3">Weather Summary</p>
           {weather ? (
             <div className="space-y-3">
-              {/* Demo weather notice removed */}
               <div className="flex items-center gap-3">
                 <Thermometer size={20} className="text-orange-400" />
                 <div>
@@ -377,7 +376,7 @@ response:`, locationResult);
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Recommended Action */}
         <div className="p-6 rounded-2xl bg-card border border-border">
-          <h3 className="text-sm font-medium text-muted-foreground mb-4">{t.dashboard.recommendedAction}</h3>
+          <h3 className="text-sm font-medium text-muted-foreground mb-4">Recommended Action</h3>
           {risk?.timing ? (
             <div className="space-y-4">
               <div className="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/20">
@@ -407,7 +406,7 @@ response:`, locationResult);
 
         {/* Recent Health Trend */}
         <div className="p-6 rounded-2xl bg-card border border-border">
-          <h3 className="text-sm font-medium text-muted-foreground mb-4">{t.dashboard.recentTrend}</h3>
+          <h3 className="text-sm font-medium text-muted-foreground mb-4">Recent Health Trend</h3>
           {scans.length > 0 ? (
             <div className="space-y-3">
               {scans.slice(0, 3).reverse().map((scan, i) => (
@@ -454,12 +453,12 @@ response:`, locationResult);
 
       {/* Quick Actions */}
       <div>
-        <h3 className="text-sm font-medium text-muted-foreground mb-4">{t.dashboard.quickActions}</h3>
+        <h3 className="text-sm font-medium text-muted-foreground mb-4">Quick Actions</h3>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {[
-            { href: '/scan', icon: Camera, label: t.dashboard.scanNow, color: 'emerald' },
-            { href: '/timeline', icon: Clock, label: t.dashboard.viewTimeline, color: 'blue' },
-            { href: '/weather', icon: Cloud, label: t.dashboard.checkWeather, color: 'orange' },
+            { href: '/scan', icon: Camera, label: 'Scan Now', color: 'emerald' },
+            { href: '/timeline', icon: Clock, label: 'View Timeline', color: 'blue' },
+            { href: '/weather', icon: Cloud, label: 'Check Weather', color: 'orange' },
           ].map((action) => (
             <Link
               key={action.href}

@@ -101,7 +101,7 @@ export default function DiagnosisPage() {
       {/* Header */}
       <div className="flex items-start justify-between">
         <div>
-          <h1 className="text-2xl font-bold">{t.diagnosis.title}</h1>
+          <h1 className="text-2xl font-bold">Diagnosis Report</h1>
           <p className="text-muted-foreground text-sm mt-1">{new Date(scan.scanDate).toLocaleString()}</p>
         </div>
         <RiskBadge level={scan.riskLevel} />
@@ -110,7 +110,7 @@ export default function DiagnosisPage() {
       {/* Demo notice */}
       {scan.isDemo && (
         <div className="flex items-center gap-2 p-3 rounded-xl bg-blue-500/10 border border-blue-500/20 text-sm text-blue-400">
-          <Leaf size={16} /> {t.diagnosis.demoNotice}
+          <Leaf size={16} /> This diagnosis was generated using prototype image analysis
         </div>
       )}
 
@@ -118,15 +118,15 @@ export default function DiagnosisPage() {
       <div className="p-6 rounded-2xl bg-card border border-border space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="space-y-1">
-            <p className="text-sm text-muted-foreground">{t.diagnosis.disease}</p>
+            <p className="text-sm text-muted-foreground">Detected Disease</p>
             <p className="text-xl font-bold">{scan.disease}</p>
           </div>
           <div className="space-y-1">
-            <p className="text-sm text-muted-foreground">{t.diagnosis.confidence}</p>
+            <p className="text-sm text-muted-foreground">AI Confidence</p>
             <p className="text-xl font-bold text-primary">{Math.round(scan.confidence * 100)}%</p>
           </div>
           <div className="space-y-1">
-            <p className="text-sm text-muted-foreground">{t.diagnosis.affectedArea}</p>
+            <p className="text-sm text-muted-foreground">Affected Leaf Area</p>
             <p className="text-xl font-bold">{Math.round(scan.affectedArea)}%</p>
           </div>
         </div>
@@ -134,7 +134,7 @@ export default function DiagnosisPage() {
         <SeverityBar severity={scan.severity} />
 
         <div>
-          <p className="text-sm text-muted-foreground mb-2">{t.diagnosis.explanation}</p>
+          <p className="text-sm text-muted-foreground mb-2">Explanation & Symptoms</p>
           <p className="text-sm leading-relaxed">{scan.explanation}</p>
         </div>
       </div>
@@ -162,7 +162,7 @@ export default function DiagnosisPage() {
               <Activity size={20} className="text-cyan-400" />
               <div>
                 <p className="text-sm font-semibold">{scan.weatherContext.rainProbability}%</p>
-                <p className="text-xs text-muted-foreground">Rain Probability</p>
+                <p className="text-xs text-muted-foreground">Rain</p>
               </div>
             </div>
             <div className="flex items-center gap-3">
@@ -180,7 +180,7 @@ export default function DiagnosisPage() {
       {risk?.timing && (
         <div className="p-6 rounded-2xl bg-emerald-500/5 border border-emerald-500/20">
           <h3 className="text-sm font-medium text-primary mb-4 flex items-center gap-2">
-            <Clock size={16} /> {t.risk.treatmentTiming}
+            <Clock size={16} /> Optimal Treatment Window
           </h3>
           <div className="flex items-center gap-4 mb-3">
             <div className="text-2xl font-bold">{risk.timing.windowDay}</div>
@@ -193,12 +193,12 @@ export default function DiagnosisPage() {
       {/* Treatment Plan */}
       {scan.treatment && (
         <div className="p-6 rounded-2xl bg-card border border-border space-y-6">
-          <h3 className="text-lg font-semibold">{t.diagnosis.treatment}</h3>
+          <h3 className="text-lg font-semibold">Recommended Treatment Plan</h3>
 
           {scan.treatment.immediate?.length > 0 && (
             <div>
               <h4 className="text-sm font-medium text-red-400 flex items-center gap-2 mb-3">
-                <AlertTriangle size={16} /> {t.diagnosis.immediate}
+                <AlertTriangle size={16} /> Immediate Actions
               </h4>
               <ul className="space-y-2">
                 {scan.treatment.immediate.map((item, i) => (
@@ -214,7 +214,7 @@ export default function DiagnosisPage() {
           {scan.treatment.organic?.length > 0 && (
             <div>
               <h4 className="text-sm font-medium text-primary flex items-center gap-2 mb-3">
-                <Leaf size={16} /> {t.diagnosis.organic}
+                <Leaf size={16} /> Organic Treatment
               </h4>
               <ul className="space-y-2">
                 {scan.treatment.organic.map((item, i) => (
@@ -230,7 +230,7 @@ export default function DiagnosisPage() {
           {scan.treatment.chemical?.length > 0 && (
             <div>
               <h4 className="text-sm font-medium text-amber-400 flex items-center gap-2 mb-3">
-                <Bug size={16} /> {t.diagnosis.chemical}
+                <Bug size={16} /> Chemical Treatment
               </h4>
               <ul className="space-y-2">
                 {scan.treatment.chemical.map((item, i) => (
@@ -246,7 +246,7 @@ export default function DiagnosisPage() {
           {scan.treatment.prevention?.length > 0 && (
             <div>
               <h4 className="text-sm font-medium text-blue-400 flex items-center gap-2 mb-3">
-                <Shield size={16} /> {t.diagnosis.prevention}
+                <Shield size={16} /> Long-term Prevention
               </h4>
               <ul className="space-y-2">
                 {scan.treatment.prevention.map((item, i) => (
@@ -262,7 +262,7 @@ export default function DiagnosisPage() {
           {scan.treatment.avoid?.length > 0 && (
             <div>
               <h4 className="text-sm font-medium text-muted-foreground flex items-center gap-2 mb-3">
-                <XCircle size={16} /> {t.diagnosis.avoid}
+                <XCircle size={16} /> What to Avoid
               </h4>
               <ul className="space-y-2">
                 {scan.treatment.avoid.map((item, i) => (

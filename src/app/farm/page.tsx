@@ -127,7 +127,7 @@ export default function FarmPage() {
           className="flex items-center gap-2 px-5 py-2.5 bg-emerald-600 hover:bg-emerald-500 disabled:bg-emerald-800 rounded-xl text-sm font-medium transition-all"
         >
           {saving ? <Loader2 size={16} className="animate-spin" /> : saved ? <CheckCircle size={16} /> : <Save size={16} />}
-          {saving ? t.farm.saving : saved ? 'Saved!' : t.farm.save}
+          {saving ? 'Saving...' : saved ? 'Saved!' : 'Save Changes'}
         </button>
       </div>
 
@@ -165,11 +165,10 @@ export default function FarmPage() {
             )}
             <div>
               <h4 className="font-medium text-lg">{user?.name || farm.farmerName || 'Farmer'}</h4>
-
             </div>
           </div>
           <div className="flex-1">
-            <label className="block text-sm text-muted-foreground mb-1.5">{t.farm.location}</label>
+            <label className="block text-sm text-muted-foreground mb-1.5">Location</label>
             <div className="flex gap-2">
               <input
                 type="text"
@@ -199,7 +198,7 @@ export default function FarmPage() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           <div>
-            <label className="block text-sm text-muted-foreground mb-1.5">{t.farm.crop}</label>
+            <label className="block text-sm text-muted-foreground mb-1.5">Crop</label>
             <input
               type="text"
               value={farm.crop}
@@ -208,7 +207,7 @@ export default function FarmPage() {
             />
           </div>
           <div>
-            <label className="block text-sm text-muted-foreground mb-1.5">{t.farm.variety}</label>
+            <label className="block text-sm text-muted-foreground mb-1.5">Variety</label>
             <input
               type="text"
               value={farm.cropVariety}
@@ -217,7 +216,7 @@ export default function FarmPage() {
             />
           </div>
           <div>
-            <label className="block text-sm text-muted-foreground mb-1.5">{t.farm.area}</label>
+            <label className="block text-sm text-muted-foreground mb-1.5">Farm Area</label>
             <div className="flex gap-2">
               <input
                 type="number"
@@ -229,7 +228,7 @@ export default function FarmPage() {
             </div>
           </div>
           <div>
-            <label className="block text-sm text-muted-foreground mb-1.5">{t.farm.plantingDate}</label>
+            <label className="block text-sm text-muted-foreground mb-1.5">Planting Date</label>
             <input
               type="date"
               value={farm.plantingDate ? new Date(farm.plantingDate).toISOString().split('T')[0] : ''}
@@ -238,7 +237,7 @@ export default function FarmPage() {
             />
           </div>
           <div>
-            <label className="block text-sm text-muted-foreground mb-1.5">{t.farm.growthStage}</label>
+            <label className="block text-sm text-muted-foreground mb-1.5">Growth Stage</label>
             <select
               value={farm.growthStage}
               onChange={(e) => updateField('growthStage', e.target.value)}
@@ -253,7 +252,7 @@ export default function FarmPage() {
             </select>
           </div>
           <div>
-            <label className="block text-sm text-muted-foreground mb-1.5">{t.farm.irrigation}</label>
+            <label className="block text-sm text-muted-foreground mb-1.5">Irrigation Method</label>
             <select
               value={farm.irrigationMethod}
               onChange={(e) => updateField('irrigationMethod', e.target.value)}
@@ -276,7 +275,7 @@ export default function FarmPage() {
           <h3 className="font-semibold">Disease & Treatment History</h3>
         </div>
         <div>
-          <label className="block text-sm text-muted-foreground mb-1.5">{t.farm.previousDiseases}</label>
+          <label className="block text-sm text-muted-foreground mb-1.5">Previous Diseases</label>
           <div className="flex flex-wrap gap-2">
             {farm.previousDiseases?.map((d, i) => (
               <span key={i} className="px-3 py-1.5 rounded-lg bg-amber-500/10 text-amber-400 text-sm border border-amber-500/20">
@@ -286,7 +285,7 @@ export default function FarmPage() {
           </div>
         </div>
         <div>
-          <label className="block text-sm text-muted-foreground mb-1.5">{t.farm.previousTreatments}</label>
+          <label className="block text-sm text-muted-foreground mb-1.5">Previous Treatments</label>
           <div className="flex flex-wrap gap-2">
             {farm.previousTreatments?.map((t2, i) => (
               <span key={i} className="px-3 py-1.5 rounded-lg bg-emerald-500/10 text-primary text-sm border border-emerald-500/20">

@@ -2,19 +2,27 @@
 
 import { createContext, useContext, useState, useEffect, useCallback, type ReactNode } from 'react';
 import { usePathname } from 'next/navigation';
-import { translations, type Language, type TranslationKeys } from '@/lib/i18n';
+import { type Language } from '@/lib/i18n';
 import { api } from '@/lib/api';
+
+export type { Language };
 
 interface LanguageContextType {
   language: Language;
   setLanguage: (lang: Language) => void;
-  t: TranslationKeys;
+  t?: any;
 }
+
+const emptyTranslationProxy: any = new Proxy({}, {
+  get: () => new Proxy({}, {
+    get: (_target, prop) => String(prop),
+  }),
+});
 
 const LanguageContext = createContext<LanguageContextType>({
   language: 'en',
   setLanguage: () => {},
-  t: translations.en,
+  t: emptyTranslationProxy,
 });
 
 declare global {
@@ -52,7 +60,6 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     };
 
     if (!applyToCombo()) {
-      // Retry in intervals if Google script is still initializing
       let attempts = 0;
       const interval = setInterval(() => {
         attempts++;
@@ -64,12 +71,10 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   }, []);
 
   useEffect(() => {
-    // 1. Check local storage
     const saved = localStorage.getItem('agrosarthi-lang') as Language | null;
     const initialLang: Language = (saved === 'en' || saved === 'hi') ? saved : 'en';
     setLanguageState(initialLang);
 
-    // 2. Initialize Google Translate Script
     if (typeof window !== 'undefined') {
       window.googleTranslateElementInit = () => {
         try {
@@ -103,7 +108,6 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
       }
     }
 
-    // 3. Sync from backend user preferences if available
     api.getLanguage()
       .then(data => {
         if (data && (data.language === 'en' || data.language === 'hi')) {
@@ -131,15 +135,11 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
       localStorage.setItem('agrosarthi-lang', lang);
       triggerGoogleTranslation(lang);
     }
-    // Update backend asynchronously
     api.updateLanguage(lang).catch(err => console.error('Failed to update language on backend:', err));
   }, [triggerGoogleTranslation]);
 
-  const t = translations[language] || translations.en;
-
   return (
-    <LanguageContext.Provider value={{ language, setLanguage, t }}>
-      {/* Hidden container for Google Translate Engine */}
+    <LanguageContext.Provider value={{ language, setLanguage, t: emptyTranslationProxy }}>
       <div id="google_translate_element" style={{ display: 'none', position: 'absolute', top: '-9999px' }} />
       {children}
     </LanguageContext.Provider>

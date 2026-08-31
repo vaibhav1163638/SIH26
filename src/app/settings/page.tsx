@@ -7,7 +7,7 @@ import { useLanguage } from '@/components/LanguageProvider';
 import { Settings as SettingsIcon, Globe, Bell, Moon, Sun, Monitor, Leaf } from 'lucide-react';
 
 export default function SettingsPage() {
-  const { t, language, setLanguage } = useLanguage();
+  const { language, setLanguage } = useLanguage();
   const { theme, setTheme } = useTheme();
   const [initialLoad, setInitialLoad] = useState(true);
 
@@ -34,8 +34,8 @@ export default function SettingsPage() {
   return (
     <div className="p-6 lg:p-8 max-w-3xl mx-auto space-y-8">
       <div>
-        <h1 className="text-2xl font-bold">{t.settings.title}</h1>
-        <p className="text-muted-foreground text-sm mt-1">{t.settings.subtitle}</p>
+        <h1 className="text-2xl font-bold">Settings</h1>
+        <p className="text-muted-foreground text-sm mt-1">Manage your application preferences</p>
       </div>
 
       <div className="space-y-6">
@@ -43,7 +43,7 @@ export default function SettingsPage() {
         <div className="p-6 rounded-2xl bg-card border border-border">
           <div className="flex items-center gap-3 mb-6">
             <Globe size={20} className="text-primary" />
-            <h2 className="text-lg font-semibold">{t.settings.language}</h2>
+            <h2 className="text-lg font-semibold">Language</h2>
           </div>
           <div className="grid grid-cols-2 gap-4">
             <button
@@ -54,8 +54,8 @@ export default function SettingsPage() {
                   : 'bg-card border-border text-muted-foreground hover:border-emerald-500/30'
               }`}
             >
-              <div className="text-lg font-medium mb-1">{t.settings.english}</div>
-              <div className="text-xs opacity-60">{t.settings.systemDefault}</div>
+              <div className="text-lg font-medium mb-1">English</div>
+              <div className="text-xs opacity-60">System Default</div>
             </button>
             <button
               onClick={() => setLanguage('hi')}
@@ -65,8 +65,8 @@ export default function SettingsPage() {
                   : 'bg-card border-border text-muted-foreground hover:border-emerald-500/30'
               }`}
             >
-              <div className="text-lg font-medium mb-1">{t.settings.hindi}</div>
-              <div className="text-xs opacity-60">{t.settings.hindi}</div>
+              <div className="text-lg font-medium mb-1">हिंदी</div>
+              <div className="text-xs opacity-60">Hindi</div>
             </button>
           </div>
         </div>
@@ -75,13 +75,13 @@ export default function SettingsPage() {
         <div className="p-6 rounded-2xl bg-card border border-border">
           <div className="flex items-center gap-3 mb-6">
             <Bell size={20} className="text-primary" />
-            <h2 className="text-lg font-semibold">{t.settings.notifications}</h2>
+            <h2 className="text-lg font-semibold">Notifications</h2>
           </div>
           <div className="space-y-4">
             {[
-              { id: 'disease', label: t.settings.diseaseAlerts, desc: t.settings.diseaseAlertsDesc },
-              { id: 'weather', label: t.settings.weatherWarnings, desc: t.settings.weatherWarningsDesc },
-              { id: 'treatment', label: t.settings.treatmentReminders, desc: t.settings.treatmentRemindersDesc },
+              { id: 'disease', label: 'Disease Alerts', desc: 'Get notified when high risk is detected' },
+              { id: 'weather', label: 'Weather Warnings', desc: 'Extreme weather alerts in your region' },
+              { id: 'treatment', label: 'Treatment Reminders', desc: 'When it is time to apply treatment' },
             ].map((item) => (
               <div key={item.id} className="flex items-center justify-between p-4 rounded-xl bg-card border border-border">
                 <div>
@@ -101,7 +101,7 @@ export default function SettingsPage() {
         <div className="p-6 rounded-2xl bg-card border border-border">
           <div className="flex items-center gap-3 mb-6">
             <SettingsIcon size={20} className="text-primary" />
-            <h2 className="text-lg font-semibold">{t.settings.theme}</h2>
+            <h2 className="text-lg font-semibold">Theme</h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <button
@@ -113,7 +113,7 @@ export default function SettingsPage() {
               }
             >
               <Sun size={24} />
-              <span className="text-sm font-medium">{t.settings.light}</span>
+              <span className="text-sm font-medium">Light</span>
             </button>
             <button
               onClick={() => handleThemeChange('dark')}
@@ -124,7 +124,7 @@ export default function SettingsPage() {
               }
             >
               <Moon size={24} />
-              <span className="text-sm font-medium">{t.settings.dark}</span>
+              <span className="text-sm font-medium">Dark</span>
             </button>
             <button
               onClick={() => handleThemeChange('system')}
@@ -135,12 +135,12 @@ export default function SettingsPage() {
               }`}
             >
               <Monitor size={24} />
-              <span className="text-sm font-medium">{t.settings.system}</span>
+              <span className="text-sm font-medium">System</span>
             </button>
           </div>
           {initialLoad ? null : (
             <p className="text-xs text-muted-foreground text-center mt-4">
-              {t.settings.currentTheme}: {theme === 'dark' ? t.settings.dark : theme === 'light' ? t.settings.light : t.settings.system}
+              Current theme: {theme}
             </p>
           )}
         </div>
@@ -149,7 +149,7 @@ export default function SettingsPage() {
       <div className="text-center pb-8">
         <span className="inline-flex items-center gap-2 text-xs text-muted-foreground bg-card px-4 py-2 rounded-full">
           <Leaf size={12} />
-          {t.common.prototypeNotice}
+          SIH 2026 Prototype — Problem Statement 131
         </span>
       </div>
     </div>

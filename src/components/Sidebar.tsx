@@ -95,7 +95,7 @@ export default function Sidebar() {
                   }`}
               >
                 <Icon size={20} className={isActive ? 'text-primary' : ''} />
-                <span>{t.nav[item.key.toLowerCase() as keyof typeof t.nav]}</span>
+                <span>{item.key}</span>
               </Link>
             );
           })}
@@ -116,7 +116,7 @@ export default function Sidebar() {
             className="flex items-center gap-3 w-full px-4 py-3 rounded-xl text-sm font-medium text-red-300 hover:bg-red-500/20 hover:text-red-200 transition-all"
           >
             <User size={20} />
-            <span>{language === 'en' ? 'Logout' : 'लॉग आउट'}</span>
+            <span>Logout</span>
           </button>
 
           <div className="mt-4 px-4 text-xs text-sidebar-foreground/50">

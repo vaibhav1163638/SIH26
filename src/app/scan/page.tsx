@@ -144,8 +144,8 @@ export default function ScanPage() {
     <div className="p-6 lg:p-8 max-w-4xl mx-auto space-y-8">
       {/* Header */}
       <div>
-        <h1 className="text-2xl font-bold">{t.scan.title}</h1>
-        <p className="text-muted-foreground text-sm mt-1">{t.scan.subtitle}</p>
+        <h1 className="text-2xl font-bold">Crop Disease Scanner</h1>
+        <p className="text-muted-foreground text-sm mt-1">Upload a photo of your crop leaf for AI diagnosis and weather-aware treatment</p>
       </div>
 
       {/* Upload Zone */}
@@ -184,8 +184,8 @@ export default function ScanPage() {
             <div className="w-16 h-16 bg-emerald-500/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
               <Upload size={32} className="text-primary" />
             </div>
-            <p className="text-lg font-medium mb-2">{t.scan.dragDrop}</p>
-            <p className="text-sm text-muted-foreground">{t.scan.supportedFormats}</p>
+            <p className="text-lg font-medium mb-2">Drag and drop your crop leaf image here</p>
+            <p className="text-sm text-muted-foreground">Supports JPG, PNG, WebP up to 10MB</p>
           </div>
         )}
 
@@ -219,12 +219,12 @@ export default function ScanPage() {
           {isAnalyzing ? (
             <>
               <Loader2 size={24} className="animate-spin" />
-              {t.scan.analyzing}
+              Analyzing with AI...
             </>
           ) : (
             <>
               <Camera size={24} />
-              {t.scan.analyze}
+              Analyze Crop Health
             </>
           )}
         </button>
@@ -233,8 +233,8 @@ export default function ScanPage() {
       {/* Demo Images */}
       <div className="space-y-4">
         <div>
-          <h2 className="text-lg font-semibold">{t.scan.demoImages}</h2>
-          <p className="text-sm text-muted-foreground mt-1">{t.scan.demoImagesDesc}</p>
+          <h2 className="text-lg font-semibold">Try Demo Images</h2>
+          <p className="text-sm text-muted-foreground mt-1">Select a sample image to test the diagnosis pipeline</p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {DEMO_IMAGES.map((img, i) => (

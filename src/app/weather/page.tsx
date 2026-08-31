@@ -72,7 +72,7 @@ export default function WeatherPage() {
     <div className="p-6 lg:p-8 max-w-5xl mx-auto space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold">{t.weather.title}</h1>
+          <h1 className="text-2xl font-bold">Weather Intelligence</h1>
           <p className="text-muted-foreground text-sm mt-1">
             {farm?.location?.village || farm?.location?.district || farm?.location?.state || 'Location not set'}
           </p>
@@ -82,7 +82,7 @@ export default function WeatherPage() {
 
       {/* Current Weather */}
       <div className="p-6 rounded-2xl bg-gradient-to-br from-blue-900/20 to-cyan-900/20 border border-blue-500/10">
-        <h3 className="text-sm text-muted-foreground mb-4">{t.weather.current}</h3>
+        <h3 className="text-sm text-muted-foreground mb-4">Current Weather</h3>
         <div className="flex flex-col md:flex-row items-start md:items-center gap-6">
           <div className="flex items-center gap-4">
             <div className="text-6xl font-light">{weather.current.temperature}°</div>
@@ -96,14 +96,14 @@ export default function WeatherPage() {
               <Droplets size={20} className="text-blue-400" />
               <div>
                 <p className="text-sm font-semibold">{weather.current.humidity}%</p>
-                <p className="text-xs text-muted-foreground">{t.weather.humidity}</p>
+                <p className="text-xs text-muted-foreground">Humidity</p>
               </div>
             </div>
             <div className="flex items-center gap-3 p-3 rounded-xl bg-card">
               <CloudRain size={20} className="text-cyan-400" />
               <div>
                 <p className="text-sm font-semibold">{weather.current.rainProbability}%</p>
-                <p className="text-xs text-muted-foreground">{t.weather.rain}</p>
+                <p className="text-xs text-muted-foreground">Rain</p>
               </div>
             </div>
             <div className="flex items-center gap-3 p-3 rounded-xl bg-card">
@@ -117,7 +117,7 @@ export default function WeatherPage() {
               <Sun size={20} className="text-amber-400" />
               <div>
                 <p className="text-sm font-semibold">{weather.current.uvIndex}</p>
-                <p className="text-xs text-muted-foreground">{t.weather.uvIndex}</p>
+                <p className="text-xs text-muted-foreground">UV Index</p>
               </div>
             </div>
           </div>
@@ -127,7 +127,7 @@ export default function WeatherPage() {
       {/* Weather Risk */}
       <div className="p-6 rounded-2xl bg-card border border-border">
         <div className="flex items-center justify-between mb-4">
-          <h3 className="text-sm font-medium text-muted-foreground">{t.weather.weatherRisk}</h3>
+          <h3 className="text-sm font-medium text-muted-foreground">Weather Risk</h3>
           <RiskBadge level={weather.weatherRisk.level} />
         </div>
         <div className="w-full h-3 bg-accent rounded-full mb-3 overflow-hidden">
@@ -146,7 +146,7 @@ export default function WeatherPage() {
 
       {/* 5-Day Forecast */}
       <div className="p-6 rounded-2xl bg-card border border-border">
-        <h3 className="text-sm font-medium text-muted-foreground mb-6">{t.weather.forecast}</h3>
+        <h3 className="text-sm font-medium text-muted-foreground mb-6">5-Day Forecast</h3>
         <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-6">
           {weather.forecast.map((day) => (
             <div key={day.date} className="p-4 rounded-xl bg-card text-center">

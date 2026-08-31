@@ -14,9 +14,9 @@ type AlertType = 'disease' | 'weather' | 'health';
 interface Alert {
   id: number;
   type: AlertType;
-  titleKey: string;
-  messageKey: string;
-  timeKey: string;
+  title: string;
+  message: string;
+  time: string;
   unread: boolean;
 }
 
@@ -24,25 +24,25 @@ const INITIAL_ALERTS: Alert[] = [
   {
     id: 1,
     type: "disease",
-    titleKey: "highDiseaseRiskTitle",
-    messageKey: "highDiseaseRiskMsg",
-    timeKey: "time10m",
+    title: "High Disease Risk",
+    message: "Late blight risk is elevated for your crop.",
+    time: "10 min ago",
     unread: true
   },
   {
     id: 2,
     type: "weather",
-    titleKey: "weatherWarningTitle",
-    messageKey: "weatherWarningMsg",
-    timeKey: "time1h",
+    title: "Weather Warning",
+    message: "Rain is expected in the next 24 hours.",
+    time: "1 hour ago",
     unread: true
   },
   {
     id: 3,
     type: "health",
-    titleKey: "healthStableTitle",
-    messageKey: "healthStableMsg",
-    timeKey: "timeYesterday",
+    title: "Crop Health Stable",
+    message: "No new crop health issues detected.",
+    time: "Yesterday",
     unread: false
   }
 ];
@@ -58,7 +58,7 @@ function getAlertIcon(type: AlertType) {
 
 export default function TopNavbar() {
   const pathname = usePathname();
-  const { t, language, setLanguage } = useLanguage();
+  const { language, setLanguage } = useLanguage();
 
   const [alerts, setAlerts] = useState<Alert[]>(INITIAL_ALERTS);
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -119,7 +119,6 @@ export default function TopNavbar() {
         {navItems.map((item: NavItem) => {
           const Icon = item.icon;
           const active = isActive(item.href);
-          const navLabel = t.nav[item.key.toLowerCase() as keyof typeof t.nav] || item.key;
           return (
             <motion.li
               key={item.href}
@@ -133,7 +132,7 @@ export default function TopNavbar() {
                   }`}
               >
                 <Icon size={18} className={active ? 'text-primary' : ''} />
-                <span className="text-sm">{navLabel}</span>
+                <span className="text-sm">{item.key}</span>
               </Link>
             </motion.li>
           );
@@ -164,13 +163,13 @@ export default function TopNavbar() {
                 className="absolute right-0 mt-2 w-[350px] max-w-[calc(100vw-24px)] rounded-xl border border-border bg-card shadow-lg backdrop-blur z-50 overflow-hidden"
               >
                 <div className="flex items-center justify-between px-4 py-3 border-b border-border bg-muted/5">
-                  <span className="font-semibold text-sm text-foreground">{t.notificationsModal?.title || 'Notifications'}</span>
+                  <span className="font-semibold text-sm text-foreground">Notifications</span>
                   {unreadCount > 0 && (
                     <button
                       onClick={markAllAsRead}
                       className="text-xs text-primary hover:underline"
                     >
-                      {t.notificationsModal?.markAllRead || 'Mark all as read'}
+                      Mark all as read
                     </button>
                   )}
                 </div>
@@ -181,42 +180,37 @@ export default function TopNavbar() {
                       <div className="w-12 h-12 bg-muted/20 rounded-full flex items-center justify-center mb-3">
                         <Bell size={20} className="text-muted-foreground" />
                       </div>
-                      <p className="font-medium text-foreground">{t.notificationsModal?.allCaughtUp || "You're all caught up"}</p>
-                      <p className="text-xs text-muted-foreground mt-1">{t.notificationsModal?.noNewNotifications || 'No new notifications.'}</p>
+                      <p className="font-medium text-foreground">You're all caught up</p>
+                      <p className="text-xs text-muted-foreground mt-1">No new notifications.</p>
                     </div>
                   ) : (
                     <div className="flex flex-col">
-                      {alerts.map((alert) => {
-                        const title = (t.notificationsModal as any)?.[alert.titleKey] || alert.titleKey;
-                        const message = (t.notificationsModal as any)?.[alert.messageKey] || alert.messageKey;
-                        const time = (t.notificationsModal as any)?.[alert.timeKey] || alert.timeKey;
-                        return (
-                          <div
-                            key={alert.id}
-                            className={`flex gap-3 p-4 border-b border-border/50 last:border-0 hover:bg-muted/5 transition-colors cursor-pointer ${alert.unread ? 'bg-primary/5' : ''}`}
-                          >
-                            <div className="flex-shrink-0 mt-0.5">
-                              {getAlertIcon(alert.type)}
-                            </div>
-                            <div className="flex-1 space-y-1 min-w-0">
-                              <p className={`text-sm font-medium ${alert.unread ? 'text-foreground' : 'text-muted-foreground'}`}>
-                                {title}
-                              </p>
-                              <p className="text-xs text-muted-foreground leading-relaxed">
-                                {message}
-                              </p>
-                              <p className="text-[10px] text-muted-foreground/80 mt-2">
-                                {time}
-                              </p>
-                            </div>
-                            {alert.unread && (
-                              <div className="flex-shrink-0">
-                                <span className="block w-2 h-2 rounded-full bg-primary mt-1.5" />
-                              </div>
-                            )}
+                      {alerts.map((alert) => (
+                        <div
+                          key={alert.id}
+                          className={`flex gap-3 p-4 border-b border-border/50 last:border-0 hover:bg-muted/5 transition-colors cursor-pointer ${alert.unread ? 'bg-primary/5' : ''}`}
+                        >
+                          <div className="flex-shrink-0 mt-0.5">
+                            {getAlertIcon(alert.type)}
                           </div>
-                        );
-                      })}
+                          <div className="flex-1 space-y-1 min-w-0">
+                            <p className={`text-sm font-medium ${alert.unread ? 'text-foreground' : 'text-muted-foreground'}`}>
+                              {alert.title}
+                            </p>
+                            <p className="text-xs text-muted-foreground leading-relaxed">
+                              {alert.message}
+                            </p>
+                            <p className="text-[10px] text-muted-foreground/80 mt-2">
+                              {alert.time}
+                            </p>
+                          </div>
+                          {alert.unread && (
+                            <div className="flex-shrink-0">
+                              <span className="block w-2 h-2 rounded-full bg-primary mt-1.5" />
+                            </div>
+                          )}
+                        </div>
+                      ))}
                     </div>
                   )}
                 </div>
@@ -237,7 +231,7 @@ export default function TopNavbar() {
           className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-sm text-red-400 hover:bg-red-500/10 hover:text-red-300 transition-colors"
         >
           <User size={16} />
-          <span>{t.nav.logout}</span>
+          <span>Logout</span>
         </button>
       </div>
     </nav>
