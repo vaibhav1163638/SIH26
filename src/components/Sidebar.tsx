@@ -18,6 +18,7 @@ import {
   X,
   Globe,
   Home,
+  Landmark,
 } from 'lucide-react';
 import { useState } from 'react';
 
@@ -28,6 +29,7 @@ export const navItems = [
   { href: '/timeline', icon: Clock, key: 'Timeline' as const },
   { href: '/weather', icon: Cloud, key: 'Weather' as const },
   { href: '/assistant', icon: MessageCircle, key: 'Assistant' as const },
+  { href: '/schemes', icon: Landmark, key: 'Schemes' as const },
   { href: '/settings', icon: Settings, key: 'Settings' as const },
 ];
 

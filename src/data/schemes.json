@@ -1,0 +1,153 @@
+[
+  {
+    "id": "pm-kisan",
+    "name": "PM-KISAN (Pradhan Mantri Kisan Samman Nidhi)",
+    "shortDescription": "Income support scheme of ₹6,000 per year for all landholding farmer families.",
+    "description": "PM-KISAN is a central sector scheme that aims to provide income support to all landholding farmer families across the country. Under this scheme, an amount of ₹6,000 per year is released in three equal installments of ₹2,000 each directly into the bank accounts of the beneficiaries.",
+    "category": "Financial Assistance",
+    "benefits": [
+      "Direct income support of ₹6,000 per year",
+      "Transferred in 3 equal installments",
+      "Direct Benefit Transfer (DBT) to bank account"
+    ],
+    "eligibility": [
+      "All landholding farmer families with cultivable landholding in their names",
+      "Must have a valid Aadhaar card",
+      "Certain categories of higher economic status are excluded"
+    ],
+    "documents": [
+      "Aadhaar Card",
+      "Bank Account Details",
+      "Land Ownership Records",
+      "Voter ID / Ration Card"
+    ],
+    "state": "Central",
+    "officialWebsite": "https://pmkisan.gov.in/",
+    "tags": ["income", "financial", "central", "dbt", "cash"]
+  },
+  {
+    "id": "pmfby",
+    "name": "PMFBY (Pradhan Mantri Fasal Bima Yojana)",
+    "shortDescription": "Crop insurance scheme to provide financial support in case of crop failure.",
+    "description": "The Pradhan Mantri Fasal Bima Yojana provides comprehensive crop insurance from pre-sowing to post-harvest period against non-preventable natural risks at an extremely low premium rate for farmers.",
+    "category": "Insurance",
+    "benefits": [
+      "Comprehensive insurance cover against crop failure",
+      "Low premium: 2% for Kharif, 1.5% for Rabi, 5% for commercial/horticultural crops",
+      "Use of technology (smartphones, drones) for quick assessment"
+    ],
+    "eligibility": [
+      "All farmers growing notified crops in notified areas",
+      "Both loanee and non-loanee farmers (voluntary)"
+    ],
+    "documents": [
+      "Aadhaar Card",
+      "Bank Account Details",
+      "Land Records / Tenancy Agreement",
+      "Sowing Certificate"
+    ],
+    "state": "Central",
+    "officialWebsite": "https://pmfby.gov.in/",
+    "tags": ["insurance", "crop failure", "protection", "central"]
+  },
+  {
+    "id": "kcc",
+    "name": "Kisan Credit Card (KCC)",
+    "shortDescription": "Provides adequate and timely credit support from the banking system.",
+    "description": "The KCC scheme aims at providing adequate and timely credit support to farmers for their cultivation and other needs, including agriculture inputs and working capital requirements for allied activities.",
+    "category": "Credit",
+    "benefits": [
+      "Flexible limit based on cropping pattern and land area",
+      "Interest subvention for prompt repayment",
+      "Simplified loan procedures",
+      "ATM-enabled RuPay debit card"
+    ],
+    "eligibility": [
+      "Individual farmers/joint borrowers who are owner cultivators",
+      "Tenant farmers, oral lessees, and sharecroppers",
+      "Self Help Groups (SHGs) or Joint Liability Groups (JLGs) of farmers"
+    ],
+    "documents": [
+      "Aadhaar Card",
+      "PAN Card (if applicable)",
+      "Land Records",
+      "Passport size photographs"
+    ],
+    "state": "Central",
+    "officialWebsite": "https://www.myscheme.gov.in/schemes/kcc",
+    "tags": ["credit", "loan", "capital", "central"]
+  },
+  {
+    "id": "pkvy",
+    "name": "Paramparagat Krishi Vikas Yojana (PKVY)",
+    "shortDescription": "Promotes organic farming through a cluster approach.",
+    "description": "PKVY is a traditional farming improvement program that promotes organic farming through a cluster approach and PGS (Participatory Guarantee System) certification. It aims to increase domestic production and certification of organic produce by involving farmers.",
+    "category": "Agriculture",
+    "benefits": [
+      "Financial assistance of ₹50,000 per hectare for 3 years",
+      "Support for organic inputs (seeds, bio-fertilizers, bio-pesticides)",
+      "Assistance for capacity building and certification"
+    ],
+    "eligibility": [
+      "Groups of farmers (minimum 50 or more)",
+      "Must form a cluster having 50 acres or 20 hectares in a continuous patch"
+    ],
+    "documents": [
+      "Aadhaar Card",
+      "Bank Account Details",
+      "Land Records"
+    ],
+    "state": "Central",
+    "officialWebsite": "https://pgsindia-ncof.gov.in/pkvy/",
+    "tags": ["organic", "farming", "sustainability", "central"]
+  },
+  {
+    "id": "mahadbt-shetkari",
+    "name": "MahaDBT Shetkari Yojana",
+    "shortDescription": "Umbrella portal for various agricultural schemes in Maharashtra.",
+    "description": "The MahaDBT portal offers a single window for farmers in Maharashtra to apply for various agricultural schemes including micro-irrigation, farm mechanization, and horticulture programs.",
+    "category": "State Schemes",
+    "benefits": [
+      "Subsidies on agricultural equipment and machinery",
+      "Financial support for micro-irrigation systems (drip/sprinkler)",
+      "Support for horticulture and shade net houses"
+    ],
+    "eligibility": [
+      "Must be a resident farmer of Maharashtra",
+      "Must possess 7/12 extract and 8A extract"
+    ],
+    "documents": [
+      "Aadhaar Card",
+      "7/12 and 8A Extracts",
+      "Bank Account Details",
+      "Caste Certificate (if applicable)"
+    ],
+    "state": "Maharashtra",
+    "officialWebsite": "https://mahadbt.maharashtra.gov.in/Farmer/Login/Login",
+    "tags": ["maharashtra", "equipment", "irrigation", "subsidy", "state"]
+  },
+  {
+    "id": "rythu-bandhu",
+    "name": "Rythu Bandhu Scheme",
+    "shortDescription": "Agriculture Investment Support Scheme for farmers in Telangana.",
+    "description": "Rythu Bandhu provides investment support for agriculture and horticulture crops by way of a grant of ₹5,000 per acre per season to farmers for purchase of inputs like seeds, fertilizers, pesticides, and labor.",
+    "category": "State Schemes",
+    "benefits": [
+      "₹10,000 per acre per year (₹5,000 per season: Kharif and Rabi)",
+      "Direct Benefit Transfer to farmer accounts",
+      "No cap on the number of acres eligible"
+    ],
+    "eligibility": [
+      "Must be a resident farmer of Telangana",
+      "Must own agricultural land (pattadars)"
+    ],
+    "documents": [
+      "Pattadar Passbook",
+      "Aadhaar Card",
+      "Bank Account Details"
+    ],
+    "state": "Telangana",
+    "officialWebsite": "http://rythubandhu.telangana.gov.in/",
+    "tags": ["telangana", "investment", "financial", "state"]
+  }
+]
