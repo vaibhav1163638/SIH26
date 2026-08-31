@@ -57,8 +57,8 @@ export default function TimelinePage() {
     <div className="p-6 lg:p-8 max-w-5xl mx-auto space-y-6">
       {/* Header */}
       <div>
-        <h1 className="text-2xl font-bold">{t.timeline.title}</h1>
-        <p className="text-muted-foreground text-sm mt-1">{t.timeline.subtitle}</p>
+        <h1 className="text-2xl font-bold">Crop Health Timeline</h1>
+        <p className="text-muted-foreground text-sm mt-1">Track recovery and disease progression over time</p>
       </div>
 
       {/* Overall Progress */}
@@ -77,7 +77,7 @@ export default function TimelinePage() {
             <p className="text-2xl font-bold mt-1">{summary.latestSeverity}%</p>
           </div>
           <div className={`p-5 rounded-2xl border ${overallImprovement > 0 ? 'bg-emerald-500/5 border-emerald-500/20' : 'bg-red-500/5 border-red-500/20'}`}>
-            <p className="text-xs text-muted-foreground">{t.timeline.overallProgress}</p>
+            <p className="text-xs text-muted-foreground">Overall Progress</p>
             <div className="flex items-center gap-2 mt-1">
               {overallImprovement > 0 ? (
                 <ArrowDown size={20} className="text-primary" />
@@ -89,7 +89,7 @@ export default function TimelinePage() {
               </p>
             </div>
             <p className={`text-xs mt-1 ${overallImprovement > 0 ? 'text-primary' : 'text-red-400'}`}>
-              {overallImprovement > 0 ? t.timeline.improving : t.timeline.worsening}
+              {overallImprovement > 0 ? 'Improving' : 'Worsening'}
             </p>
           </div>
         </div>
@@ -97,7 +97,7 @@ export default function TimelinePage() {
 
       {/* Severity Chart */}
       <div className="p-6 rounded-2xl bg-card border border-border">
-        <h3 className="text-sm font-medium text-muted-foreground mb-6">{t.timeline.severityTrend}</h3>
+        <h3 className="text-sm font-medium text-muted-foreground mb-6">Severity Trend</h3>
         <div className="h-64">
           <ResponsiveContainer width="100%" height="100%">
             <AreaChart data={chartData}>
@@ -108,13 +108,13 @@ export default function TimelinePage() {
                 </linearGradient>
               </defs>
               <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
-              <XAxis dataKey="name" tick={{ fill: '#9ca3af', fontSize: 12 }} />
-              <YAxis tick={{ fill: '#9ca3af', fontSize: 12 }} domain={[0, 100]} />
+              <XAxis dataKey="date" stroke="#666" fontSize={12} />
+              <YAxis domain={[0, 100]} stroke="#666" fontSize={12} />
               <Tooltip
-                contentStyle={{ background: '#1a2a22', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px' }}
-                labelStyle={{ color: '#d1d5db' }}
+                contentStyle={{ background: '#050D08', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px' }}
+                formatter={(val) => [`${val}%`, 'Severity']}
               />
-              <Area type="monotone" dataKey="severity" stroke="#f97316" fill="url(#severityGrad)" strokeWidth={2} dot={{ fill: '#f97316', r: 6 }} />
+              <Area type="monotone" dataKey="severity" stroke="#f97316" fill="url(#severityGrad)" strokeWidth={2} />
             </AreaChart>
           </ResponsiveContainer>
         </div>
@@ -122,7 +122,7 @@ export default function TimelinePage() {
 
       {/* Scan History */}
       <div className="p-6 rounded-2xl bg-card border border-border">
-        <h3 className="text-sm font-medium text-muted-foreground mb-6">{t.timeline.scanHistory}</h3>
+        <h3 className="text-sm font-medium text-muted-foreground mb-6">Scan History</h3>
         <div className="space-y-4">
           {data?.scans.map((scan, i) => {
             const isLast = i === data.scans.length - 1;
@@ -203,18 +203,18 @@ export default function TimelinePage() {
       {/* Treatment Effectiveness */}
       {data && data.scans.length >= 2 && (
         <div className="p-6 rounded-2xl bg-card border border-border">
-          <h3 className="text-sm font-medium text-muted-foreground mb-4">{t.timeline.treatmentEffectiveness}</h3>
+          <h3 className="text-sm font-medium text-muted-foreground mb-4">Treatment Effectiveness</h3>
           <div className="grid grid-cols-3 gap-6 text-center">
             <div>
-              <p className="text-xs text-muted-foreground">{t.timeline.before}</p>
+              <p className="text-xs text-muted-foreground">Before</p>
               <p className="text-3xl font-bold text-orange-400 mt-1">{data.scans[data.scans.length - 2]?.severity || 0}%</p>
             </div>
             <div>
-              <p className="text-xs text-muted-foreground">{t.timeline.after}</p>
+              <p className="text-xs text-muted-foreground">After</p>
               <p className="text-3xl font-bold text-primary mt-1">{data.scans[data.scans.length - 1]?.severity || 0}%</p>
             </div>
             <div>
-              <p className="text-xs text-muted-foreground">{t.timeline.change}</p>
+              <p className="text-xs text-muted-foreground">Change</p>
               <p className={`text-3xl font-bold mt-1 ${
                 (data.scans[data.scans.length - 1]?.severity || 0) < (data.scans[data.scans.length - 2]?.severity || 0)
                   ? 'text-primary' : 'text-red-400'

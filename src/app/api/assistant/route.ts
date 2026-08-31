@@ -21,6 +21,9 @@ export async function POST(req: NextRequest) {
 
     // 1. Build context
     const aiContext = await buildFarmerContext(user._id);
+    if (body.language) {
+      aiContext.farmer.language = body.language;
+    }
     const systemPrompt = generateSystemPrompt(aiContext);
 
     // 2. Fetch or create conversation

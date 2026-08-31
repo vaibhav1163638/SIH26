@@ -4,37 +4,37 @@ import { useEffect, useState } from 'react';
 import { api } from '@/lib/api';
 
 import { useLanguage } from '@/components/LanguageProvider';
-import { Settings as SettingsIcon, Globe, Bell, Moon, Sun, Monitor, Save, Leaf } from 'lucide-react';
+import { Settings as SettingsIcon, Globe, Bell, Moon, Sun, Monitor, Leaf } from 'lucide-react';
 
 export default function SettingsPage() {
-  const { t, language, setLanguage } = useLanguage();
+  const { language, setLanguage } = useLanguage();
   const { theme, setTheme } = useTheme();
   const [initialLoad, setInitialLoad] = useState(true);
 
   // Sync theme from backend on mount
   useEffect(() => {
     api.getLanguage().then((data) => {
-      // data now includes theme
-      if ('theme' in data) {
+      if (data && 'theme' in data) {
         setTheme(data.theme as 'light' | 'dark');
       }
     }).catch(console.error).finally(() => setInitialLoad(false));
   }, []);
 
-  const handleThemeChange = async (newTheme: 'light' | 'dark') => {
+  const handleThemeChange = async (newTheme: 'light' | 'dark' | 'system') => {
     setTheme(newTheme);
-    try {
-      await api.updateTheme(newTheme);
-    } catch (err) {
-      console.error('Failed to update theme:', err);
+    if (newTheme === 'light' || newTheme === 'dark') {
+      try {
+        await api.updateTheme(newTheme);
+      } catch (err) {
+        console.error('Failed to update theme:', err);
+      }
     }
   };
-
 
   return (
     <div className="p-6 lg:p-8 max-w-3xl mx-auto space-y-8">
       <div>
-        <h1 className="text-2xl font-bold">{t.settings.title}</h1>
+        <h1 className="text-2xl font-bold">Settings</h1>
         <p className="text-muted-foreground text-sm mt-1">Manage your application preferences</p>
       </div>
 
@@ -43,7 +43,7 @@ export default function SettingsPage() {
         <div className="p-6 rounded-2xl bg-card border border-border">
           <div className="flex items-center gap-3 mb-6">
             <Globe size={20} className="text-primary" />
-            <h2 className="text-lg font-semibold">{t.settings.language}</h2>
+            <h2 className="text-lg font-semibold">Language</h2>
           </div>
           <div className="grid grid-cols-2 gap-4">
             <button
@@ -75,7 +75,7 @@ export default function SettingsPage() {
         <div className="p-6 rounded-2xl bg-card border border-border">
           <div className="flex items-center gap-3 mb-6">
             <Bell size={20} className="text-primary" />
-            <h2 className="text-lg font-semibold">{t.settings.notifications}</h2>
+            <h2 className="text-lg font-semibold">Notifications</h2>
           </div>
           <div className="space-y-4">
             {[
@@ -97,35 +97,54 @@ export default function SettingsPage() {
           </div>
         </div>
 
-        
         {/* Theme */}
         <div className="p-6 rounded-2xl bg-card border border-border">
           <div className="flex items-center gap-3 mb-6">
             <SettingsIcon size={20} className="text-primary" />
-            <h2 className="text-lg font-semibold">{t.settings.theme}</h2>
+            <h2 className="text-lg font-semibold">Theme</h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <button onClick={() => handleThemeChange('light')} className={theme === 'light' ? "flex flex-col items-center gap-3 p-4 rounded-xl bg-emerald-500/20 border-emerald-500/50 text-primary" : "flex flex-col items-center gap-3 p-4 rounded-xl bg-card border-border text-muted-foreground"}>
-  <Sun size={24} />
-  <span className="text-sm font-medium">Light</span>
-</button>
-<button onClick={() => handleThemeChange('dark')} className={theme === 'dark' ? "flex flex-col items-center gap-3 p-4 rounded-xl bg-emerald-500/20 border-emerald-500/50 text-primary" : "flex flex-col items-center gap-3 p-4 rounded-xl bg-card border-border text-muted-foreground"}>
-  <Moon size={24} />
-  <span className="text-sm font-medium">Dark</span>
-</button>
-            <button onClick={() => handleThemeChange('system' as any)} className={`flex flex-col items-center gap-3 p-4 rounded-xl ${theme === 'system' ? 'bg-emerald-500/20 border-emerald-500/50 text-primary' : 'bg-card border-border text-muted-foreground'}`}>
-              
+            <button
+              onClick={() => handleThemeChange('light')}
+              className={
+                theme === 'light'
+                  ? 'flex flex-col items-center gap-3 p-4 rounded-xl bg-emerald-500/20 border-emerald-500/50 text-primary'
+                  : 'flex flex-col items-center gap-3 p-4 rounded-xl bg-card border-border text-muted-foreground'
+              }
+            >
+              <Sun size={24} />
+              <span className="text-sm font-medium">Light</span>
+            </button>
+            <button
+              onClick={() => handleThemeChange('dark')}
+              className={
+                theme === 'dark'
+                  ? 'flex flex-col items-center gap-3 p-4 rounded-xl bg-emerald-500/20 border-emerald-500/50 text-primary'
+                  : 'flex flex-col items-center gap-3 p-4 rounded-xl bg-card border-border text-muted-foreground'
+              }
+            >
+              <Moon size={24} />
+              <span className="text-sm font-medium">Dark</span>
+            </button>
+            <button
+              onClick={() => handleThemeChange('system')}
+              className={`flex flex-col items-center gap-3 p-4 rounded-xl ${
+                theme === 'system'
+                  ? 'bg-emerald-500/20 border-emerald-500/50 text-primary'
+                  : 'bg-card border-border text-muted-foreground'
+              }`}
+            >
               <Monitor size={24} />
               <span className="text-sm font-medium">System</span>
             </button>
           </div>
           {initialLoad ? null : (
-            <p className="text-xs text-muted-foreground text-center mt-4">Current theme: {theme}</p>
+            <p className="text-xs text-muted-foreground text-center mt-4">
+              Current theme: {theme}
+            </p>
           )}
-        </div></div>
-      
-
-      
+        </div>
+      </div>
 
       <div className="text-center pb-8">
         <span className="inline-flex items-center gap-2 text-xs text-muted-foreground bg-card px-4 py-2 rounded-full">
@@ -133,6 +152,6 @@ export default function SettingsPage() {
           SIH 2026 Prototype — Problem Statement 131
         </span>
       </div>
-</div>
+    </div>
   );
 }

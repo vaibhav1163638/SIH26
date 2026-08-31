@@ -126,13 +126,13 @@ export default function TopNavbar() {
             >
               <Link
                 href={item.href}
-                className={`flex items-center gap-1 px-2 py-1 rounded transition-colors ${active
-                  ? 'bg-primary/10 text-primary'
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-colors ${active
+                  ? 'bg-primary/10 text-primary font-semibold'
                   : 'text-muted-foreground hover:bg-muted/5 hover:text-foreground'
                   }`}
               >
                 <Icon size={18} className={active ? 'text-primary' : ''} />
-                <span className="text-sm font-medium">{item.key}</span>
+                <span className="text-sm">{item.key}</span>
               </Link>
             </motion.li>
           );
@@ -221,17 +221,17 @@ export default function TopNavbar() {
 
         <button
           onClick={() => setLanguage(language === 'en' ? 'hi' : 'en')}
-          className="flex items-center gap-1 px-2 py-1 rounded text-sm text-muted-foreground hover:bg-muted/5 hover:text-foreground transition-colors"
+          className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-sm text-muted-foreground hover:bg-muted/5 hover:text-foreground transition-colors border border-border/50"
         >
-          <Globe size={18} />
+          <Globe size={16} />
           <span>{language === 'en' ? 'हिंदी' : 'English'}</span>
         </button>
         <button
           onClick={() => signOut({ callbackUrl: '/' })}
-          className="flex items-center gap-1 px-2 py-1 rounded text-sm text-red-300 hover:bg-red-500/20 hover:text-red-200 transition-colors"
+          className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-sm text-red-400 hover:bg-red-500/10 hover:text-red-300 transition-colors"
         >
-          <User size={18} />
-          <span>{language === 'en' ? 'Logout' : 'लॉग आउट'}</span>
+          <User size={16} />
+          <span>Logout</span>
         </button>
       </div>
     </nav>
