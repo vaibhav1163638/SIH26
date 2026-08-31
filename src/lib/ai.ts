@@ -1,10 +1,10 @@
 import { getIsDemoMode } from './db';
-const AI_SERVICE_URL = process.env.AI_SERVICE_URL || 'http://localhost:8000';
+const AI_SERVICE_URL = process.env.AI_BACKEND_URL || process.env.AI_SERVICE_URL || 'http://localhost:8000';
 
-export async function analyzeImage(buffer: Buffer, filename: string, mimetype: string) {
+export async function analyzeImage(file: File) {
   try {
     const formData = new FormData();
-    formData.append('file', new Blob([new Uint8Array(buffer)], { type: mimetype }), filename);
+    formData.append('file', file, file.name);
 
     // Call the new real PyTorch endpoint
     const aiRes = await fetch(`${AI_SERVICE_URL}/predict/rice`, {
@@ -36,13 +36,13 @@ export async function analyzeImage(buffer: Buffer, filename: string, mimetype: s
     }
   } catch (err) {
     console.log('[AI Client] Real ML service unavailable, using fallback:', err);
-    // Deterministic fallback based on buffer length
-    const fileHash = buffer.length.toString();
+    // Deterministic fallback based on file size
+    const fileSize = file.size.toString();
     const diseases = [
       'Tomato Early Blight', 'Tomato Late Blight', 'Tomato Leaf Spot',
       'Powdery Mildew', 'Tomato Bacterial Spot', 'Healthy',
     ];
-    const idx = parseInt(fileHash.slice(-1)) % diseases.length;
+    const idx = parseInt(fileSize.slice(-1)) % diseases.length;
     
     return {
       prediction: {

@@ -5,9 +5,6 @@ import { Farm } from '@/models/Farm';
 import { getUserFromRequest } from '@/lib/auth';
 import { analyzeImage } from '@/lib/ai';
 import { getWeather } from '@/lib/weather';
-import fs from 'fs';
-import path from 'path';
-
 export async function GET(req: NextRequest) {
   try {
     const user = await getUserFromRequest(req);
@@ -27,22 +24,14 @@ export async function POST(req: NextRequest) {
     if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
     const formData = await req.formData();
-    const file = formData.get('image') as File | null;
+    const file = formData.get('image');
     
-    if (!file) {
-      return NextResponse.json({ error: 'No image file provided' }, { status: 400 });
+    if (!file || !(file instanceof File)) {
+      return NextResponse.json({ error: 'No valid image file provided' }, { status: 400 });
     }
 
-    // Save file locally to public/uploads
-    const bytes = await file.arrayBuffer();
-    const buffer = Buffer.from(bytes);
-    const filename = `${Date.now()}-${file.name.replace(/[^a-zA-Z0-9.-]/g, '_')}`;
-    const uploadDir = path.join(process.cwd(), 'public', 'uploads');
-    const filePath = path.join(uploadDir, filename);
-    fs.writeFileSync(filePath, buffer);
-
-    // Analyze image
-    const aiResult = await analyzeImage(buffer, filename, file.type);
+    // Analyze image using the File object directly
+    const aiResult = await analyzeImage(file);
     const prediction = aiResult.prediction || aiResult;
 
     await connectDB();
@@ -91,7 +80,7 @@ export async function POST(req: NextRequest) {
       farmerId: user._id,
       farmId: farm._id,
       crop: farm.crop || 'Unknown',
-      imageUrl: `/uploads/${filename}`,
+      imageUrl: '',
       disease: prediction.disease,
       confidence: prediction.confidence,
       severity: prediction.severity,
