@@ -5,6 +5,17 @@ import { useLanguage } from '@/components/LanguageProvider';
 import { api, type WeatherData, type FarmData } from '@/lib/api';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { Thermometer, Droplets, Wind, Eye, Sun, Cloud, CloudRain, Gauge, Leaf } from 'lucide-react';
+import dynamic from 'next/dynamic';
+import { motion } from 'framer-motion';
+
+const DynamicDiseaseHeatmap = dynamic(() => import('@/components/DiseaseHeatmap'), {
+  ssr: false,
+  loading: () => (
+    <div className="w-full h-full flex items-center justify-center bg-card border border-border rounded-2xl">
+      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-emerald-500"></div>
+    </div>
+  ),
+});
 
 function RiskBadge({ level }: { level: string }) {
   const colors: Record<string, string> = {
@@ -168,6 +179,46 @@ export default function WeatherPage() {
           </ResponsiveContainer>
         </div>
       </div>
+
+      {/* Regional Crop Disease Risk Heatmap Section */}
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5 }}
+        className="pt-8 border-t border-border mt-8"
+      >
+        <div className="mb-6">
+          <h2 className="text-2xl font-bold">Regional Crop Disease Risk</h2>
+          <p className="text-muted-foreground mt-1">
+            Heatmap of reported crop disease risk around your region.
+          </p>
+        </div>
+        
+        <div className="relative rounded-2xl overflow-hidden border border-border shadow-lg h-[350px] md:h-[450px] lg:h-[500px]">
+          <DynamicDiseaseHeatmap 
+            centerLat={farm?.location?.latitude || 28.6139} 
+            centerLng={farm?.location?.longitude || 77.2090} 
+          />
+          
+          {/* Legend Overlay */}
+          <div className="absolute bottom-4 left-4 z-[400] bg-background/95 backdrop-blur px-4 py-3 rounded-xl border border-border shadow-lg">
+            <h4 className="text-sm font-semibold mb-2 text-foreground">Disease Risk</h4>
+            <div className="flex items-center gap-3 flex-wrap sm:flex-nowrap">
+              <div className="flex items-center gap-1.5"><span className="w-3 h-3 rounded-full bg-[#22c55e]"></span><span className="text-xs text-foreground">Low</span></div>
+              <div className="w-4 h-[1px] bg-border hidden sm:block"></div>
+              <div className="flex items-center gap-1.5"><span className="w-3 h-3 rounded-full bg-[#eab308]"></span><span className="text-xs text-foreground">Moderate</span></div>
+              <div className="w-4 h-[1px] bg-border hidden sm:block"></div>
+              <div className="flex items-center gap-1.5"><span className="w-3 h-3 rounded-full bg-[#f97316]"></span><span className="text-xs text-foreground">Elevated</span></div>
+              <div className="w-4 h-[1px] bg-border hidden sm:block"></div>
+              <div className="flex items-center gap-1.5"><span className="w-3 h-3 rounded-full bg-[#ef4444]"></span><span className="text-xs text-foreground">High</span></div>
+              <div className="w-4 h-[1px] bg-border hidden sm:block"></div>
+              <div className="flex items-center gap-1.5"><span className="w-3 h-3 rounded-full bg-[#991b1b]"></span><span className="text-xs text-foreground">Severe</span></div>
+            </div>
+            <p className="text-[10px] text-muted-foreground mt-2 border-t border-border/50 pt-2">Based on regional conditions</p>
+          </div>
+        </div>
+      </motion.div>
     </div>
   );
 }

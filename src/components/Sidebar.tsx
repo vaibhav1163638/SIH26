@@ -22,14 +22,14 @@ import {
 import { useState } from 'react';
 
 export const navItems = [
-  { href: '/', icon: Home, key: 'Home' as const },
-  { href: '/dashboard', icon: LayoutDashboard, key: 'Dashboard' as const },
-  { href: '/scan', icon: Camera, key: 'Scan' as const },
-  { href: '/farm', icon: User, key: 'Farm' as const },
-  { href: '/timeline', icon: Clock, key: 'Timeline' as const },
-  { href: '/weather', icon: Cloud, key: 'Weather' as const },
-  { href: '/assistant', icon: MessageCircle, key: 'Assistant' as const },
-  { href: '/settings', icon: Settings, key: 'Settings' as const },
+  { href: '/', icon: Home, key: 'home' as const },
+  { href: '/dashboard', icon: LayoutDashboard, key: 'dashboard' as const },
+  { href: '/scan', icon: Camera, key: 'scan' as const },
+  { href: '/farm', icon: User, key: 'farm' as const },
+  { href: '/timeline', icon: Clock, key: 'timeline' as const },
+  { href: '/weather', icon: Cloud, key: 'weather' as const },
+  { href: '/assistant', icon: MessageCircle, key: 'assistant' as const },
+  { href: '/settings', icon: Settings, key: 'settings' as const },
 ];
 
 export type NavItem = {
@@ -97,11 +97,6 @@ export default function Sidebar() {
               >
                 <Icon size={20} className={isActive ? 'text-primary' : ''} />
                 <span>{t.nav[item.key]}</span>
-                {item.key === 'alerts' && (
-                  <span className="ml-auto bg-red-500 text-foreground text-xs px-2 py-0.5 rounded-full font-bold">
-                    5
-                  </span>
-                )}
               </Link>
             );
           })}
