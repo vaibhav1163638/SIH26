@@ -22,13 +22,13 @@ import {
 import { useState } from 'react';
 
 export const navItems = [
-  { href: '/dashboard', icon: LayoutDashboard, key: 'dashboard' as const },
-  { href: '/scan', icon: Camera, key: 'scan' as const },
-  { href: '/farm', icon: User, key: 'farm' as const },
-  { href: '/timeline', icon: Clock, key: 'timeline' as const },
-  { href: '/weather', icon: Cloud, key: 'weather' as const },
-  { href: '/assistant', icon: MessageCircle, key: 'assistant' as const },
-  { href: '/settings', icon: Settings, key: 'settings' as const },
+  { href: '/dashboard', icon: LayoutDashboard, key: 'Dashboard' as const },
+  { href: '/scan', icon: Camera, key: 'Scan' as const },
+  { href: '/farm', icon: User, key: 'Farm' as const },
+  { href: '/timeline', icon: Clock, key: 'Timeline' as const },
+  { href: '/weather', icon: Cloud, key: 'Weather' as const },
+  { href: '/assistant', icon: MessageCircle, key: 'Assistant' as const },
+  { href: '/settings', icon: Settings, key: 'Settings' as const },
 ];
 
 export type NavItem = {
@@ -95,7 +95,7 @@ export default function Sidebar() {
                   }`}
               >
                 <Icon size={20} className={isActive ? 'text-primary' : ''} />
-                <span>{t.nav[item.key]}</span>
+                <span>{t.nav[item.key.toLowerCase() as keyof typeof t.nav]}</span>
               </Link>
             );
           })}
