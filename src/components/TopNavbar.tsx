@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation';
 import { signOut } from 'next-auth/react';
 import { useLanguage } from '@/components/LanguageProvider';
 import { navItems, NavItem } from '@/components/Sidebar';
-import { Leaf, Globe, User } from 'lucide-react';
+import { Leaf, Globe, User, Bell } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 export default function TopNavbar() {
@@ -60,8 +60,15 @@ export default function TopNavbar() {
 
       {/* Right side controls */}
       <div className="flex items-center space-x-3">
+        <Link
+          href="/alerts"
+          className="flex items-center justify-center p-2 rounded text-muted-foreground hover:bg-muted/5 hover:text-foreground transition-colors"
+        >
+          <Bell size={20} />
+        </Link>
         <button
           onClick={() => setLanguage(language === 'en' ? 'hi' : 'en')}
+
           className="flex items-center gap-1 px-2 py-1 rounded text-sm text-muted-foreground hover:bg-muted/5 hover:text-foreground transition-colors"
         >
           <Globe size={18} />
