@@ -119,7 +119,7 @@ export default function FarmPage() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold">{t.farm.title}</h1>
-          <p className="text-gray-400 text-sm mt-1">{t.farm.subtitle}</p>
+          <p className="text-muted-foreground text-sm mt-1">{t.farm.subtitle}</p>
         </div>
         <button
           onClick={handleSave}
@@ -132,10 +132,10 @@ export default function FarmPage() {
       </div>
 
       {/* Farmer Info */}
-      <div className="p-6 rounded-2xl bg-white/[0.03] border border-white/[0.06] space-y-5">
-        <div className="flex items-center justify-between pb-4 border-b border-white/5">
+      <div className="p-6 rounded-2xl bg-card border border-border space-y-5">
+        <div className="flex items-center justify-between pb-4 border-b border-border">
           <div className="flex items-center gap-3">
-            <User size={20} className="text-emerald-400" />
+            <User size={20} className="text-primary" />
             <h3 className="font-semibold">Farmer Information</h3>
           </div>
           <button
@@ -155,35 +155,35 @@ export default function FarmPage() {
         )}
 
         <div className="flex flex-col md:flex-row gap-6">
-          <div className="flex items-center gap-4 bg-black/40 p-4 rounded-xl flex-1 border border-white/5">
+          <div className="flex items-center gap-4 bg-black/40 p-4 rounded-xl flex-1 border border-border">
             {user?.image ? (
-              <img src={user.image} alt={user.name || 'Profile'} className="w-16 h-16 rounded-full border border-white/10" />
+              <img src={user.image} alt={user.name || 'Profile'} className="w-16 h-16 rounded-full border border-border" />
             ) : (
               <div className="w-16 h-16 rounded-full bg-emerald-500/20 flex items-center justify-center border border-emerald-500/30">
-                <User className="text-emerald-400" size={24} />
+                <User className="text-primary" size={24} />
               </div>
             )}
             <div>
               <h4 className="font-medium text-lg">{user?.name || farm.farmerName || 'Farmer'}</h4>
-              <p className="text-sm text-gray-400">{user?.email}</p>
+              <p className="text-sm text-muted-foreground">{user?.email}</p>
             </div>
           </div>
           <div className="flex-1">
-            <label className="block text-sm text-gray-400 mb-1.5">{t.farm.location}</label>
+            <label className="block text-sm text-muted-foreground mb-1.5">{t.farm.location}</label>
             <div className="flex gap-2">
               <input
                 type="text"
                 value={farm.location.state}
                 onChange={(e) => updateLocation('state', e.target.value)}
                 placeholder="State"
-                className="flex-1 px-4 py-3 rounded-xl bg-white/[0.05] border border-white/[0.08] focus:border-emerald-500/50 focus:outline-none text-sm transition-colors"
+                className="flex-1 px-4 py-3 rounded-xl bg-accent border border-border focus:border-emerald-500/50 focus:outline-none text-sm transition-colors"
               />
               <input
                 type="text"
                 value={farm.location.district}
                 onChange={(e) => updateLocation('district', e.target.value)}
                 placeholder="District"
-                className="flex-1 px-4 py-3 rounded-xl bg-white/[0.05] border border-white/[0.08] focus:border-emerald-500/50 focus:outline-none text-sm transition-colors"
+                className="flex-1 px-4 py-3 rounded-xl bg-accent border border-border focus:border-emerald-500/50 focus:outline-none text-sm transition-colors"
               />
             </div>
           </div>
@@ -191,58 +191,58 @@ export default function FarmPage() {
       </div>
 
       {/* Crop Info */}
-      <div className="p-6 rounded-2xl bg-white/[0.03] border border-white/[0.06] space-y-5">
-        <div className="flex items-center gap-3 pb-4 border-b border-white/5">
-          <Sprout size={20} className="text-emerald-400" />
+      <div className="p-6 rounded-2xl bg-card border border-border space-y-5">
+        <div className="flex items-center gap-3 pb-4 border-b border-border">
+          <Sprout size={20} className="text-primary" />
           <h3 className="font-semibold">Crop Details</h3>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           <div>
-            <label className="block text-sm text-gray-400 mb-1.5">{t.farm.crop}</label>
+            <label className="block text-sm text-muted-foreground mb-1.5">{t.farm.crop}</label>
             <input
               type="text"
               value={farm.crop}
               onChange={(e) => updateField('crop', e.target.value)}
-              className="w-full px-4 py-3 rounded-xl bg-white/[0.05] border border-white/[0.08] focus:border-emerald-500/50 focus:outline-none text-sm transition-colors"
+              className="w-full px-4 py-3 rounded-xl bg-accent border border-border focus:border-emerald-500/50 focus:outline-none text-sm transition-colors"
             />
           </div>
           <div>
-            <label className="block text-sm text-gray-400 mb-1.5">{t.farm.variety}</label>
+            <label className="block text-sm text-muted-foreground mb-1.5">{t.farm.variety}</label>
             <input
               type="text"
               value={farm.cropVariety}
               onChange={(e) => updateField('cropVariety', e.target.value)}
-              className="w-full px-4 py-3 rounded-xl bg-white/[0.05] border border-white/[0.08] focus:border-emerald-500/50 focus:outline-none text-sm transition-colors"
+              className="w-full px-4 py-3 rounded-xl bg-accent border border-border focus:border-emerald-500/50 focus:outline-none text-sm transition-colors"
             />
           </div>
           <div>
-            <label className="block text-sm text-gray-400 mb-1.5">{t.farm.area}</label>
+            <label className="block text-sm text-muted-foreground mb-1.5">{t.farm.area}</label>
             <div className="flex gap-2">
               <input
                 type="number"
                 value={farm.farmArea}
                 onChange={(e) => updateField('farmArea', parseFloat(e.target.value) || 0)}
-                className="flex-1 px-4 py-3 rounded-xl bg-white/[0.05] border border-white/[0.08] focus:border-emerald-500/50 focus:outline-none text-sm transition-colors"
+                className="flex-1 px-4 py-3 rounded-xl bg-accent border border-border focus:border-emerald-500/50 focus:outline-none text-sm transition-colors"
               />
-              <span className="px-4 py-3 rounded-xl bg-white/[0.03] text-sm text-gray-400">{farm.farmAreaUnit}</span>
+              <span className="px-4 py-3 rounded-xl bg-card text-sm text-muted-foreground">{farm.farmAreaUnit}</span>
             </div>
           </div>
           <div>
-            <label className="block text-sm text-gray-400 mb-1.5">{t.farm.plantingDate}</label>
+            <label className="block text-sm text-muted-foreground mb-1.5">{t.farm.plantingDate}</label>
             <input
               type="date"
               value={farm.plantingDate ? new Date(farm.plantingDate).toISOString().split('T')[0] : ''}
               onChange={(e) => updateField('plantingDate', e.target.value)}
-              className="w-full px-4 py-3 rounded-xl bg-white/[0.05] border border-white/[0.08] focus:border-emerald-500/50 focus:outline-none text-sm transition-colors"
+              className="w-full px-4 py-3 rounded-xl bg-accent border border-border focus:border-emerald-500/50 focus:outline-none text-sm transition-colors"
             />
           </div>
           <div>
-            <label className="block text-sm text-gray-400 mb-1.5">{t.farm.growthStage}</label>
+            <label className="block text-sm text-muted-foreground mb-1.5">{t.farm.growthStage}</label>
             <select
               value={farm.growthStage}
               onChange={(e) => updateField('growthStage', e.target.value)}
-              className="w-full px-4 py-3 rounded-xl bg-white/[0.05] border border-white/[0.08] focus:border-emerald-500/50 focus:outline-none text-sm transition-colors"
+              className="w-full px-4 py-3 rounded-xl bg-accent border border-border focus:border-emerald-500/50 focus:outline-none text-sm transition-colors"
             >
               <option value="seedling">Seedling</option>
               <option value="vegetative">Vegetative</option>
@@ -253,11 +253,11 @@ export default function FarmPage() {
             </select>
           </div>
           <div>
-            <label className="block text-sm text-gray-400 mb-1.5">{t.farm.irrigation}</label>
+            <label className="block text-sm text-muted-foreground mb-1.5">{t.farm.irrigation}</label>
             <select
               value={farm.irrigationMethod}
               onChange={(e) => updateField('irrigationMethod', e.target.value)}
-              className="w-full px-4 py-3 rounded-xl bg-white/[0.05] border border-white/[0.08] focus:border-emerald-500/50 focus:outline-none text-sm transition-colors"
+              className="w-full px-4 py-3 rounded-xl bg-accent border border-border focus:border-emerald-500/50 focus:outline-none text-sm transition-colors"
             >
               <option value="drip">Drip</option>
               <option value="sprinkler">Sprinkler</option>
@@ -270,13 +270,13 @@ export default function FarmPage() {
       </div>
 
       {/* History */}
-      <div className="p-6 rounded-2xl bg-white/[0.03] border border-white/[0.06] space-y-5">
-        <div className="flex items-center gap-3 pb-4 border-b border-white/5">
-          <Calendar size={20} className="text-emerald-400" />
+      <div className="p-6 rounded-2xl bg-card border border-border space-y-5">
+        <div className="flex items-center gap-3 pb-4 border-b border-border">
+          <Calendar size={20} className="text-primary" />
           <h3 className="font-semibold">Disease & Treatment History</h3>
         </div>
         <div>
-          <label className="block text-sm text-gray-400 mb-1.5">{t.farm.previousDiseases}</label>
+          <label className="block text-sm text-muted-foreground mb-1.5">{t.farm.previousDiseases}</label>
           <div className="flex flex-wrap gap-2">
             {farm.previousDiseases?.map((d, i) => (
               <span key={i} className="px-3 py-1.5 rounded-lg bg-amber-500/10 text-amber-400 text-sm border border-amber-500/20">
@@ -286,10 +286,10 @@ export default function FarmPage() {
           </div>
         </div>
         <div>
-          <label className="block text-sm text-gray-400 mb-1.5">{t.farm.previousTreatments}</label>
+          <label className="block text-sm text-muted-foreground mb-1.5">{t.farm.previousTreatments}</label>
           <div className="flex flex-wrap gap-2">
             {farm.previousTreatments?.map((t2, i) => (
-              <span key={i} className="px-3 py-1.5 rounded-lg bg-emerald-500/10 text-emerald-400 text-sm border border-emerald-500/20">
+              <span key={i} className="px-3 py-1.5 rounded-lg bg-emerald-500/10 text-primary text-sm border border-emerald-500/20">
                 {t2}
               </span>
             ))}

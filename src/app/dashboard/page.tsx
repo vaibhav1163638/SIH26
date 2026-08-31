@@ -12,7 +12,7 @@ import {
 
 function RiskBadge({ level }: { level: string }) {
   const colors: Record<string, string> = {
-    LOW: 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30',
+    LOW: 'bg-emerald-500/20 text-primary border-emerald-500/30',
     MODERATE: 'bg-amber-500/20 text-amber-400 border-amber-500/30',
     HIGH: 'bg-orange-500/20 text-orange-400 border-orange-500/30',
     CRITICAL: 'bg-red-500/20 text-red-400 border-red-500/30 risk-badge-critical',
@@ -43,7 +43,7 @@ function HealthGauge({ score }: { score: number }) {
       </svg>
       <div className="absolute inset-0 flex flex-col items-center justify-center">
         <span className="text-3xl font-bold" style={{ color }}>{score}</span>
-        <span className="text-xs text-gray-400">/100</span>
+        <span className="text-xs text-muted-foreground">/100</span>
       </div>
     </div>
   );
@@ -216,7 +216,7 @@ response:`, locationResult);
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold">{t.dashboard.title}</h1>
-          <p className="text-gray-400 text-sm mt-1">
+          <p className="text-muted-foreground text-sm mt-1">
             {user?.name || farm?.farmerName || 'Add your farm details'} • {farm?.location?.village || farm?.location?.district || farm?.location?.state || 'Location not set'}
           </p>
         </div>
@@ -231,7 +231,7 @@ response:`, locationResult);
       {farm && !farm.location?.state && !locationDenied && (
         <div className="p-6 rounded-2xl bg-gradient-to-r from-emerald-900/40 to-emerald-800/20 border border-emerald-500/30 flex flex-col md:flex-row items-center justify-between gap-6">
           <div>
-            <h2 className="text-xl font-bold text-emerald-400 flex items-center gap-2 mb-2">
+            <h2 className="text-xl font-bold text-primary flex items-center gap-2 mb-2">
               <MapPin /> Let's locate your farm
             </h2>
             <p className="text-emerald-100/70 text-sm max-w-xl">
@@ -241,7 +241,7 @@ response:`, locationResult);
           <button
             onClick={requestLocation}
             disabled={locationRequested}
-            className="px-6 py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold rounded-xl whitespace-nowrap transition-colors"
+            className="px-6 py-3 bg-emerald-600 hover:bg-emerald-500 text-primary-foreground font-semibold rounded-xl whitespace-nowrap transition-colors"
           >
             {locationRequested ? 'Locating...' : 'Allow Location'}
           </button>
@@ -261,19 +261,19 @@ response:`, locationResult);
               placeholder="State (e.g. Haryana)"
               value={manualState}
               onChange={(e) => setManualState(e.target.value)}
-              className="px-4 py-2 bg-black/40 border border-white/10 rounded-xl focus:border-amber-500 outline-none"
+              className="px-4 py-2 bg-black/40 border border-border rounded-xl focus:border-amber-500 outline-none"
             />
             <input
               type="text"
               placeholder="District (e.g. Karnal)"
               value={manualDistrict}
               onChange={(e) => setManualDistrict(e.target.value)}
-              className="px-4 py-2 bg-black/40 border border-white/10 rounded-xl focus:border-amber-500 outline-none"
+              className="px-4 py-2 bg-black/40 border border-border rounded-xl focus:border-amber-500 outline-none"
             />
             <button
               onClick={submitManualLocation}
               disabled={!manualState || !manualDistrict}
-              className="px-6 py-2 bg-amber-600 hover:bg-amber-500 disabled:opacity-50 text-white font-medium rounded-xl transition-colors"
+              className="px-6 py-2 bg-amber-600 hover:bg-amber-500 disabled:opacity-50 text-foreground font-medium rounded-xl transition-colors"
             >
               Save Location
             </button>
@@ -284,31 +284,31 @@ response:`, locationResult);
       {/* Top Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {/* Health Score */}
-        <div className="p-6 rounded-2xl bg-white/[0.03] border border-white/[0.06]">
-          <p className="text-sm text-gray-400 mb-4">{t.dashboard.healthScore}</p>
+        <div className="p-6 rounded-2xl bg-card border border-border">
+          <p className="text-sm text-muted-foreground mb-4">{t.dashboard.healthScore}</p>
           <HealthGauge score={healthScore} />
         </div>
 
         {/* Crop Info */}
-        <div className="p-6 rounded-2xl bg-white/[0.03] border border-white/[0.06]">
-          <p className="text-sm text-gray-400 mb-3">{t.dashboard.growthStage}</p>
+        <div className="p-6 rounded-2xl bg-card border border-border">
+          <p className="text-sm text-muted-foreground mb-3">{t.dashboard.growthStage}</p>
           <div className="space-y-3">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center">
-                <Sprout size={20} className="text-emerald-400" />
+                <Sprout size={20} className="text-primary" />
               </div>
               <div>
                 <p className="font-semibold">{farm?.crop || 'Not set'}</p>
-                <p className="text-xs text-gray-400">{farm?.cropVariety || ''}</p>
+                <p className="text-xs text-muted-foreground">{farm?.cropVariety || ''}</p>
               </div>
             </div>
             <div className="grid grid-cols-2 gap-2 text-sm">
-              <div className="p-2 rounded-lg bg-white/[0.03]">
-                <p className="text-gray-500 text-xs">{t.dashboard.cropAge}</p>
+              <div className="p-2 rounded-lg bg-card">
+                <p className="text-muted-foreground text-xs">{t.dashboard.cropAge}</p>
                 <p className="font-semibold">{farm?.cropAge !== undefined ? farm.cropAge : '-'} {t.dashboard.days}</p>
               </div>
-              <div className="p-2 rounded-lg bg-white/[0.03]">
-                <p className="text-gray-500 text-xs">{t.dashboard.growthStage}</p>
+              <div className="p-2 rounded-lg bg-card">
+                <p className="text-muted-foreground text-xs">{t.dashboard.growthStage}</p>
                 <p className="font-semibold capitalize">{farm?.growthStage || 'Not set'}</p>
               </div>
             </div>
@@ -316,8 +316,8 @@ response:`, locationResult);
         </div>
 
         {/* Disease Risk */}
-        <div className="p-6 rounded-2xl bg-white/[0.03] border border-white/[0.06]">
-          <p className="text-sm text-gray-400 mb-3">{t.dashboard.diseaseRisk}</p>
+        <div className="p-6 rounded-2xl bg-card border border-border">
+          <p className="text-sm text-muted-foreground mb-3">{t.dashboard.diseaseRisk}</p>
           <div className="space-y-3">
             <div className="flex items-center justify-between">
               <span className="text-sm">Current</span>
@@ -328,10 +328,10 @@ response:`, locationResult);
               <RiskBadge level={risk?.risk?.sevenDayRisk || 'HIGH'} />
             </div>
             {latestScan && (
-              <div className="pt-2 border-t border-white/5">
-                <p className="text-xs text-gray-500">{t.dashboard.latestDiagnosis}</p>
+              <div className="pt-2 border-t border-border">
+                <p className="text-xs text-muted-foreground">{t.dashboard.latestDiagnosis}</p>
                 <p className="text-sm font-medium mt-1">{latestScan.disease}</p>
-                <p className="text-xs text-gray-400">
+                <p className="text-xs text-muted-foreground">
                   {Math.round(latestScan.confidence * 100)}% confidence • {latestScan.severity}% severity
                 </p>
               </div>
@@ -340,8 +340,8 @@ response:`, locationResult);
         </div>
 
         {/* Weather */}
-        <div className="p-6 rounded-2xl bg-white/[0.03] border border-white/[0.06]">
-          <p className="text-sm text-gray-400 mb-3">{t.dashboard.weatherSummary}</p>
+        <div className="p-6 rounded-2xl bg-card border border-border">
+          <p className="text-sm text-muted-foreground mb-3">{t.dashboard.weatherSummary}</p>
           {weather ? (
             <div className="space-y-3">
               {/* Demo weather notice removed */}
@@ -349,7 +349,7 @@ response:`, locationResult);
                 <Thermometer size={20} className="text-orange-400" />
                 <div>
                   <p className="font-semibold">{weather.current.temperature}°C</p>
-                  <p className="text-xs text-gray-400">{weather.current.conditions}</p>
+                  <p className="text-xs text-muted-foreground">{weather.current.conditions}</p>
                 </div>
               </div>
               <div className="grid grid-cols-2 gap-2 text-sm">
@@ -358,17 +358,17 @@ response:`, locationResult);
                   <span>{weather.current.humidity}%</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Wind size={14} className="text-gray-400" />
+                  <Wind size={14} className="text-muted-foreground" />
                   <span>{weather.current.windSpeed} km/h</span>
                 </div>
               </div>
-              <div className="flex items-center justify-between pt-2 border-t border-white/5">
-                <span className="text-xs text-gray-500">Weather Risk</span>
+              <div className="flex items-center justify-between pt-2 border-t border-border">
+                <span className="text-xs text-muted-foreground">Weather Risk</span>
                 <RiskBadge level={weather.weatherRisk.level} />
               </div>
             </div>
           ) : (
-            <p className="text-sm text-gray-500">Unable to load weather data</p>
+            <p className="text-sm text-muted-foreground">Unable to load weather data</p>
           )}
         </div>
       </div>
@@ -376,48 +376,48 @@ response:`, locationResult);
       {/* Middle Row */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Recommended Action */}
-        <div className="p-6 rounded-2xl bg-white/[0.03] border border-white/[0.06]">
-          <h3 className="text-sm font-medium text-gray-400 mb-4">{t.dashboard.recommendedAction}</h3>
+        <div className="p-6 rounded-2xl bg-card border border-border">
+          <h3 className="text-sm font-medium text-muted-foreground mb-4">{t.dashboard.recommendedAction}</h3>
           {risk?.timing ? (
             <div className="space-y-4">
               <div className="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/20">
                 <div className="flex items-center gap-2 mb-2">
-                  <Clock size={16} className="text-emerald-400" />
-                  <span className="text-sm font-semibold text-emerald-400">
+                  <Clock size={16} className="text-primary" />
+                  <span className="text-sm font-semibold text-primary">
                     {risk.timing.recommended ? 'Treatment Window Available' : 'Wait for Better Conditions'}
                   </span>
                 </div>
                 {risk.timing.recommended && (
                   <>
                     <p className="text-lg font-bold">{risk.timing.windowDay} • {risk.timing.windowTime}</p>
-                    <p className="text-sm text-gray-400 mt-1">
+                    <p className="text-sm text-muted-foreground mt-1">
                       {language === 'hi' ? risk.timing.reasonHi : risk.timing.reason}
                     </p>
                   </>
                 )}
               </div>
-              <p className="text-sm text-gray-400">
+              <p className="text-sm text-muted-foreground">
                 {language === 'hi' ? risk.risk.recommendationHi : risk.risk.recommendation}
               </p>
             </div>
           ) : (
-            <p className="text-sm text-gray-500">Monitor and follow treatment recommendation.</p>
+            <p className="text-sm text-muted-foreground">Monitor and follow treatment recommendation.</p>
           )}
         </div>
 
         {/* Recent Health Trend */}
-        <div className="p-6 rounded-2xl bg-white/[0.03] border border-white/[0.06]">
-          <h3 className="text-sm font-medium text-gray-400 mb-4">{t.dashboard.recentTrend}</h3>
+        <div className="p-6 rounded-2xl bg-card border border-border">
+          <h3 className="text-sm font-medium text-muted-foreground mb-4">{t.dashboard.recentTrend}</h3>
           {scans.length > 0 ? (
             <div className="space-y-3">
               {scans.slice(0, 3).reverse().map((scan, i) => (
-                <div key={scan._id} className="flex items-center gap-4 p-3 rounded-xl bg-white/[0.02]">
-                  <div className="w-8 h-8 rounded-full bg-emerald-500/10 flex items-center justify-center text-sm font-bold text-emerald-400">
+                <div key={scan._id} className="flex items-center gap-4 p-3 rounded-xl bg-card">
+                  <div className="w-8 h-8 rounded-full bg-emerald-500/10 flex items-center justify-center text-sm font-bold text-primary">
                     {i + 1}
                   </div>
                   <div className="flex-1">
                     <p className="text-sm font-medium">{scan.disease}</p>
-                    <p className="text-xs text-gray-500">{new Date(scan.scanDate).toLocaleDateString()}</p>
+                    <p className="text-xs text-muted-foreground">{new Date(scan.scanDate).toLocaleDateString()}</p>
                   </div>
                   <div className="text-right">
                     <p className="text-sm font-bold">{scan.severity}%</p>
@@ -429,8 +429,8 @@ response:`, locationResult);
                 <div className="flex items-center gap-2 p-3 rounded-xl bg-emerald-500/5 border border-emerald-500/10">
                   {scans[0].severity < scans[scans.length > 1 ? 1 : 0].severity ? (
                     <>
-                      <TrendingDown size={16} className="text-emerald-400" />
-                      <span className="text-sm text-emerald-400 font-medium">
+                      <TrendingDown size={16} className="text-primary" />
+                      <span className="text-sm text-primary font-medium">
                         Severity decreased by {Math.abs(Math.round(((scans[1].severity - scans[0].severity) / scans[1].severity) * 100))}% compared to previous scan
                       </span>
                     </>
@@ -445,8 +445,8 @@ response:`, locationResult);
             </div>
           ) : (
             <div className="text-center py-8">
-              <Activity size={40} className="text-gray-600 mx-auto mb-3" />
-              <p className="text-sm text-gray-500">No scans yet. Start your first scan!</p>
+              <Activity size={40} className="text-muted-foreground mx-auto mb-3" />
+              <p className="text-sm text-muted-foreground">No scans yet. Start your first scan!</p>
             </div>
           )}
         </div>
@@ -454,7 +454,7 @@ response:`, locationResult);
 
       {/* Quick Actions */}
       <div>
-        <h3 className="text-sm font-medium text-gray-400 mb-4">{t.dashboard.quickActions}</h3>
+        <h3 className="text-sm font-medium text-muted-foreground mb-4">{t.dashboard.quickActions}</h3>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {[
             { href: '/scan', icon: Camera, label: t.dashboard.scanNow, color: 'emerald' },
@@ -465,7 +465,7 @@ response:`, locationResult);
             <Link
               key={action.href}
               href={action.href}
-              className="flex flex-col items-center gap-3 p-6 rounded-2xl bg-white/[0.03] border border-white/[0.06] hover:border-emerald-500/30 transition-all card-hover text-center"
+              className="flex flex-col items-center gap-3 p-6 rounded-2xl bg-card border border-border hover:border-emerald-500/30 transition-all card-hover text-center"
             >
               <action.icon size={28} className={`text-${action.color}-400`} />
               <span className="text-sm font-medium">{action.label}</span>
@@ -476,7 +476,7 @@ response:`, locationResult);
 
       {/* Demo notice */}
       <div className="text-center py-4">
-        <span className="inline-flex items-center gap-2 text-xs text-gray-500 bg-white/[0.02] px-4 py-2 rounded-full">
+        <span className="inline-flex items-center gap-2 text-xs text-muted-foreground bg-card px-4 py-2 rounded-full">
           <Leaf size={12} />
           Prototype Demo — SIH 2026 PS 131
         </span>

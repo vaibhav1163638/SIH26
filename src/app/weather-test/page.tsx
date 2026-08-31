@@ -29,12 +29,12 @@ export default function WeatherTestPage() {
     testWeather();
   }, []);
 
-  if (loading) return <div className="p-8 text-white">Testing Weather API...</div>;
+  if (loading) return <div className="p-8 text-foreground">Testing Weather API...</div>;
 
   const isLive = weather && weather.current?.temperature !== undefined && !error;
 
   return (
-    <div className="p-8 max-w-2xl mx-auto space-y-6 text-white">
+    <div className="p-8 max-w-2xl mx-auto space-y-6 text-foreground">
       <h1 className="text-2xl font-bold">Weather API Status</h1>
       
       <div className={`p-4 rounded-xl border ${isLive ? 'bg-emerald-900/20 border-emerald-500/50' : 'bg-red-900/20 border-red-500/50'}`}>
@@ -50,38 +50,38 @@ export default function WeatherTestPage() {
       )}
 
       {isLive && weather && (
-        <div className="space-y-4 bg-black/40 p-6 rounded-xl border border-white/10">
+        <div className="space-y-4 bg-black/40 p-6 rounded-xl border border-border">
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <p className="text-gray-400 text-sm">Source</p>
+              <p className="text-muted-foreground text-sm">Source</p>
               <p className="font-medium">OpenWeather</p>
             </div>
             <div>
-              <p className="text-gray-400 text-sm">Location</p>
+              <p className="text-muted-foreground text-sm">Location</p>
               <p className="font-medium">{farm?.location?.village || farm?.location?.district || farm?.location?.state}</p>
             </div>
             <div>
-              <p className="text-gray-400 text-sm">Latitude</p>
+              <p className="text-muted-foreground text-sm">Latitude</p>
               <p className="font-medium">{farm?.location?.latitude}</p>
             </div>
             <div>
-              <p className="text-gray-400 text-sm">Longitude</p>
+              <p className="text-muted-foreground text-sm">Longitude</p>
               <p className="font-medium">{farm?.location?.longitude}</p>
             </div>
             <div>
-              <p className="text-gray-400 text-sm">Temperature</p>
+              <p className="text-muted-foreground text-sm">Temperature</p>
               <p className="font-medium">{weather.current?.temperature}°C</p>
             </div>
             <div>
-              <p className="text-gray-400 text-sm">Humidity</p>
+              <p className="text-muted-foreground text-sm">Humidity</p>
               <p className="font-medium">{weather.current?.humidity}%</p>
             </div>
             <div>
-              <p className="text-gray-400 text-sm">Condition</p>
+              <p className="text-muted-foreground text-sm">Condition</p>
               <p className="font-medium">{weather.current?.conditions}</p>
             </div>
             <div>
-              <p className="text-gray-400 text-sm">Last updated</p>
+              <p className="text-muted-foreground text-sm">Last updated</p>
               <p className="font-medium">{new Date().toLocaleString()}</p>
             </div>
           </div>

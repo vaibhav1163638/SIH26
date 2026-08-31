@@ -19,7 +19,8 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ 
       userId: user._id, 
       farmerId: farmer._id, 
-      language: farmer.language 
+      language: farmer.language, 
+      theme: farmer.theme 
     });
   } catch (err) {
     return NextResponse.json({ error: 'Failed' }, { status: 500 });

@@ -189,20 +189,20 @@ export default function AssistantPage() {
   };
 
   return (
-    <div className="flex h-[calc(100vh-0px)] relative overflow-hidden bg-[#0A1A10]">
+    <div className="flex h-[calc(100vh-0px)] relative overflow-hidden bg-background">
       
       {/* Mobile Sidebar Toggle */}
       <button 
-        className="md:hidden absolute top-4 left-4 z-50 p-2 bg-emerald-900 rounded-lg text-white"
+        className="md:hidden absolute top-4 left-4 z-50 p-2 bg-emerald-900 rounded-lg text-foreground"
         onClick={() => setSidebarOpen(!sidebarOpen)}
       >
         {sidebarOpen ? <X size={20} /> : <Menu size={20} />}
       </button>
 
       {/* Sidebar */}
-      <div className={`${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0 transition-transform duration-300 absolute md:relative z-40 w-64 h-full bg-[#050D08] border-r border-white/5 flex flex-col`}>
-        <div className="p-4 pt-16 md:pt-4 border-b border-white/5 flex items-center justify-between">
-          <h2 className="font-semibold text-emerald-400 flex items-center gap-2">
+      <div className={`${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0 transition-transform duration-300 absolute md:relative z-40 w-64 h-full bg-sidebar border-r border-border flex flex-col`}>
+        <div className="p-4 pt-16 md:pt-4 border-b border-border flex items-center justify-between">
+          <h2 className="font-semibold text-primary flex items-center gap-2">
             <MessageSquare size={18} /> History
           </h2>
           <button onClick={createNewChat} className="p-2 hover:bg-emerald-900 rounded-full transition-colors text-emerald-300">
@@ -216,27 +216,27 @@ export default function AssistantPage() {
               onClick={() => loadConversation(conv._id)}
               className={`w-full text-left p-3 rounded-lg text-sm truncate transition-colors ${
                 activeConversationId === conv._id 
-                  ? 'bg-emerald-900/50 text-white' 
-                  : 'text-gray-400 hover:bg-white/5 hover:text-gray-300'
+                  ? 'bg-emerald-900/50 text-foreground' 
+                  : 'text-muted-foreground hover:bg-accent hover:text-muted-foreground'
               }`}
             >
               {conv.title}
             </button>
           ))}
           {conversations.length === 0 && (
-            <p className="text-xs text-gray-500 text-center p-4">No previous chats</p>
+            <p className="text-xs text-muted-foreground text-center p-4">No previous chats</p>
           )}
         </div>
       </div>
 
       {/* Main Chat Area */}
       <div className="flex-1 flex flex-col h-full relative max-w-4xl mx-auto w-full">
-        <div className="p-4 md:p-6 border-b border-white/5 flex items-center justify-center bg-[#050D08]/50 backdrop-blur-sm z-10">
+        <div className="p-4 md:p-6 border-b border-border flex items-center justify-center bg-sidebar/50 backdrop-blur-sm z-10">
           <div className="text-center">
             <h1 className="text-xl md:text-2xl font-bold bg-gradient-to-r from-emerald-400 to-teal-200 bg-clip-text text-transparent">
               {t.assistant?.title || 'CropScan AI'}
             </h1>
-            <p className="text-gray-400 text-xs md:text-sm mt-1">{t.assistant?.subtitle || 'Your agricultural copilot'}</p>
+            <p className="text-muted-foreground text-xs md:text-sm mt-1">{t.assistant?.subtitle || 'Your agricultural copilot'}</p>
           </div>
         </div>
 
@@ -244,7 +244,7 @@ export default function AssistantPage() {
         <div className="flex-1 overflow-y-auto p-4 md:p-6 space-y-6">
           {messages.length === 0 && (
             <div className="h-full flex flex-col items-center justify-center opacity-50 space-y-4">
-              <Sparkles size={48} className="text-emerald-500" />
+              <Sparkles size={48} className="text-primary" />
               <p className="text-sm">Ask me about your crops, weather, or farm health!</p>
               
               <div className="flex flex-wrap justify-center gap-2 mt-4 max-w-md">
@@ -252,7 +252,7 @@ export default function AssistantPage() {
                   <button 
                     key={prompt} 
                     onClick={() => sendMessage(prompt)}
-                    className="px-4 py-2 bg-white/5 border border-white/10 rounded-full text-xs hover:bg-white/10 transition-colors"
+                    className="px-4 py-2 bg-accent border border-border rounded-full text-xs hover:bg-accent/80 transition-colors"
                   >
                     {prompt}
                   </button>
@@ -279,15 +279,15 @@ export default function AssistantPage() {
               <div key={idx} className={`flex gap-3 ${isUser ? 'justify-end' : ''}`}>
                 {!isUser && (
                   <div className="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center shrink-0 mt-1">
-                    <Sparkles size={16} className="text-emerald-400" />
+                    <Sparkles size={16} className="text-primary" />
                   </div>
                 )}
                 
                 <div className={`max-w-[85%] md:max-w-[75%] ${isUser ? 'order-first' : ''}`}>
                   <div className={`p-4 rounded-2xl text-sm leading-relaxed whitespace-pre-wrap shadow-sm ${
                     isUser
-                      ? 'bg-gradient-to-br from-emerald-600 to-emerald-500 text-white rounded-tr-sm'
-                      : 'bg-white/[0.05] border border-white/[0.08] text-gray-200 rounded-tl-sm'
+                      ? 'bg-gradient-to-br from-emerald-600 to-emerald-500 text-foreground rounded-tr-sm'
+                      : 'bg-accent border border-border text-muted-foreground rounded-tl-sm'
                   }`}>
                     {hasImage && (
                       <div className="mb-2 text-xs opacity-75 flex items-center gap-1">
@@ -300,9 +300,9 @@ export default function AssistantPage() {
                   {!isUser && (
                     <button
                       onClick={() => speakText(contentText)}
-                      className="mt-2 ml-1 flex items-center gap-1 text-[10px] text-gray-500 hover:text-emerald-400 transition-colors"
+                      className="mt-2 ml-1 flex items-center gap-1 text-[10px] text-muted-foreground hover:text-primary transition-colors"
                     >
-                      <Volume2 size={12} className={isSpeaking ? 'text-emerald-400' : ''} />
+                      <Volume2 size={12} className={isSpeaking ? 'text-primary' : ''} />
                       {isSpeaking ? 'Speaking...' : 'Listen'}
                     </button>
                   )}
@@ -320,10 +320,10 @@ export default function AssistantPage() {
           {isLoading && (
             <div className="flex gap-3">
               <div className="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center shrink-0 mt-1">
-                <Sparkles size={16} className="text-emerald-400" />
+                <Sparkles size={16} className="text-primary" />
               </div>
-              <div className="p-4 rounded-2xl bg-white/[0.05] border border-white/[0.08] rounded-tl-sm">
-                <Loader2 size={16} className="animate-spin text-emerald-400" />
+              <div className="p-4 rounded-2xl bg-accent border border-border rounded-tl-sm">
+                <Loader2 size={16} className="animate-spin text-primary" />
               </div>
             </div>
           )}
@@ -331,11 +331,11 @@ export default function AssistantPage() {
         </div>
 
         {/* Input Area */}
-        <div className="p-4 border-t border-white/5 bg-[#050D08]/80 backdrop-blur-md">
+        <div className="p-4 border-t border-border bg-sidebar/80 backdrop-blur-md">
           {selectedImage && (
-             <div className="mb-3 flex items-center gap-2 p-2 bg-white/5 rounded-lg border border-emerald-500/30 inline-flex">
+             <div className="mb-3 flex items-center gap-2 p-2 bg-accent rounded-lg border border-emerald-500/30 inline-flex">
                <img src={selectedImage} alt="Preview" className="w-10 h-10 object-cover rounded" />
-               <div className="text-xs text-emerald-400 flex-1 truncate">Image attached</div>
+               <div className="text-xs text-primary flex-1 truncate">Image attached</div>
                <button onClick={() => setSelectedImage(null)} className="text-red-400 hover:text-red-300 p-1">
                  <X size={14} />
                </button>
@@ -345,7 +345,7 @@ export default function AssistantPage() {
           <div className="flex gap-2 relative">
             <button
               onClick={() => fileInputRef.current?.click()}
-              className="w-12 h-12 shrink-0 rounded-xl flex items-center justify-center transition-all bg-white/[0.05] border border-white/[0.08] text-gray-400 hover:text-emerald-400 hover:border-emerald-500/30"
+              className="w-12 h-12 shrink-0 rounded-xl flex items-center justify-center transition-all bg-accent border border-border text-muted-foreground hover:text-primary hover:border-emerald-500/30"
               title="Upload crop image"
             >
               <ImageIcon size={20} />
@@ -362,8 +362,8 @@ export default function AssistantPage() {
               onClick={isListening ? stopVoice : startVoice}
               className={`w-12 h-12 shrink-0 rounded-xl flex items-center justify-center transition-all ${
                 isListening
-                  ? 'bg-red-500 text-white animate-pulse'
-                  : 'bg-white/[0.05] border border-white/[0.08] text-gray-400 hover:text-white hover:border-emerald-500/30'
+                  ? 'bg-red-500 text-foreground animate-pulse'
+                  : 'bg-accent border border-border text-muted-foreground hover:text-foreground hover:border-emerald-500/30'
               }`}
             >
               {isListening ? <MicOff size={20} /> : <Mic size={20} />}
@@ -375,13 +375,13 @@ export default function AssistantPage() {
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && sendMessage(input)}
               placeholder={language === 'hi' ? t.assistant?.placeholderHi || 'अपना प्रश्न पूछें...' : t.assistant?.placeholder || 'Type your question...'}
-              className="flex-1 px-4 py-3 rounded-xl bg-white/[0.05] border border-white/[0.08] focus:border-emerald-500/50 focus:outline-none text-sm transition-colors text-white"
+              className="flex-1 px-4 py-3 rounded-xl bg-accent border border-border focus:border-emerald-500/50 focus:outline-none text-sm transition-colors text-foreground"
             />
             
             <button
               onClick={() => sendMessage(input)}
               disabled={( !input.trim() && !selectedImage ) || isLoading}
-              className="w-12 h-12 shrink-0 bg-emerald-600 hover:bg-emerald-500 disabled:bg-emerald-800 disabled:cursor-not-allowed rounded-xl flex items-center justify-center transition-all text-white shadow-lg shadow-emerald-900/50"
+              className="w-12 h-12 shrink-0 bg-emerald-600 hover:bg-emerald-500 disabled:bg-emerald-800 disabled:cursor-not-allowed rounded-xl flex items-center justify-center transition-all text-foreground shadow-lg shadow-emerald-900/50"
             >
               <Send size={20} className={isLoading ? 'opacity-50' : ''} />
             </button>

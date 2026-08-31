@@ -145,7 +145,7 @@ export default function ScanPage() {
       {/* Header */}
       <div>
         <h1 className="text-2xl font-bold">{t.scan.title}</h1>
-        <p className="text-gray-400 text-sm mt-1">{t.scan.subtitle}</p>
+        <p className="text-muted-foreground text-sm mt-1">{t.scan.subtitle}</p>
       </div>
 
       {/* Upload Zone */}
@@ -172,7 +172,7 @@ export default function ScanPage() {
                 <X size={16} />
               </button>
             </div>
-            <p className="text-sm text-gray-400">
+            <p className="text-sm text-muted-foreground">
               {selectedImage?.name} ({(selectedImage?.size || 0 / 1024).toFixed(0)} KB)
             </p>
           </div>
@@ -182,10 +182,10 @@ export default function ScanPage() {
             onClick={() => fileInputRef.current?.click()}
           >
             <div className="w-16 h-16 bg-emerald-500/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
-              <Upload size={32} className="text-emerald-400" />
+              <Upload size={32} className="text-primary" />
             </div>
             <p className="text-lg font-medium mb-2">{t.scan.dragDrop}</p>
-            <p className="text-sm text-gray-500">{t.scan.supportedFormats}</p>
+            <p className="text-sm text-muted-foreground">{t.scan.supportedFormats}</p>
           </div>
         )}
 
@@ -234,21 +234,21 @@ export default function ScanPage() {
       <div className="space-y-4">
         <div>
           <h2 className="text-lg font-semibold">{t.scan.demoImages}</h2>
-          <p className="text-sm text-gray-400 mt-1">{t.scan.demoImagesDesc}</p>
+          <p className="text-sm text-muted-foreground mt-1">{t.scan.demoImagesDesc}</p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {DEMO_IMAGES.map((img, i) => (
             <button
               key={i}
               onClick={() => handleDemoImage(i)}
-              className="p-4 rounded-xl bg-white/[0.03] border border-white/[0.06] hover:border-emerald-500/30 transition-all text-left card-hover"
+              className="p-4 rounded-xl bg-card border border-border hover:border-emerald-500/30 transition-all text-left card-hover"
             >
               <div className="w-full h-24 rounded-lg mb-3 flex items-center justify-center" style={{ background: `${img.color}22` }}>
                 <ImageIcon size={32} style={{ color: img.color }} />
               </div>
               <p className="text-sm font-medium">{language === 'hi' ? img.nameHi : img.name}</p>
-              <p className="text-xs text-gray-500 mt-1">{img.description}</p>
-              <div className="flex items-center gap-1 text-xs text-emerald-400 mt-2">
+              <p className="text-xs text-muted-foreground mt-1">{img.description}</p>
+              <div className="flex items-center gap-1 text-xs text-primary mt-2">
                 <span>Select</span>
                 <ChevronRight size={12} />
               </div>
@@ -259,7 +259,7 @@ export default function ScanPage() {
 
       {/* Demo notice */}
       <div className="text-center">
-        <span className="inline-flex items-center gap-2 text-xs text-gray-500 bg-white/[0.02] px-4 py-2 rounded-full">
+        <span className="inline-flex items-center gap-2 text-xs text-muted-foreground bg-card px-4 py-2 rounded-full">
           <Leaf size={12} />
           Demo images produce deterministic results for consistent demonstration
         </span>

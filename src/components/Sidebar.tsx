@@ -43,7 +43,7 @@ export default function Sidebar() {
       {/* Mobile hamburger */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed top-4 left-4 z-50 lg:hidden bg-emerald-700 text-white p-2 rounded-xl shadow-lg"
+        className="fixed top-4 left-4 z-50 lg:hidden bg-primary text-primary-foreground p-2 rounded-xl shadow-lg"
         aria-label="Toggle menu"
       >
         {isOpen ? <X size={24} /> : <Menu size={24} />}
@@ -59,18 +59,18 @@ export default function Sidebar() {
 
       {/* Sidebar */}
       <aside
-        className={`fixed top-0 left-0 h-full w-64 bg-gradient-to-b from-emerald-900 via-emerald-800 to-teal-900 text-white z-40 transform transition-transform duration-300 ease-in-out ${isOpen ? 'translate-x-0' : '-translate-x-full'
+        className={`fixed top-0 left-0 h-full w-64 bg-sidebar text-sidebar-foreground border-r border-sidebar-border z-40 transform transition-transform duration-300 ease-in-out ${isOpen ? 'translate-x-0' : '-translate-x-full'
           } lg:translate-x-0 lg:static lg:z-auto flex flex-col`}
       >
         {/* Logo */}
-        <div className="p-6 border-b border-emerald-700/50">
+        <div className="p-6 border-b border-sidebar-border">
           <Link href="/" className="flex items-center gap-3" onClick={() => setIsOpen(false)}>
-            <div className="w-10 h-10 bg-emerald-500 rounded-xl flex items-center justify-center shadow-lg">
-              <Leaf size={24} className="text-white" />
+            <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center shadow-sm">
+              <Leaf size={24} className="text-primary-foreground" />
             </div>
             <div>
               <h1 className="text-lg font-bold tracking-tight">CropScan AI</h1>
-              <p className="text-xs text-emerald-300">Smart Crop Health</p>
+              <p className="text-xs text-sidebar-foreground/70">Smart Crop Health</p>
             </div>
           </Link>
         </div>
@@ -86,14 +86,14 @@ export default function Sidebar() {
                 href={item.href}
                 onClick={() => setIsOpen(false)}
                 className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 ${isActive
-                  ? 'bg-emerald-500/30 text-white shadow-md border border-emerald-400/30'
-                  : 'text-emerald-200 hover:bg-emerald-700/40 hover:text-white'
+                  ? 'bg-primary/10 text-primary shadow-sm border border-primary/20'
+                  : 'text-sidebar-foreground/70 hover:bg-sidebar-foreground/5 hover:text-sidebar-foreground'
                   }`}
               >
-                <Icon size={20} className={isActive ? 'text-emerald-300' : ''} />
+                <Icon size={20} className={isActive ? 'text-primary' : ''} />
                 <span>{t.nav[item.key]}</span>
                 {item.key === 'alerts' && (
-                  <span className="ml-auto bg-red-500 text-white text-xs px-2 py-0.5 rounded-full font-bold">
+                  <span className="ml-auto bg-red-500 text-foreground text-xs px-2 py-0.5 rounded-full font-bold">
                     5
                   </span>
                 )}
@@ -103,10 +103,10 @@ export default function Sidebar() {
         </nav>
 
         {/* Language & Actions */}
-        <div className="p-4 border-t border-emerald-700/50 space-y-2">
+        <div className="p-4 border-t border-sidebar-border space-y-2">
           <button
             onClick={() => setLanguage(language === 'en' ? 'hi' : 'en')}
-            className="flex items-center gap-3 w-full px-4 py-3 rounded-xl text-sm font-medium text-emerald-200 hover:bg-emerald-700/40 hover:text-white transition-all"
+            className="flex items-center gap-3 w-full px-4 py-3 rounded-xl text-sm font-medium text-sidebar-foreground/70 hover:bg-sidebar-foreground/5 hover:text-sidebar-foreground transition-all"
           >
             <Globe size={20} />
             <span>{language === 'en' ? 'हिंदी' : 'English'}</span>
@@ -120,7 +120,7 @@ export default function Sidebar() {
             <span>{language === 'en' ? 'Logout' : 'लॉग आउट'}</span>
           </button>
 
-          <div className="mt-4 px-4 text-xs text-emerald-400">
+          <div className="mt-4 px-4 text-xs text-sidebar-foreground/50">
             <p>SIH 2026 — PS 131</p>
             <p className="mt-1 opacity-60">Prototype Demo</p>
           </div>

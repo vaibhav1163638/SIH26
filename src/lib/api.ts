@@ -199,6 +199,10 @@ export const api = {
     method: 'POST',
     body: JSON.stringify({ language }),
   }),
+  updateTheme: (theme: 'light' | 'dark') => fetchAPI<{success: boolean, theme: string}>('/farmer/theme', {
+    method: 'POST',
+    body: JSON.stringify({ theme }),
+  }),
 
   // Health
   health: () => fetchAPI<{ status: string; demoMode: boolean }>('/health'),

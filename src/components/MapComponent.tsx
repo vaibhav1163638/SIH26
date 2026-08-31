@@ -33,7 +33,7 @@ export default function MapComponent({ reports }: MapComponentProps) {
 
   if (!isMounted) {
     return (
-      <div className="w-full h-full min-h-[400px] flex items-center justify-center bg-black/40 border border-white/10 rounded-2xl">
+      <div className="w-full h-full min-h-[400px] flex items-center justify-center bg-black/40 border border-border rounded-2xl">
         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-emerald-500"></div>
       </div>
     );
@@ -45,7 +45,7 @@ export default function MapComponent({ reports }: MapComponentProps) {
     : [0, 0];
 
   return (
-    <div className="w-full h-full min-h-[400px] border border-white/10 rounded-2xl overflow-hidden shadow-lg relative z-0">
+    <div className="w-full h-full min-h-[400px] border border-border rounded-2xl overflow-hidden shadow-lg relative z-0">
       <MapContainer 
         center={center} 
         zoom={6} 

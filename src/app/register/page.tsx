@@ -13,13 +13,13 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="w-full max-w-md mx-auto bg-white/[0.03] border border-white/10 rounded-2xl p-8 backdrop-blur-xl">
+    <div className="w-full max-w-md mx-auto bg-card border border-border rounded-2xl p-8 backdrop-blur-xl">
       <div className="text-center mb-8">
         <div className="w-16 h-16 bg-emerald-500 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
-          <Leaf size={32} className="text-white" />
+          <Leaf size={32} className="text-foreground" />
         </div>
         <h1 className="text-2xl font-bold">Create an Account</h1>
-        <p className="text-emerald-400 mt-2">Join CropScan AI to manage your farm</p>
+        <p className="text-primary mt-2">Join CropScan AI to manage your farm</p>
       </div>
 
       <button

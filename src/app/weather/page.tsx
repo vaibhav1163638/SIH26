@@ -8,7 +8,7 @@ import { Thermometer, Droplets, Wind, Eye, Sun, Cloud, CloudRain, Gauge, Leaf } 
 
 function RiskBadge({ level }: { level: string }) {
   const colors: Record<string, string> = {
-    LOW: 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30',
+    LOW: 'bg-emerald-500/20 text-primary border-emerald-500/30',
     MODERATE: 'bg-amber-500/20 text-amber-400 border-amber-500/30',
     HIGH: 'bg-orange-500/20 text-orange-400 border-orange-500/30',
     CRITICAL: 'bg-red-500/20 text-red-400 border-red-500/30',
@@ -46,7 +46,7 @@ export default function WeatherPage() {
   }
 
   if (!weather) {
-    return <div className="p-6 text-center text-gray-500">Unable to load weather data</div>;
+    return <div className="p-6 text-center text-muted-foreground">Unable to load weather data</div>;
   }
 
   const forecastChartData = weather.forecast.map(day => ({
@@ -62,7 +62,7 @@ export default function WeatherPage() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold">{t.weather.title}</h1>
-          <p className="text-gray-400 text-sm mt-1">
+          <p className="text-muted-foreground text-sm mt-1">
             {farm?.location?.village || farm?.location?.district || farm?.location?.state || 'Location not set'}
           </p>
         </div>
@@ -71,42 +71,42 @@ export default function WeatherPage() {
 
       {/* Current Weather */}
       <div className="p-6 rounded-2xl bg-gradient-to-br from-blue-900/20 to-cyan-900/20 border border-blue-500/10">
-        <h3 className="text-sm text-gray-400 mb-4">{t.weather.current}</h3>
+        <h3 className="text-sm text-muted-foreground mb-4">{t.weather.current}</h3>
         <div className="flex flex-col md:flex-row items-start md:items-center gap-6">
           <div className="flex items-center gap-4">
             <div className="text-6xl font-light">{weather.current.temperature}°</div>
             <div>
-              <p className="text-lg text-gray-300">{weather.current.conditions}</p>
-              <p className="text-sm text-gray-500">Feels like {weather.current.feelsLike}°C</p>
+              <p className="text-lg text-muted-foreground">{weather.current.conditions}</p>
+              <p className="text-sm text-muted-foreground">Feels like {weather.current.feelsLike}°C</p>
             </div>
           </div>
           <div className="flex-1 grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div className="flex items-center gap-3 p-3 rounded-xl bg-white/[0.03]">
+            <div className="flex items-center gap-3 p-3 rounded-xl bg-card">
               <Droplets size={20} className="text-blue-400" />
               <div>
                 <p className="text-sm font-semibold">{weather.current.humidity}%</p>
-                <p className="text-xs text-gray-500">{t.weather.humidity}</p>
+                <p className="text-xs text-muted-foreground">{t.weather.humidity}</p>
               </div>
             </div>
-            <div className="flex items-center gap-3 p-3 rounded-xl bg-white/[0.03]">
+            <div className="flex items-center gap-3 p-3 rounded-xl bg-card">
               <CloudRain size={20} className="text-cyan-400" />
               <div>
                 <p className="text-sm font-semibold">{weather.current.rainProbability}%</p>
-                <p className="text-xs text-gray-500">{t.weather.rain}</p>
+                <p className="text-xs text-muted-foreground">{t.weather.rain}</p>
               </div>
             </div>
-            <div className="flex items-center gap-3 p-3 rounded-xl bg-white/[0.03]">
-              <Wind size={20} className="text-gray-400" />
+            <div className="flex items-center gap-3 p-3 rounded-xl bg-card">
+              <Wind size={20} className="text-muted-foreground" />
               <div>
                 <p className="text-sm font-semibold">{weather.current.windSpeed} km/h</p>
-                <p className="text-xs text-gray-500">{weather.current.windDirection}</p>
+                <p className="text-xs text-muted-foreground">{weather.current.windDirection}</p>
               </div>
             </div>
-            <div className="flex items-center gap-3 p-3 rounded-xl bg-white/[0.03]">
+            <div className="flex items-center gap-3 p-3 rounded-xl bg-card">
               <Sun size={20} className="text-amber-400" />
               <div>
                 <p className="text-sm font-semibold">{weather.current.uvIndex}</p>
-                <p className="text-xs text-gray-500">{t.weather.uvIndex}</p>
+                <p className="text-xs text-muted-foreground">{t.weather.uvIndex}</p>
               </div>
             </div>
           </div>
@@ -114,12 +114,12 @@ export default function WeatherPage() {
       </div>
 
       {/* Weather Risk */}
-      <div className="p-6 rounded-2xl bg-white/[0.03] border border-white/[0.06]">
+      <div className="p-6 rounded-2xl bg-card border border-border">
         <div className="flex items-center justify-between mb-4">
-          <h3 className="text-sm font-medium text-gray-400">{t.weather.weatherRisk}</h3>
+          <h3 className="text-sm font-medium text-muted-foreground">{t.weather.weatherRisk}</h3>
           <RiskBadge level={weather.weatherRisk.level} />
         </div>
-        <div className="w-full h-3 bg-white/5 rounded-full mb-3 overflow-hidden">
+        <div className="w-full h-3 bg-accent rounded-full mb-3 overflow-hidden">
           <div
             className="h-full rounded-full transition-all duration-1000"
             style={{
@@ -128,22 +128,22 @@ export default function WeatherPage() {
             }}
           />
         </div>
-        <p className="text-sm text-gray-400 leading-relaxed">
+        <p className="text-sm text-muted-foreground leading-relaxed">
           {language === 'hi' ? weather.weatherRisk.reasoningHi : weather.weatherRisk.reasoning}
         </p>
       </div>
 
       {/* 5-Day Forecast */}
-      <div className="p-6 rounded-2xl bg-white/[0.03] border border-white/[0.06]">
-        <h3 className="text-sm font-medium text-gray-400 mb-6">{t.weather.forecast}</h3>
+      <div className="p-6 rounded-2xl bg-card border border-border">
+        <h3 className="text-sm font-medium text-muted-foreground mb-6">{t.weather.forecast}</h3>
         <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-6">
           {weather.forecast.map((day) => (
-            <div key={day.date} className="p-4 rounded-xl bg-white/[0.02] text-center">
+            <div key={day.date} className="p-4 rounded-xl bg-card text-center">
               <p className="text-sm font-medium">{day.dayName}</p>
-              <p className="text-xs text-gray-500 mb-3">{day.date}</p>
+              <p className="text-xs text-muted-foreground mb-3">{day.date}</p>
               <div className="text-2xl font-bold">{day.high}°</div>
-              <div className="text-sm text-gray-500">{day.low}°</div>
-              <p className="text-xs text-gray-400 mt-2">{day.conditions}</p>
+              <div className="text-sm text-muted-foreground">{day.low}°</div>
+              <p className="text-xs text-muted-foreground mt-2">{day.conditions}</p>
               <div className="flex items-center justify-center gap-1 mt-2 text-xs">
                 <CloudRain size={12} className="text-blue-400" />
                 <span className="text-blue-400">{day.rainProbability}%</span>

@@ -14,6 +14,7 @@ export interface IFarmer extends Document {
     coordinates?: { lat: number; lng: number };
   };
   language: 'en' | 'hi';
+  theme: 'dark' | 'light';
   createdAt: Date;
   updatedAt: Date;
 }
@@ -36,6 +37,7 @@ const FarmerSchema = new Schema<IFarmer>(
       },
     },
     language: { type: String, enum: ['en', 'hi'], default: 'en' },
+    theme: { type: String, enum: ['dark', 'light'], default: 'dark' },
   },
   { timestamps: true }
 );

@@ -8,7 +8,7 @@ import { Bell, AlertTriangle, Info, MapPin, Leaf, Shield } from 'lucide-react';
 
 const DynamicMap = dynamic(() => import('@/components/MapComponent'), { 
   ssr: false,
-  loading: () => <div className="h-[400px] w-full bg-black/40 rounded-2xl border border-white/10 animate-pulse flex items-center justify-center"><div className="w-8 h-8 rounded-full border-b-2 border-emerald-500 animate-spin"></div></div>
+  loading: () => <div className="h-[400px] w-full bg-black/40 rounded-2xl border border-border animate-pulse flex items-center justify-center"><div className="w-8 h-8 rounded-full border-b-2 border-emerald-500 animate-spin"></div></div>
 });
 
 export default function AlertsPage() {
@@ -46,13 +46,13 @@ export default function AlertsPage() {
     <div className="p-6 lg:p-8 max-w-5xl mx-auto space-y-8">
       <div>
         <h1 className="text-2xl font-bold">{t.alerts.title}</h1>
-        <p className="text-gray-400 text-sm mt-1">{t.alerts.subtitle}</p>
+        <p className="text-muted-foreground text-sm mt-1">{t.alerts.subtitle}</p>
       </div>
 
       {/* Alerts */}
       <div className="space-y-4">
         {alerts.length === 0 ? (
-          <div className="text-center py-12 text-gray-500">
+          <div className="text-center py-12 text-muted-foreground">
             <Bell size={40} className="mx-auto mb-3 opacity-30" />
             <p>{t.alerts.noAlerts}</p>
           </div>
@@ -70,10 +70,10 @@ export default function AlertsPage() {
                     <h3 className="font-semibold text-sm">
                       {language === 'hi' && alert.titleHi ? alert.titleHi : alert.title}
                     </h3>
-                    <p className="text-sm text-gray-400 mt-1 leading-relaxed">
+                    <p className="text-sm text-muted-foreground mt-1 leading-relaxed">
                       {language === 'hi' && alert.messageHi ? alert.messageHi : alert.message}
                     </p>
-                    <p className="text-xs text-gray-600 mt-2">
+                    <p className="text-xs text-muted-foreground mt-2">
                       {new Date(alert.createdAt).toLocaleDateString()}
                     </p>
                   </div>
@@ -88,7 +88,7 @@ export default function AlertsPage() {
       <div className="space-y-4">
         <div className="flex items-center justify-between">
           <h2 className="text-lg font-semibold">{t.alerts.regionalMap}</h2>
-          <span className="text-xs text-gray-500 bg-white/[0.02] px-3 py-1 rounded-full flex items-center gap-1">
+          <span className="text-xs text-muted-foreground bg-card px-3 py-1 rounded-full flex items-center gap-1">
             <Leaf size={12} /> {t.alerts.demoData}
           </span>
         </div>

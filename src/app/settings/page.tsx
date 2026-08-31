@@ -1,23 +1,48 @@
 'use client';
+import { useTheme } from 'next-themes';
+import { useEffect, useState } from 'react';
+import { api } from '@/lib/api';
 
 import { useLanguage } from '@/components/LanguageProvider';
 import { Settings as SettingsIcon, Globe, Bell, Moon, Sun, Monitor, Save, Leaf } from 'lucide-react';
 
 export default function SettingsPage() {
   const { t, language, setLanguage } = useLanguage();
+  const { theme, setTheme } = useTheme();
+  const [initialLoad, setInitialLoad] = useState(true);
+
+  // Sync theme from backend on mount
+  useEffect(() => {
+    api.getLanguage().then((data) => {
+      // data now includes theme
+      if ('theme' in data) {
+        setTheme(data.theme as 'light' | 'dark');
+      }
+    }).catch(console.error).finally(() => setInitialLoad(false));
+  }, []);
+
+  const handleThemeChange = async (newTheme: 'light' | 'dark') => {
+    setTheme(newTheme);
+    try {
+      await api.updateTheme(newTheme);
+    } catch (err) {
+      console.error('Failed to update theme:', err);
+    }
+  };
+
 
   return (
     <div className="p-6 lg:p-8 max-w-3xl mx-auto space-y-8">
       <div>
         <h1 className="text-2xl font-bold">{t.settings.title}</h1>
-        <p className="text-gray-400 text-sm mt-1">Manage your application preferences</p>
+        <p className="text-muted-foreground text-sm mt-1">Manage your application preferences</p>
       </div>
 
       <div className="space-y-6">
         {/* Language */}
-        <div className="p-6 rounded-2xl bg-white/[0.03] border border-white/[0.06]">
+        <div className="p-6 rounded-2xl bg-card border border-border">
           <div className="flex items-center gap-3 mb-6">
-            <Globe size={20} className="text-emerald-400" />
+            <Globe size={20} className="text-primary" />
             <h2 className="text-lg font-semibold">{t.settings.language}</h2>
           </div>
           <div className="grid grid-cols-2 gap-4">
@@ -25,8 +50,8 @@ export default function SettingsPage() {
               onClick={() => setLanguage('en')}
               className={`p-4 rounded-xl border text-center transition-all ${
                 language === 'en'
-                  ? 'bg-emerald-500/20 border-emerald-500/50 text-white'
-                  : 'bg-white/[0.02] border-white/10 text-gray-400 hover:border-emerald-500/30'
+                  ? 'bg-emerald-500/20 border-emerald-500/50 text-primary'
+                  : 'bg-card border-border text-muted-foreground hover:border-emerald-500/30'
               }`}
             >
               <div className="text-lg font-medium mb-1">English</div>
@@ -36,8 +61,8 @@ export default function SettingsPage() {
               onClick={() => setLanguage('hi')}
               className={`p-4 rounded-xl border text-center transition-all ${
                 language === 'hi'
-                  ? 'bg-emerald-500/20 border-emerald-500/50 text-white'
-                  : 'bg-white/[0.02] border-white/10 text-gray-400 hover:border-emerald-500/30'
+                  ? 'bg-emerald-500/20 border-emerald-500/50 text-primary'
+                  : 'bg-card border-border text-muted-foreground hover:border-emerald-500/30'
               }`}
             >
               <div className="text-lg font-medium mb-1">हिंदी</div>
@@ -47,9 +72,9 @@ export default function SettingsPage() {
         </div>
 
         {/* Notifications */}
-        <div className="p-6 rounded-2xl bg-white/[0.03] border border-white/[0.06]">
+        <div className="p-6 rounded-2xl bg-card border border-border">
           <div className="flex items-center gap-3 mb-6">
-            <Bell size={20} className="text-emerald-400" />
+            <Bell size={20} className="text-primary" />
             <h2 className="text-lg font-semibold">{t.settings.notifications}</h2>
           </div>
           <div className="space-y-4">
@@ -58,10 +83,10 @@ export default function SettingsPage() {
               { id: 'weather', label: 'Weather Warnings', desc: 'Extreme weather alerts in your region' },
               { id: 'treatment', label: 'Treatment Reminders', desc: 'When it is time to apply treatment' },
             ].map((item) => (
-              <div key={item.id} className="flex items-center justify-between p-4 rounded-xl bg-white/[0.02] border border-white/5">
+              <div key={item.id} className="flex items-center justify-between p-4 rounded-xl bg-card border border-border">
                 <div>
                   <p className="font-medium">{item.label}</p>
-                  <p className="text-xs text-gray-500">{item.desc}</p>
+                  <p className="text-xs text-muted-foreground">{item.desc}</p>
                 </div>
                 <label className="relative inline-flex items-center cursor-pointer">
                   <input type="checkbox" defaultChecked className="sr-only peer" />
@@ -72,39 +97,42 @@ export default function SettingsPage() {
           </div>
         </div>
 
+        
         {/* Theme */}
-        <div className="p-6 rounded-2xl bg-white/[0.03] border border-white/[0.06]">
+        <div className="p-6 rounded-2xl bg-card border border-border">
           <div className="flex items-center gap-3 mb-6">
-            <SettingsIcon size={20} className="text-emerald-400" />
+            <SettingsIcon size={20} className="text-primary" />
             <h2 className="text-lg font-semibold">{t.settings.theme}</h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <button className="flex flex-col items-center gap-3 p-4 rounded-xl bg-white/[0.02] border border-white/10 text-gray-400 cursor-not-allowed opacity-50">
-              <Sun size={24} />
-              <span className="text-sm font-medium">Light</span>
-            </button>
-            <button className="flex flex-col items-center gap-3 p-4 rounded-xl bg-emerald-500/20 border border-emerald-500/50 text-white">
-              <Moon size={24} />
-              <span className="text-sm font-medium">Dark (Demo)</span>
-            </button>
-            <button className="flex flex-col items-center gap-3 p-4 rounded-xl bg-white/[0.02] border border-white/10 text-gray-400 cursor-not-allowed opacity-50">
+            <button onClick={() => handleThemeChange('light')} className={theme === 'light' ? "flex flex-col items-center gap-3 p-4 rounded-xl bg-emerald-500/20 border-emerald-500/50 text-primary" : "flex flex-col items-center gap-3 p-4 rounded-xl bg-card border-border text-muted-foreground"}>
+  <Sun size={24} />
+  <span className="text-sm font-medium">Light</span>
+</button>
+<button onClick={() => handleThemeChange('dark')} className={theme === 'dark' ? "flex flex-col items-center gap-3 p-4 rounded-xl bg-emerald-500/20 border-emerald-500/50 text-primary" : "flex flex-col items-center gap-3 p-4 rounded-xl bg-card border-border text-muted-foreground"}>
+  <Moon size={24} />
+  <span className="text-sm font-medium">Dark</span>
+</button>
+            <button onClick={() => handleThemeChange('system' as any)} className={`flex flex-col items-center gap-3 p-4 rounded-xl ${theme === 'system' ? 'bg-emerald-500/20 border-emerald-500/50 text-primary' : 'bg-card border-border text-muted-foreground'}`}>
+              
               <Monitor size={24} />
               <span className="text-sm font-medium">System</span>
             </button>
           </div>
-          <p className="text-xs text-gray-500 text-center mt-4">
-            Theme switching is locked to Dark Mode for this SIH Prototype Demo
-          </p>
-        </div>
+          {initialLoad ? null : (
+            <p className="text-xs text-muted-foreground text-center mt-4">Current theme: {theme}</p>
+          )}
+        </div></div>
+      
 
-      </div>
+      
 
       <div className="text-center pb-8">
-        <span className="inline-flex items-center gap-2 text-xs text-gray-500 bg-white/[0.02] px-4 py-2 rounded-full">
+        <span className="inline-flex items-center gap-2 text-xs text-muted-foreground bg-card px-4 py-2 rounded-full">
           <Leaf size={12} />
           SIH 2026 Prototype — Problem Statement 131
         </span>
       </div>
-    </div>
+</div>
   );
 }
